@@ -1,0 +1,376 @@
+<mvc:View controllerName="com.automation.toolAutomationNew.controller.ConversionTS" xmlns="sap.m" xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:ui="sap.suite.ui.commons" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar">
+	<semantic:FullscreenPage id="page" semanticRuleSet="Optimized" title="{conversionData>/Title}" busy="{objectView>/busy}"
+		class="sapUiSizeCompact" busyIndicatorDelay="{objectView>/delay}" navButtonPress="onNavBack" showNavButton="true">
+		<semantic:content>
+			<OverflowToolbar width="100%" id="__toolbar5">
+				<content>
+					<Select id="doctype" change="onChange">
+						<items>
+							<core:ListItem text="Functional Specification" key="Functional" id="funcspec"/>
+							<core:ListItem text="Technical Specification" key="Technical" id="techspec"/>
+						</items>
+					</Select>
+					<ToolbarSpacer/>
+					<Select id="versiontypeNewTech" change="onChangeVersionNewTech">
+						<items>
+							<core:ListItem text="Version 1.0" key="Verion 1.0"/>
+						</items>
+					</Select>
+					<Select id="versiontypeExistingTech" change="onChangeVersionExistingTech" visible="false">
+						<items>
+							<core:ListItem text="Version 1.0" key="Version 1.0"/>
+						</items>
+					</Select>
+				</content>
+			</OverflowToolbar>
+			<HBox>
+				<HBox justifyContent="Start" width="70%">
+					<ui:ProcessFlow id="processflow2" scrollable="false" nodes="{pf2>/nodes}" lanes="{pf2>/lanes}" headerPress="onHeaderPress">
+						<ui:nodes>
+							<ui:ProcessFlowNode laneId="{pf2>lane}" nodeId="{pf2>id}" title="{pf2>title}" children="{pf2>children}" state="{pf2>state}"
+								stateText="{pf2>stateText}" texts="{pf2>texts}" highlighted="{pf2>highlighted}" focused="{pf2>focused}"/>
+						</ui:nodes>
+						<ui:lanes>
+							<ui:ProcessFlowLaneHeader laneId="{pf2>id}" iconSrc="{pf2>icon}" text="{pf2>label}" position="{pf2>position}" state="{pf2>state}"/>
+						</ui:lanes>
+					</ui:ProcessFlow>
+				</HBox>
+				<HBox justifyContent="End" width="100%">
+					<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false"
+						emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+						editable="true">
+						<Label text="Approver"/>
+						<Input width="80%" value="{conversionData>/Approver_TS}"/>
+						<Label text="Reviewer"/>
+						<Input width="80%" value="{conversionData>/Reviewer_TS}"/>
+						<Label text="Author"/>
+						<Input width="80%" value="{conversionData>/Author_TS}"/>
+					</f:SimpleForm>
+				</HBox>
+			</HBox>
+		</semantic:content>
+		<IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding mandatory iconTabBarpadding">
+			<items>
+				<IconTabFilter text="Technical Design" key="conversionTechDesign" count="*">
+					<Panel expandable="true" expanded="false" id="conversionTechObjectInfo" headerText="Document Information" width="auto"
+						class="sapUiResponsiveMargin">
+						<content>
+							<layout:Grid defaultSpan="L6 M6 S6">
+								<layout:content>
+									<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="false"
+										emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"
+										editable="true">
+										<Label text="Object Title"/>
+										<Input value="{conversionData>/ObjectTitle_TS}" width="100%"/>
+										<Label text="Development Package"/>
+										<Input value="{conversionData>/DevelopmentPackage}" width="100%" tooltip="Development Package"/>
+										<Label text="Program/Transaction"/>
+										<Input width="100%" tooltip="Program/Transaction" value="{conversionData>/ProgramTransaction}"/>
+										<Label text="Variant"/>
+										<Input width="100%" value="{conversionData>/Variant}"/>
+										<Label text="Other Attributes"/>
+										<Input width="100%" value="{conversionData>/OtherAttributes}"/>
+									</f:SimpleForm>
+									<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false"
+										emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"
+										editable="true">
+										<Label text="Object ID"/>
+										<Input value="{conversionData>/ObjectID}" width="100%" enabled="false"/>
+										<Label text="Type"/>
+										<Input value="{conversionData>/Type}" width="100%"/>
+										<Label text="Screen Number"/>
+										<Input value="{conversionData>/ScreenNumber}" width="100%"/>
+										<Label text="Print Transaction"/>
+										<Input width="100%" value="{conversionData>/PrintTransaction}"/>
+									</f:SimpleForm>
+								</layout:content>
+							</layout:Grid>
+						</content>
+					</Panel>
+					<!--<Panel expandable="true" expanded="false" id="conversionTechHANA" headerText="HANA Modelling Attributes" width="auto" class="sapUiResponsiveMargin"-->
+					<!--	>-->
+					<!--	<content>-->
+					<!--		<TextArea width="60%"/>-->
+					<!--	</content>-->
+					<!--</Panel>-->
+					<!--<Panel expandable="true" id="conversionTechABAP" expanded="false" headerText="ABAP or HANA Custom Object Attributes" width="auto"-->
+					<!--	class="sapUiResponsiveMargin">-->
+					<!--	<content>-->
+					<!--		<TextArea width="60%"/>-->
+					<!--	</content>-->
+					<!--</Panel>-->
+					<Panel expandable="true" id="conversionSelection" expanded="false" headerText="Selection Screen" width="auto" class="sapUiResponsiveMargin">
+						<VBox>
+							<HBox>
+								<CheckBox selected="{conversionData>/SelectionScreenTS}"/>
+								<Image src="/sap/bc/ui5_ui5/sap/zautomation/images/A.png" width="70%" height="100%"/>
+							</HBox>
+							<!--<TextArea width="60%" rows="5" value="{conversionData>/SelectionScreenTS}"/>-->
+							<HBox>
+								<!--	<u:FileUploader name="myFileUpload" uploadUrl="upload/" width="388px" tooltip="{i18n>fileTooltipText}" uploadComplete="handleUploadComplete"/>
+							<Button text="Upload" icon="sap-icon://upload"/>-->
+								<u:FileUploader id="fileUploadConTSReq1" width="90%" tooltip="{i18n>fileTooltipText}" placeholder="{i18n>toolTip_ChooseFile}" sendXHR="true"
+									useMultipart="false"/>
+								<Button text="Upload" id="uploadAttachConTSReq" icon="sap-icon://upload" press="callAttachment"/>
+							</HBox>
+							<Table mode="None" noDataText="No Attachment" id="tableAttachintDataConTS" width="100%" class="myClass"
+								items="{intDataConTS>/attachIntConTS}" visible="{intDataConTS>/attachIntConTSVisible}">
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Link text="{intDataConTS>fileName}" href="{intDataConTS>fileURL}" target="_blank"/>
+											<Button id="deleteConvMapValid" icon="sap-icon://delete" text="Delete" press="deleteFileFrmConvMapValiC" activeIcon="{intDataConTS>fileURL}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column>
+										<header>
+											<Label text="File Name"/>
+										</header>
+									</Column>
+									<Column>
+										<header></header>
+									</Column>
+								</columns>
+							</Table>
+						</VBox>
+					</Panel>
+					<Panel expandable="true" id="conversionMapping" expanded="false" headerText="Data Mapping" width="auto" class="sapUiResponsiveMargin">
+						<VBox id="selectionScreenTableVBox">
+							<TextArea rows="15" width="100%" value="{conversionData>/dataMappingText}"/>
+							<Table class="myClass" mode="None" width="100%" items="{conversionData>/dataMapping}">
+								<headerToolbar></headerToolbar>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<HBox>
+												<Button icon="sap-icon://sys-add" type="Transparent" press="addNewRowUA1"/>
+												<!--<Button icon="sap-icon://edit" type="Transparent"/>-->
+												<Button icon="sap-icon://delete" type="Transparent" press="deleteRowUA1"/>
+											</HBox>
+											<Input value="{conversionData>Description}"/>
+											<Input value="{conversionData>sourceField}"/>
+											<Input value="{conversionData>dataType}"/>
+											<Input value="{conversionData>lengthS}"/>
+											<Input value="{conversionData>targetField}"/>
+											<Input value="{conversionData>conversionRule}"/>
+											<Input value="{conversionData>validationRule}"/>
+											<!--<HBox>-->
+											<!--	<Button icon="sap-icon://sys-add" type="Transparent"/>-->
+											<!--	<Button icon="sap-icon://sys-minus" type="Transparent"/>-->
+											<!--</HBox>-->
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column>
+										<header>
+											<Label text="Actions"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Description" tooltip="Description"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Source Field" tooltip="Source Field"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Data Type" tooltip="Data Type"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Length" tooltip="Length"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Target Field" tooltip="Target Field"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Conversion Rule" tooltip="Conversion Rule"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Validation rule" tooltip="Validation rule"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label/>
+										</header>
+									</Column>
+								</columns>
+							</Table>
+							
+												<HBox>
+													<u:FileUploader id="fileUploadIntDet" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}" sendXHR="true"
+														width="360px" useMultipart="false"/>
+													<Button id="uploadAttachIntDet" hAlign="Left" text="Upload" icon="sap-icon://upload" press="callAttachmentMap" class="iconTabBarpadding"/>
+												</HBox>
+												<Table mode="None" noDataText="No Attachment" id="tableAttachIntDet" width="100%" class="myClass" items="{intDataDet>/attachIntDet}"
+													visible="{intDataDet>/attachIntDetVisible}">
+													<items>
+														<ColumnListItem>
+															<cells>
+																<Link text="{intDataDet>fileName}" href="{intDataDet>fileURL}"/>
+																<Button text="Delete" press="deleteFileintDataDetC" activeIcon="{intDataDet>fileURL}"/>
+																<!--icon="sap-icon://delete"-->
+															</cells>
+														</ColumnListItem>
+													</items>
+													<columns>
+														<Column>
+															<header>
+																<Label text="File Name"/>
+															</header>
+														</Column>
+														<Column>
+															<header></header>
+														</Column>
+													</columns>
+												</Table>
+											
+						</VBox>
+					</Panel>
+					<Panel expandable="true" id="conversionCapability" expanded="false" headerText="Restart Capability" width="auto"
+						class="sapUiResponsiveMargin">
+						<content>
+							<TextArea rows="15" width="100%" value="{conversionData>/RestartCapability}"/>
+						</content>
+					</Panel>
+					<Panel expandable="true" expanded="false" headerText="Technical Assumptions and Dependencies" width="auto" class="sapUiResponsiveMargin">
+						<content>
+							<TextArea rows="15" width="100%" value="{conversionData>/TechnicalAssumptionsDependencies}"/>
+						</content>
+					</Panel>
+					
+				</IconTabFilter>
+				<IconTabFilter text="Error Handling and Security" count="*">
+					<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+						<VBox>
+							<Label text="Security Section:"/>
+							<HBox>
+								<CheckBox text="HTTPS/SFTP" id="HTTP_SFTP"/>
+								<CheckBox text="User Authorization" class="sapUiSmallMarginBegin" id="UserAuthorization"/>
+								<CheckBox text="Encryption" class="sapUiSmallMarginBegin" id="Encryption"/>
+							</HBox>
+							<TextArea cols="40" rows="15" width="100%" value="{conversionData>/SecuritySection}"/>
+							<!--<Label text="Error Handling:"/>-->
+							<!--<TextArea id="error" cols="40" rows="5" width="70%" value="{conversionData>/ErrorHandlingTS}"/>-->
+							<!--</VBox>-->
+							<!--<VBox>-->
+							<Label text="Error Handling:"/>
+							<HBox>
+								<CheckBox text="Error Log" id="ErrorLog"/>
+								<CheckBox text="Audit Log" id="AuditLog"/>
+								<CheckBox text="Error Report" id="ErrorReport"/>
+								<CheckBox text="Return Requirement" id="ReturnRequirement"/>
+								<CheckBox text="Validations" id="Validations"/>
+							</HBox>
+							<Label text="Error Handling"/>
+							<TextArea cols="40" rows="15" width="100%" value="{conversionData>/ErrorHandlingTS}"/>
+							<!--<Button text="Upload" icon="sap-icon://upload"/>-->
+						</VBox>
+					</f:SimpleForm>
+				</IconTabFilter>
+				<IconTabFilter text="User Acceptance" count="*">
+					<Table mode="None" noDataText="Drop column list items here and columns in the area above" id="table2" width="100%" class="myClass1"
+						items="{conversionData>/userAcceptance}">
+						<items>
+							<ColumnListItem >
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent" press="addNewRowUA"/>
+										<!--<Button icon="sap-icon://edit" type="Transparent"/>-->
+										<Button icon="sap-icon://delete" type="Transparent" press="deleteRowUA"/>
+									</HBox>
+									<TextArea growing="true" value="{conversionData>step}" id="text11" width="50%"/>
+									<Select selectedKey="{conversionData>testType}" width="70%" forceSelection="false">
+										<items>
+											<core:Item text="Positive" key="Positive"/>
+											<core:Item text="Negative" key="Negative"/>
+										</items>
+									</Select>
+									<TextArea growing="true" value="{conversionData>scenario}" id="text13"/>
+									<TextArea growing="true" value="{conversionData>stepsPer}"/>
+									<TextArea growing="true" value="{conversionData>actualResults}"/>
+									<TextArea growing="true" value="{conversionData>expectedResults}"/>
+									<!--<HBox>-->
+									<!--	<Button icon="sap-icon://sys-add" type="Transparent"/>-->
+									<!--	<Button icon="sap-icon://sys-minus" type="Transparent"/>-->
+									<!--</HBox>-->
+								</cells>
+							</ColumnListItem>
+						</items>
+						<columns>
+							<Column>
+								<header>
+									<Label text="Actions"/>
+								</header>
+							</Column>
+							<Column id="col1">
+								<header>
+									<Label text="Step" id="step"/>
+								</header>
+							</Column>
+							<Column id="col2">
+								<header>
+									<Label text="Test Type" id="testtype"/>
+								</header>
+							</Column>
+							<Column id="col3">
+								<header>
+									<Label text="Scenario" id="scenario"/>
+								</header>
+							</Column>
+							<Column id="col4">
+								<header>
+									<Label text="Steps Performed" id="stepsperformed"/>
+								</header>
+							</Column>
+							<Column id="col5">
+								<header>
+									<Label text="Expected Results"/>
+								</header>
+							</Column>
+							<Column id="col6">
+								<header>
+									<Label text="Actual Results" id="actualresults"/>
+								</header>
+							</Column>
+							<Column>
+								<header>
+									<Label/>
+								</header>
+							</Column>
+						</columns>
+					</Table>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+		<semantic:customFooterContent>
+			<Button icon="sap-icon://message-popup" id="idPopOverContainerTS" type="Emphasized" press="handleMessagePopoverPress" visible="false"/>
+				<Button icon="sap-icon://locked" text="On Hold" type="Emphasized" press="onHold" tooltip="Save changes" id="oBTHold" visible="true"/>
+		
+			<Button icon="sap-icon://complete" text="Submit" enabled="false" visible="false" type="Emphasized" press="onSubmit"
+				tooltip="Submit Document" id="oBTSubmit"/>
+			<Button icon="sap-icon://approvals" text="Approve" type="Emphasized" press="onApprove" tooltip="Approve Request" id="oBTApprove"/>
+			<Button icon="sap-icon://accept" text="Accept" type="Emphasized" press="onAccept" tooltip="Accept" id="oBTAcceptApproval" visible="false"/>
+			<Button icon="sap-icon://save" text="Save" type="Emphasized" press="onSave" tooltip="Save changes" id="oBTSave"/>
+			<Button icon="sap-icon://print" text="Print" type="Emphasized" press="onPrint" tooltip="Print Document" id="idPrintScreen"/>
+			<!--<Button icon="sap-icon://print" text="Print" type="Transparent" press="onPrint" tooltip="Print Document" enabled="false" id="oBTPrint2"/>-->
+		</semantic:customFooterContent>
+	</semantic:FullscreenPage>
+</mvc:View>

@@ -1,0 +1,245 @@
+{
+    "_version": "1.5.0",
+    "sap.app": {
+        "id": "com.automation.toolAutomationNew",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "sourceTemplate": {
+            "id": "servicecatalog.connectivityComponent",
+            "version": "0.0.0"
+        },
+        "dataSources": {}
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_hcb",
+            "sap_belize"
+        ]
+    },
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "com.automation.toolAutomationNew.view.FirstPage",
+            "type": "XML"
+        },
+        "dependencies": {
+            "minUI5Version": "1.30.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.ui.layout": {},
+                "sap.ushell": {},
+                "sap.collaboration": {},
+                "sap.ui.comp": {},
+                "sap.uxap": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.automation.toolAutomationNew.i18n.i18n"
+                }
+            }
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "com.automation.toolAutomationNew.view",
+                "controlAggregation": "pages",
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                },
+                "async": true,
+                "controlId": "app"
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "first",
+                    "target": [
+                        "first"
+                    ]
+                },
+                {
+                    "pattern": "Detail",
+                    "name": "detail",
+                    "target": [
+                        "detail"
+                    ]
+                },
+                {
+                    "pattern": "reportFS,:object:,:objectlist:,:objectTitle:",
+                    "name": "reportFS",
+                    "target": [
+                        "reportFS"
+                    ]
+                },
+                {
+                    "pattern": "reportTS,:object:,:objectlist:,:objectTitle:",
+                    "name": "reportTS",
+                    "target": [
+                        "reportTS"
+                    ]
+                },
+                {
+                    "pattern": "conversionFS,:object:,:objectlist:",
+                    "name": "conversionFS",
+                    "target": [
+                        "conversionFS"
+                    ]
+                },
+                {
+                    "pattern": "conversionTS,:object:,:objectlist:",
+                    "name": "conversionTS",
+                    "target": [
+                        "conversionTS"
+                    ]
+                },
+                {
+                    "pattern": "interfaceFS,:object:",
+                    "name": "interfaceFS",
+                    "target": [
+                        "interfaceFS"
+                    ]
+                },
+                {
+                    "pattern": "interfaceTS,:object:",
+                    "name": "interfaceTS",
+                    "target": [
+                        "interfaceTS"
+                    ]
+                },
+                {
+                    "pattern": "TechnicalSpecification",
+                    "name": "techspec",
+                    "target": [
+                        "techspec"
+                    ]
+                },
+                {
+                    "name": "pitechspec",
+                    "pattern": "interfacePI,:object:",
+                    "target": [
+                        "pitechspec"
+                    ]
+                },
+                {
+                    "name": "middlewareSpec",
+                    "pattern": "middlewareTS,:object:",
+                    "target": [
+                        "middlewareSpec"
+                    ]
+                }
+            ],
+            "targets": {
+                "first": {
+                    "viewName": "FirstPage",
+                    "viewId": "first",
+                    "viewLevel": 1,
+                    "title": "{i18n>FirstPageTitle}"
+                },
+                "pitechspec": {
+                    "viewName": "InterfacePI",
+                    "viewId": "InterfacePI",
+                    "viewLevel": 2,
+                    "title": "{i18n>InterfacePITitle}"
+                },
+                "detail": {
+                    "viewName": "DetailPage",
+                    "viewId": "detail",
+                    "viewLevel": 2,
+                    "title": "{i18n>DetailPageTitle}"
+                },
+                "reportFS": {
+                    "viewName": "ReportFS",
+                    "viewId": "reportFS",
+                    "viewLevel": 2,
+                    "title": "{i18n>ReportFSTitle}"
+                },
+                "reportTS": {
+                    "viewName": "ReportTS",
+                    "viewId": "reportTS",
+                    "viewLevel": 2,
+                    "title": "{i18n>ReportTSTitle}"
+                },
+                "conversionFS": {
+                    "viewName": "ConversionsFS",
+                    "viewId": "conversionFS",
+                    "viewLevel": 2,
+                    "title": "{i18n>ConversionFSTitle}"
+                },
+                "conversionTS": {
+                    "viewName": "ConversionTS",
+                    "viewId": "conversionTS",
+                    "viewLevel": 2,
+                    "title": "{i18n>ConversionTSTitle}"
+                },
+                "interfaceFS": {
+                    "viewName": "InterfaceFS",
+                    "viewId": "interfaceFS",
+                    "viewLevel": 2,
+                    "title": "{i18n>ConversionFSTitle}"
+                },
+                "interfaceTS": {
+                    "viewName": "InterfaceTS",
+                    "viewId": "interfaceTS",
+                    "viewLevel": 2,
+                    "title": "{i18n>ConversionFSTitle}"
+                },
+                "techspec": {
+                    "viewName": "TSDetail",
+                    "viewId": "techspec",
+                    "viewLevel": 2,
+                    "title": "{i18n>TSDetailTitle}"
+                },
+                "middlewareSpec": {
+                    "viewName": "MiddlewareTS",
+                    "viewId": "middlewareSpec",
+                    "viewLevel": 2,
+                    "title": "{i18n>Middleware}"
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        }
+    },
+    "sap.platform.abap": {
+        "uri": "/sap/bc/ui5_ui5/sap/zautomation_ot",
+        "_version": "1.1.0"
+    },
+    "sap.platform.hcp": {
+        "uri": "",
+        "_version": "1.1.0"
+    }
+}

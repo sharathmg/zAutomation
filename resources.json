@@ -1,0 +1,124 @@
+{
+    "resources": [
+        {
+            "name": "controller/ReportFS.controller.js"
+        },
+        {
+            "name": "controller/InterfaceTS.controller.js"
+        },
+        {
+            "name": "controller/FirstPage.controller.js"
+        },
+        {
+            "name": "controller/ConversionsFS.controller.js"
+        },
+        {
+            "name": "controller/InterfaceFS.controller.js"
+        },
+        {
+            "name": "controller/MiddlewareTS.controller.js"
+        },
+        {
+            "name": "controller/ConversionTS.controller.js"
+        },
+        {
+            "name": "controller/ReportTS.controller.js"
+        },
+        {
+            "name": "controller/InterfacePI.controller.js"
+        },
+        {
+            "name": "controller/DetailPage.controller.js"
+        },
+        {
+            "name": "controller/TSDetail.controller.js"
+        },
+        {
+            "name": "fragment/dialog.fragment.xml"
+        },
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": "Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "view/InterfaceTS.view.xml"
+        },
+        {
+            "name": "view/ReportFS.view.xml"
+        },
+        {
+            "name": "view/FirstPage.view.xml"
+        },
+        {
+            "name": "view/MiddlewareTS.view.xml"
+        },
+        {
+            "name": "view/TSDetail.view.xml"
+        },
+        {
+            "name": "view/ConversionsFS.view.xml"
+        },
+        {
+            "name": "view/InterfacePI.view.xml"
+        },
+        {
+            "name": "view/DetailPage.view.xml"
+        },
+        {
+            "name": "view/InterfaceFS.view.xml"
+        },
+        {
+            "name": "view/ConversionTS.view.xml"
+        },
+        {
+            "name": "view/ReportTS.view.xml"
+        },
+        {
+            "name": "css/style.css"
+        },
+        {
+            "name": "images/A.png"
+        },
+        {
+            "name": "utils/callServices.js"
+        },
+        {
+            "name": "utils/constants.js"
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "index.html"
+        },
+        {
+            "name": "model/models.js"
+        },
+        {
+            "name": "extended_runnable_file.html"
+        },
+        {
+            "name": ".project.json"
+        },
+        {
+            "name": "neo-app.json"
+        },
+        {
+            "name": ".user.project.json"
+        },
+        {
+            "name": "manifest.json"
+        },
+        {
+            "name": "webapp/localService/metadata.xml"
+        },
+        {
+            "name": "resources.json",
+            "merged": true
+        }
+    ]
+}

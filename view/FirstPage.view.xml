@@ -1,0 +1,208 @@
+<mvc:View controllerName="com.automation.toolAutomationNew.controller.FirstPage" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns="sap.m">
+	<App id="app">
+		<pages>
+			<Page title="Project Deliverables" height="100%" class="sapUiSizeCompact">
+				<content>
+					<VBox class="sapUiSmallMargin formBgColor" height="80%">
+						<HBox>
+							<HBox width="90%">
+								<SegmentedButton selectedKey="new" id="switch" width="100%" select="onSelectSegmentedBtn">
+									<items>
+										<!--<SegmentedButtonItem id="segmentNew" text="New Object" key="new" width="60%"/>-->
+										<SegmentedButtonItem id="segmentExisting" visible="false" text="Existing Object" key="existing" width="100%"/>
+									</items>
+								</SegmentedButton>
+							</HBox>
+						</HBox>
+						<VBox width="98%">
+							<f:SimpleForm id="SimpleFormChange354" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+								adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+								singleContainerFullSize="false" editable="true">
+								<core:Title text=""/>
+								<Label text="Project Name" required="true"/>
+								<ComboBox showSecondaryValues="true" width="100%" valueStateText="Choose project name" forceSelection="true" items="{path: 'projectlist>/'}"
+									change="onChangeProject" id="projectNew" filterSecondaryValues="true">
+									<core:ListItem text="{path: 'projectlist>Projectid'}" additionalText="{path: 'projectlist>Projectddesc'}"
+										key="{path: 'projectlist>Projectid'}"/>
+								</ComboBox>
+								<Label displayOnly="true" text="Project Description"/>
+								<Text id="projDescNew" text=""/>
+								<Label text="Object List" required="true"/>
+								<Input id="inpObject" showValueHelp="true" valueHelpRequest="handleUpdateData"/>
+								<!--<ComboBox showSecondaryValues="true" width="100%" valueStateText="Choose object name" change="selectObjectFromList" forceSelection="false"-->
+								<!--	items="{path: 'objectlistNew>/'}" id="objectlist1" filterSecondaryValues="true" enabled="false">-->
+								<!--	<core:ListItem text="{path: 'objectlistNew>Ricefid'}" additionalText="{path: 'objectlistNew>Ricef_Desc'}"-->
+								<!--		key="{path: 'objectlistNew>Ricefid'}"/>-->
+								<!--</ComboBox>-->
+								<Label text="Create with Reference (Object ID)" tooltip="Create with Reference (Object ID)" wrapping="true"/>
+								<SearchField width=""/>
+								<Label text="Upload from another project"/>
+								<!--<Input value="{City}"/>-->
+								<SearchField width=""/>
+								<core:Title text=""/>
+								<Label text="Object Type"/>
+								<RadioButtonGroup id="otype" width="100%" enabled="false">
+									<buttons>
+										<RadioButton text="Report" id="WricefType_REP"/>
+										<RadioButton text="Interface" id="WricefType_INT"/>
+										<RadioButton text="Conversion" id="WricefType_CNV"/>
+										<RadioButton text="Enhancement" id="WricefType_ENH"/>
+										<RadioButton text="Form" id="WricefType_FRM"/>
+										<RadioButton text="Workflow" id="WricefType_WFLW"/>
+									</buttons>
+								</RadioButtonGroup>
+								<!--</f:content>-->
+							</f:SimpleForm>
+							<HBox justifyContent="End" width="93%" height="">
+								<Button id="nextHBox" press="onOkPress" text="Next" icon="sap-icon://initiative" tooltip="Go to the next page"/>
+							</HBox>
+							<f:SimpleForm id="SimpleFormChange3541" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+								labelSpanS="12" adjustLabelSpan="false" emptySpanXL="6" emptySpanL="6" emptySpanM="6" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+								singleContainerFullSize="false" height="">
+								<f:content>
+									<Label text="Project Name" required="true"/>
+									<ComboBox showSecondaryValues="true" width="100%" valueStateText="Choose project name" forceSelection="true" items="{path: 'projectlist>/'}"
+										change="onChangeProject" id="projectExisting" filterSecondaryValues="true">
+										<core:ListItem text="{path: 'projectlist>Projectid'}" additionalText="{path: 'projectlist>Projectddesc'}"
+											key="{path: 'projectlist>Projectid'}"/>
+									</ComboBox>
+									<Label displayOnly="true" text="Project Description"/>
+									<Text id="projDescExist" text=""/>
+									<Label text="Object List" required="true"/>
+									<Input id="inpObject1" showValueHelp="true" valueHelpRequest="handleUpdateData"/>
+									<Label displayOnly="true" text="Object Description"/>
+									<Text id="objDescExists" text=""/>
+									<!--<ComboBox showSecondaryValues="true" width="100%" valueStateText="Choose object name" forceSelection="false"-->
+									<!--	items="{path: 'objectlistExisting>/'}" id="objectlist" filterSecondaryValues="true" enabled="false">-->
+									<!--	<core:ListItem text="{path: 'objectlistExisting>Ricefid'}" additionalText="{path: 'objectlistExisting>Ricef_Desc'}"-->
+									<!--		key="{path: 'objectlistExisting>Ricefid'}"/>-->
+									<!--</ComboBox>-->
+									<Label text="Document Completeness"/>
+									<RatingIndicator id="ri4" maxValue="5" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" visible="false"/>
+									<Label text="Document Review"/>
+									<RatingIndicator id="ri3" maxValue="5" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" visible="false"/>
+								</f:content>
+							</f:SimpleForm>
+							<l:BlockLayout id="CRSelection" height="">
+								<l:BlockLayoutRow>
+									<l:BlockLayoutCell>
+										<Table noDataText="Add Comments" id="table00" mode="None" width="100%" class="myClass" visible="false">
+											<items>
+												<ColumnListItem id="item00">
+													<cells>
+														<HBox>
+															<!--<Button icon="sap-icon://edit" type="Transparent"/>-->
+															<Button icon="sap-icon://sys-add" type="Transparent"/>
+															<Button icon="sap-icon://delete" type="Transparent"/>
+															<!--<Button text="Details" type="Transparent"/>-->
+														</HBox>
+														<Input value="comment1" id="text011"/>
+														<Input value="abc" id="text012"/>
+														<Input value="reviewed" id="text013"/>
+														<Input value="ok" id="text015"/>
+														<!--<HBox>-->
+														<!--	<Button icon="sap-icon://sys-add" type="Transparent"/>-->
+														<!--	<Button icon="sap-icon://sys-minus" type="Transparent"/>-->
+														<!--</HBox>-->
+													</cells>
+												</ColumnListItem>
+											</items>
+											<columns>
+												<Column width="10%">
+													<header>
+														<Label text="Actions"/>
+													</header>
+												</Column>
+												<Column id="column00" width="20%">
+													<header>
+														<Label text="Comment #" id="label17"/>
+													</header>
+												</Column>
+												<Column id="column01" width="20%">
+													<header>
+														<Label text="Section" id="label18"/>
+													</header>
+												</Column>
+												<Column id="column02" width="30%">
+													<header>
+														<Label text="Review Comments" id="label19"/>
+													</header>
+												</Column>
+												<Column id="column03" width="20%">
+													<header>
+														<Label text="Status" id="label110"/>
+													</header>
+												</Column>
+												<!--<Column width="15%">-->
+												<!--	<header>-->
+												<!--		<Label/>-->
+												<!--	</header>-->
+												<!--</Column>-->
+											</columns>
+										</Table>
+										<html:br/>
+										<Table id="table0" items="{firstPageData>/CRTable}" width="auto" mode="None" class="myClass">
+											<items>
+												<ColumnListItem id="item0">
+													<cells>
+														<HBox>
+															<Button  id="add" icon="sap-icon://sys-add" press="onAddCR" type="Transparent"/>
+															<Button  id="rem" icon="sap-icon://delete" press="onRemoveCR" type="Transparent"/>
+															<!--<Button icon="sap-icon://edit" type="Transparent"/>-->
+															<!--<Button text="Details" type="Transparent"/>-->
+														</HBox>
+														<Input  value="{firstPageData>Sprint}" id="_text011"/>
+														<Input  value="{firstPageData>CRNumber}" id="_text012"/>
+														<Input  value="{firstPageData>CRDesc}" id="_text013"/>
+														<!--<HBox>-->
+														<!--	<Button icon="sap-icon://sys-minus" type="Transparent"/>-->
+														<!--</HBox>-->
+														<Label/>
+													</cells>
+												</ColumnListItem>
+											</items>
+											<columns>
+												<Column width="10%">
+													<header>
+														<Label text="Actions"/>
+													</header>
+												</Column>
+												<Column id="_column2" width="20%">
+													<header>
+														<Label text="Sprint" id="__label9"/>
+													</header>
+												</Column>
+												<Column id="_column0" width="20%">
+													<header>
+														<Label text="CR Number" id="__label7"/>
+													</header>
+												</Column>
+												<Column id="_column01" width="50%">
+													<header>
+														<Label text="CR Description" id="__label8"/>
+													</header>
+												</Column>
+												<!--<Column width="30%">-->
+												<!--	<header>-->
+												<!--		<Label/>-->
+												<!--	</header>-->
+												<!--</Column>-->
+											</columns>
+										</Table>
+									</l:BlockLayoutCell>
+								</l:BlockLayoutRow>
+							</l:BlockLayout>
+							<HBox justifyContent="End" width="97%" height="">
+								<Button id="nextHBox1" press="onOkPress" text="Next" class="marginClass2" icon="sap-icon://initiative" tooltip="Go to the next page"/>
+							</HBox>
+						</VBox>
+					</VBox>
+					<!--<HBox justifyContent="End" width="97%" height="">-->
+					<!--	<Button id="nextHBox1" press="onOkPress" text="Next" class="marginClass2" icon="sap-icon://initiative" tooltip="Go to the next page"/>-->
+					<!--</HBox>-->
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

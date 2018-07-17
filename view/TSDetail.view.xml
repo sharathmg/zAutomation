@@ -1,0 +1,2016 @@
+<mvc:View controllerName="com.automation.toolAutomationNew.controller.TSDetail" xmlns="sap.m" xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:ui="sap.suite.ui.commons" xmlns:semantic="sap.m.semantic" xmlns:rte="sap.ui.richtexteditor" xmlns:footerbar="sap.ushell.ui.footerbar">
+	<semantic:FullscreenPage id="page" semanticRuleSet="Optimized" busy="{objectView>/busy}" class="sapUiSizeCompact"
+		busyIndicatorDelay="{objectView>/delay}" navButtonPress="onNavBack" showNavButton="true" title="{enhData>/HeaderTitleTS}">
+		<semantic:content>
+			<OverflowToolbar width="100%" id="__toolbar5">
+				<content>
+					<Select id="doctype" change="onChange">
+						<items>
+							<core:ListItem text="Functional Specification" key="Functional" id="funcspec"/>
+							<core:ListItem text="Technical Specification" key="Technical" id="techspec"/>
+						</items>
+					</Select>
+					<ToolbarSpacer/>
+					<Select id="versiontypeNewTech" change="onChangeVersionNewTech">
+						<items>
+							<core:ListItem text="Version 1.0" key="Verion 1.0"/>
+						</items>
+					</Select>
+					<Select id="versiontypeExistingTech" change="onChangeVersionExistingTech">
+						<items>
+							<core:ListItem text="Version 1.0" key="Version 1.0"/>
+							<!--	<core:ListItem text="Version 2.0" key="Version 2.0"/>
+							<core:ListItem text="Version 3.0" key="Version 3.0"/>-->
+						</items>
+					</Select>
+				</content>
+			</OverflowToolbar>
+			<!--			<ObjectHeader id="objectHeader" title="Object 2104 - Material Master Update">
+				<attributes>
+					<ObjectAttribute text="{1Tab>/AuditExtid}"/>
+					<ObjectAttribute text="{1Tab>/AuditTypeDesc}"/>
+				</attributes>
+				<statuses></statuses>
+			</ObjectHeader>-->
+			<!--<layout:Grid>-->
+			<!--	<layout:content>-->
+			<!--		<Label text="Completion Percentage"/>-->
+			<!--		<ProgressIndicator percentValue="70" displayValue="70%" showValue="true" state="None" height="22px"/>-->
+			<!--	</layout:content>-->
+			<!-- sap.ui.core.LayoutData -->
+			<!--</layout:Grid>-->
+			<HBox>
+				<HBox justifyContent="Start" width="70%">
+					<ui:ProcessFlow id="processflow2" scrollable="false" nodes="{pf2>/nodes}" lanes="{pf2>/lanes}" headerPress="onHeaderPress">
+						<ui:nodes>
+							<ui:ProcessFlowNode laneId="{pf2>lane}" nodeId="{pf2>id}" title="{pf2>title}" children="{pf2>children}" state="{pf2>state}"
+								stateText="{pf2>stateText}" texts="{pf2>texts}" highlighted="{pf2>highlighted}" focused="{pf2>focused}"/>
+						</ui:nodes>
+						<ui:lanes>
+							<ui:ProcessFlowLaneHeader laneId="{pf2>id}" iconSrc="{pf2>icon}" text="{pf2>label}" position="{pf2>position}" state="{pf2>state}"/>
+						</ui:lanes>
+					</ui:ProcessFlow>
+				</HBox>
+				<HBox justifyContent="End" width="30%">
+					<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false"
+						emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+						editable="true">
+						<Label text="Approver"/>
+						<Input id="App" width="80%" value="{enhData>/Approver}"/>
+						<Label text="Reviewer"/>
+						<Input id="rev" width="80%" value="{enhData>/Reviewer}"/>
+						<Label text="Author"/>
+						<Input id="Author" width="80%" value="{enhData>/Author}"/>
+					</f:SimpleForm>
+				</HBox>
+			</HBox>
+		</semantic:content>
+		<IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding mandatory iconTabBarpadding">
+			<items>
+				<!--<IconTabFilter text="General Attributes">-->
+				<!--	<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false"-->
+				<!--		emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"-->
+				<!--		editable="true">-->
+				<!--		<core:Title text=""/>-->
+				<!--		<Label text="Object Type"/>-->
+				<!--		<Label text="Object ID"/>-->
+				<!--		<Input id="frice" value="2104" width="80%"/>-->
+				<!--<Label text="Object Description"/>-->
+				<!--<Input id="fricedesc" value="Material Master Update" width="50%"/>-->
+				<!--		<Label text="Story Number/Comment"/>-->
+				<!--		<Input id="storynumber" value="431" width="80%"/>-->
+				<!--		<core:Title text=""/>-->
+				<!--		<Label text="Object Description"/>-->
+				<!--		<Input id="fricedesc" value="Material Master Update" width="80%"/>-->
+				<!--		<Label text="Developer Name"/>-->
+				<!--		<Input id="dname" value="Manpreet" width="80%"/>-->
+				<!--	</f:SimpleForm>-->
+				<!--</IconTabFilter>-->
+				<IconTabFilter id="approvalTab" text="Approvals" count="*">
+					<Table noDataText="Drop column list items here and columns in the area above" id="table0" width="100%" class="myClass">
+						<!--<headerToolbar>-->
+						<!--	<Toolbar>-->
+						<!--		<ToolbarSpacer></ToolbarSpacer>-->
+						<!--		<Button text="Add Row" type="Emphasized" press="onAddRow" icon="sap-icon://add" tooltip="Add New Row"/>-->
+						<!--		<Button text="Delete Row" type="Reject" press="onDeleteRow" icon="sap-icon://sys-minus" tooltip="Delete One Row"/>-->
+						<!--	</Toolbar>-->
+						<!--</headerToolbar>-->
+						<items>
+							<ColumnListItem id="__item0">
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://edit" type="Transparent"/>
+										<Button icon="sap-icon://delete" type="Transparent"/>
+										<Button text="Details" type="Transparent"/>
+									</HBox>
+									<Input value="1" id="__text11"/>
+									<DatePicker displayFormat="dd/MM/yyyy" value="28/09/2016"></DatePicker>
+									<!--<Input value="28/09/2016" id="__text12"/>-->
+									<Input value="Additions" id="__text13"/>
+									<Input value="RSAWARKAR" id="__text14"/>
+									<Input value="SUNANDA" id="__text16"/>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent"/>
+										<Button icon="sap-icon://sys-minus" type="Transparent"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+							<ColumnListItem id="__item1">
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://edit" type="Transparent"/>
+										<Button icon="sap-icon://delete" type="Transparent"/>
+										<Button text="Details" type="Transparent"/>
+									</HBox>
+									<Input value="2" id="__text20"/>
+									<DatePicker displayFormat="dd/MM/yyyy" value="20/10/2016"></DatePicker>
+									<!--<Input value="20/10/2016" id="__text15"/>-->
+									<Input value="Additions" id="__text17"/>
+									<Input value="RSAWARKAR" id="__text18"/>
+									<Input value="SUNANDA" id="__text19"/>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent"/>
+										<Button icon="sap-icon://sys-minus" type="Transparent"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+						</items>
+						<columns>
+							<Column>
+								<header>
+									<Label text="Actions"/>
+								</header>
+							</Column>
+							<Column id="__column0">
+								<header>
+									<Label text="Sequence/Sprint" id="__label7"/>
+								</header>
+							</Column>
+							<Column id="__column1">
+								<header>
+									<Label text="Date" id="__label8"/>
+								</header>
+							</Column>
+							<Column id="__column2">
+								<header>
+									<Label text="Additions/Modifications" id="__label9"/>
+								</header>
+							</Column>
+							<Column id="__column3">
+								<header>
+									<Label text="Prepared By" id="__label10"/>
+								</header>
+							</Column>
+							<Column id="__column4">
+								<header>
+									<Label text="Approved By" id="__label11"/>
+								</header>
+							</Column>
+							<Column>
+								<header>
+									<Label/>
+								</header>
+							</Column>
+						</columns>
+					</Table>
+				</IconTabFilter>
+				<IconTabFilter text="Technical Design" count="*">
+					<Panel id="oDataService" expandable="true" expanded="false" headerText="OData Service Related Custom Object Attributes" width="auto"
+						class="sapUiResponsiveMargin">
+						<content>
+							<Table noDataText="Drop column list items here and columns in the area above" id="table1123" width="100%" class="myClass">
+								<!--<headerToolbar>-->
+								<!--	<Toolbar>-->
+								<!--		<ToolbarSpacer></ToolbarSpacer>-->
+								<!--		<Button text="Add Row" type="Emphasized" press="onAddRow" icon="sap-icon://add" tooltip="Add New Row"/>-->
+								<!--		<Button text="Delete Row" type="Reject" press="onDeleteRow" icon="sap-icon://sys-minus" tooltip="Delete One Row"/>-->
+								<!--	</Toolbar>-->
+								<!--</headerToolbar>-->
+								<items>
+									<ColumnListItem id="item111">
+										<cells>
+											<HBox>
+												<Button icon="sap-icon://edit" type="Transparent"/>
+												<Button icon="sap-icon://delete" type="Transparent"/>
+												<Button text="Details" type="Transparent"/>
+											</HBox>
+											<Input value="1" id="text111" width="100%"/>
+											<Input/>
+											<Input/>
+											<Input/>
+											<Input/>
+											<Input/>
+											<Input/>
+											<HBox>
+												<Button icon="sap-icon://sys-add" type="Transparent"/>
+												<Button icon="sap-icon://sys-minus" type="Transparent"/>
+											</HBox>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column>
+										<header>
+											<Label text="Actions"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Odata Service Name"/>
+										</header>
+									</Column>
+									<Column id="col112">
+										<header>
+											<Label text="RFC Destination"/>
+										</header>
+									</Column>
+									<Column id="col113">
+										<header>
+											<Label text="Package"/>
+										</header>
+									</Column>
+									<Column id="col114">
+										<header>
+											<Label text="Odata"/>
+										</header>
+									</Column>
+									<Column >
+										<header>
+											<Label text="CDS View Name"/>
+										</header>
+									</Column>
+									<Column >
+										<header>
+											<Label text="HANA Modelled Artifact"/>
+										</header>
+									</Column>
+									<Column >
+										<header>
+											<Label text="Data Volume (Records)"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label/>
+										</header>
+									</Column>
+								</columns>
+							</Table>
+						</content>
+					</Panel>
+					<Panel id="otherInfo" expandable="true" expanded="false" headerText="Other Information" width="auto" class="sapUiResponsiveMargin">
+						<content>
+							<TextArea rows="15" width="100%"/>
+						</content>
+					</Panel>
+					<Panel id="mapping" expandable="true" expanded="false" headerText="Mapping" width="auto" class="sapUiResponsiveMargin">
+						<content>
+							<TextArea rows="15" width="100%"/>
+						</content>
+					</Panel>
+					<!--<Panel expandable="true" expanded="false" headerText="Enhancement(User Exit/Badi)" width="auto"-->
+					<!--	class="sapUiResponsiveMargin">-->
+					<Panel expandable="true" id="Enhinfo" expanded="true" headerText="Object Information" width="auto">
+						<content>
+							<layout:Grid id="enhancementsec" width="100%" defaultSpan="L6 M6 S6">
+								<layout:content>
+									<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false"
+										emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"
+										editable="true">
+										<Label text="Enhancement"/>
+										<RadioButtonGroup columns="2" width="100%" id="enhRad" selectedKey="{enhData>/Enhancement}">
+											<buttons>
+												<RadioButton id="Implicit" text="Implicit" key="Implicit"/>
+												<RadioButton id="Explicit" text="Explicit" key="Explicit"/>
+											</buttons>
+										</RadioButtonGroup>
+										<Label text="Enhancement Type"/>
+										<RadioButtonGroup columns="3" width="100%" id="enhRad1" selectedKey="{enhData>/EnhancementType}">
+											<buttons>
+												<RadioButton id="Exit" text="Exit" key="Exit"/>
+												<RadioButton id="BADI" text="BADI" key="BADI"/>
+												<RadioButton id="Others" text="Others" key="Others"/>
+											</buttons>
+										</RadioButtonGroup>
+										<Label text="Enhancement Spot"/>
+										<Input value="{enhData>/EnhancementSpot}"/>
+										<Label text="User Exit Names"/>
+										<Input value="{enhData>/UserExitNames}"/>
+										<Label text="Function Exit Names"/>
+										<Input value="{enhData>/FunctionExitNames}"/>
+										<Label text="Menu Exit Names"/>
+										<Input value="{enhData>/MenuExitNames}"/>
+										<Label text="Object Name"/>
+										<Input value="{enhData>/ObjName}"/>
+										<Label text="Object Type"/>
+										<Input value="{enhData>/ObjType}"/>
+										<Label text="Object Descr."/>
+										<Input value="{enhData>/ObjDesc}"/>
+									</f:SimpleForm>
+									<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false"
+										emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"
+										editable="true">
+										<Label text="Screen Exit Names/Screen Number"/>
+										<Input value="{enhData>/ScreenExitNames}"/>
+										<Label text="Transaction Code"/>
+										<Input value="{enhData>/TransactionCode}"/>
+										<Label text="Program Name"/>
+										<Input value="{enhData>/ProgramName}"/>
+										<Label text="Project Name"/>
+										<Input value="{enhData>/ProjectName}"/>
+										<Label text="Include Names"/>
+										<Input value="{enhData>/IncludeNames}"/>
+										<Label text="BADI Name"/>
+										<Input value="{enhData>/BADIName}"/>
+										<Label text="Purpose"/>
+										<Input value="{enhData>/Purpose}"/>
+										<Label text="Descr. Of Change"/>
+										<Input value="{enhData>/DescChange}"/>
+									</f:SimpleForm>
+								</layout:content>
+							</layout:Grid>
+						</content>
+					</Panel>
+					<Panel expandable="true" id="Enhinfotech" expanded="true" headerText="Technical Information" width="auto">
+						<content>
+							<VBox id="technicalLogicFlow" class="margin-top">
+								<HBox>
+									<Label text="Technical Logic Flow"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="TechFlowLogic" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{enhData>/TechnicalLogicFlow}"/>
+								<!--								<TextArea id="TechFlowLogic" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechFlow" value="{enhData>/TechnicalLogicFlow}"/> -->
+								<Text id="techFlowCharCount" class="fieldInfo1"/>
+								<Text id="techFlowErr" text="{i18n>errorMaxLength}" class="errorInfo" visible="false"/>
+								<HBox>
+									<u:FileUploader id="fileUplTechFlowLogic" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachTechFlowLogic" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachTechFlowAttrDep" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON6>/attachIntTechAssDep6}" visible="{intDataTechAssDepJSON6>/attachIntTechAssDepVisible6}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON6>fileName}" href="{intDataTechAssDepJSON6>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep6" activeIcon="{intDataTechAssDepJSON6>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="CustomObjectAttributes" class="margin-top">
+								<HBox>
+									<Label text="Custom Object Attributes"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="CustObjAttr" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{enhData>/CustObjAttr}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplCustObjAttr" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachCustObjAttrDep" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachCustObjAttrDep" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON2>/attachIntTechAssDep2}" visible="{intDataTechAssDepJSON2>/attachIntTechAssDepVisible2}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON2>fileName}" href="{intDataTechAssDepJSON2>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep2" activeIcon="{intDataTechAssDepJSON2>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="HANAModellingAttributes" class="margin-top">
+								<HBox>
+									<Label text="HANA Modelling Attributes"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="HanaModelAttr" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{enhData>/HanaModelAttr}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplHanaModelAttr" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachHanaModelAttrDep" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachHanaModelAttrDep" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON3>/attachIntTechAssDep3}" visible="{intDataTechAssDepJSON3>/attachIntTechAssDepVisible3}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON3>fileName}" href="{intDataTechAssDepJSON3>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep3" activeIcon="{intDataTechAssDepJSON3>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="AbapOnHanaAttributes" class="margin-top">
+								<HBox>
+									<Label text="ABAP on HANA Custom Object Attributes"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="AbapHanaAttr" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{enhData>/AbapHanaAttr}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplAbapHanaAttr" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachAbapHanaAttrDep" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachAbapHanaAttrDep" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON4>/attachIntTechAssDep4}" visible="{intDataTechAssDepJSON4>/attachIntTechAssDepVisible4}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON4>fileName}" href="{intDataTechAssDepJSON4>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep4" activeIcon="{intDataTechAssDepJSON4>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="OdataAttributes" class="margin-top">
+								<HBox>
+									<Label text="OData Service Related Custom Object Attributes"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="OdataAttr" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true" tooltip="Enter Information"
+									value="{enhData>/OdataAttr}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplOdataAttr" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachOdataAttrDep" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachOdataAttrDep" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON5>/attachIntTechAssDep5}" visible="{intDataTechAssDepJSON5>/attachIntTechAssDepVisible5}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON5>fileName}" href="{intDataTechAssDepJSON5>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep5" activeIcon="{intDataTechAssDepJSON5>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="technicalAssumptions" class="margin-top">
+								<HBox>
+									<Label text="Technical Assumptions and Dependencies"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="TechAssumptions" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{enhData>/TechnicalAssumptions}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<Text id="techAsmCharCount" class="fieldInfo1"/>
+								<Text id="techAsmErr" text="{i18n>errorMaxLength}" class="errorInfo" visible="false"/>
+								<HBox>
+									<u:FileUploader id="fileUplTechAssumpDep" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachTechAssumpDep" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachTechAssumpDep" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON>/attachIntTechAssDep}" visible="{intDataTechAssDepJSON>/attachIntTechAssDepVisible}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON>fileName}" href="{intDataTechAssDepJSON>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep" activeIcon="{intDataTechAssDepJSON>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<Panel id="reviewComment1" visible="false" headerText="" expanded="true" expandable="true">
+								<VBox >
+									<Label text="Review/Comments"/>
+									<Input id="input1" width="100%" value="{enhData>/ReviewComments_ti}"/>
+									<RatingIndicator id="ri1" maxValue="5" iconSize="22px" tooltip="Rating Tooltip" enabled="true" value="{enhData>/ReviewCommentsRating_ti}"/>
+								</VBox>
+							</Panel>
+						</content>
+					</Panel>
+					<!--</Panel>-->
+					<Panel expandable="true" id="Forminfo" expanded="true" headerText="Object Information" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false"
+								emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+								editable="true">
+								<Label text="Printer transaction"/>
+								<Input id="Tcode" width="100%" value="{FrmData>/PrintTR}"/>
+								<Label text="Output Type"/>
+								<Input id="optype" width="100%" value="{FrmData>/OutputTypes}"/>
+								<Label text="Run Mode"/>
+								<HBox id="runMode">
+									<CheckBox text="Foreground" key="FOREGROUND" id="FOREGROUND"/>
+									<CheckBox text="Background" key="BACKGROUND" id="BACKGROUND"/>
+									<CheckBox text="Both" key="BOTH" id="BOTH"/>
+								</HBox>
+								<Label text="Data Volume(Records)"/>
+								<Input id="vol" width="100%" value="{FrmData>/DataVol}"/>
+								<Label text="Type"/>
+								<HBox id="ObjTyp">
+									<CheckBox text="SAP Script" id="SAPSCRIPT" key="SAP SCRIPT"/>
+									<CheckBox text="Adobe Form" id="ADOBEFORM" key="ADOBE FORM"/>
+									<CheckBox text="Smart Form" id="SMARTFORM" key="SMART FORM"/>
+								</HBox>
+								<Label text="Print Program Name"/>
+								<Input id="prname" width="100%" value="{FrmData>/PrintName}"/>
+								<Label text="Standard Text(s)"/>
+								<Input id="stdtxt" width="100%" value="{FrmData>/StdText}"/>
+								<Label text="Logo(s)"/>
+								<Input id="lg" width="100%" value="{FrmData>/Logo}"/>
+								<Label text="Page Format"/>
+								<HBox id="pgFormat">
+									<CheckBox text="DIN A4" id="DINA4" key="DIN A4"/>
+									<CheckBox text="Letter" id="Letter" key="Letter"/>
+									<CheckBox text="Other" id="Other" key="Other"/>
+								</HBox>
+								<!--Code added by prinsharma for Font Details, Margins, Date Formats, Currency Formats-->
+								<Label text="Font Details"/>
+								<Input id="FrFontDetails" width="100%" value="{FrmData>/FontDetails}"/>
+								<Label text="Margins"/>
+								<RadioButtonGroup columns="3" width="100%" selectedKey="{FrmData>/Margins}" id="FT">
+									<buttons>
+										<RadioButton id="RB-Margins-Left" text="Left" key="Left"/>
+										<RadioButton id="RB-Margins-Right" text="Right" key="Right"/>
+									</buttons>
+								</RadioButtonGroup>
+								<Label text="Date Format"/>
+								<Input id="FrDateFormat" width="100%" value="{FrmData>/DateFormat}"/>
+								<Label text="Currency Format"/>
+								<Input id="FrCurrencyFormat" width="100%" value="{FrmData>/CurrencyFormat}"/>
+								<Label text="Printer Specific Requirem..."/>
+								<Input id="PRreq" width="100%" value="{FrmData>/PrintSP}"/>
+								<Label text="Output Requirements"/>
+								<Input id="opreq" width="100%" value="{FrmData>/OpReq}"/>
+								<Label text="Sample Form Layout"/>
+								<Input id="Frlay" width="100%" value="{FrmData>/Sample}"/>
+								<!--Code added by prinsharma for FormInterface-->
+								<Label text="Form Interface"/>
+								<Input id="FrInterface" width="100%" value="{FrmData>/FormInterface}"/>
+								<!--WorkFlow Section-->
+								<Label text="Workflow Name(s)"/>
+								<Input id="wfName" width="100%" value="{enhData>/wfName}"/>
+								<Label text="Template Number"/>
+								<Input id="templateNo" width="100%" value="{enhData>/templateNo}"/>
+								<Label text="Workflow Description"/>
+								<Input id="wfDesc" width="100%" value="{enhData>/wfDesc}"/>
+								<Label text="Business Object"/>
+								<Input id="busiObj" width="100%" value="{enhData>/busiObj}"/>
+								<Label text="Business Object Subtype"/>
+								<!--<Select id="busiObjSubTyp" selectedKey="{enhData>/busiObjSubTyp}" width="100%" change="">-->
+								<!--	<items>-->
+								<!--		<core:Item text="" key=""/>-->
+								<!--		<core:Item text="Type 1" key="Type 1"/>-->
+								<!--		<core:Item text="Type 2" key="Type 2"/>-->
+								<!--		<core:Item text="Type 3" key="Type 3"/>-->
+								<!--	</items>-->
+								<!--</Select>-->
+								<Input id="busiObjSubTyp" width="100%" value="{enhData>/busiObjSubTyp}"/>
+								<Label text="WorkFlow Class"/>
+								<Input id="WFClass" width="100%" value="{enhData>/WorkFlwClass}"/>
+								<Label text="Fiori app"/>
+								<Input id="fioriApp" width="100%" value="{enhData>/fioriApp}"/>
+								<Label text="Authorization Object Used"/>
+								<Input id="authObjUsed" width="100%" value="{enhData>/authObjUsed}"/>
+								<Label text="Workflow Start Condition"/>
+								<Input id="wfStartCond" width="100%" value="{enhData>/wfStartCond}"/>
+								<Label text="Workflow Trigger Frequency"/>
+								<Input id="wfTrigFreq" width="100%" value="{enhData>/wfTrigFreq}"/>
+								<Label text="Triggering Event"/>
+								<Input id="trigEvt" width="100%" value="{enhData>/trigEvt}"/>
+								<Label text="Terminating Event"/>
+								<Input id="TermitEvt" width="100%" value="{enhData>/termitEvt}"/>
+								<Label text="Development Class"/>
+								<Input id="devClass" width="100%" value="{enhData>/devClass}"/>
+							</f:SimpleForm>
+						</content>
+					</Panel>
+					<Panel expandable="true" id="CustomAttri" expanded="false" headerText="Custom Object Attributes" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false"
+								emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+								editable="true">
+								<!--WorkFlow Section-->
+								<Label text="Name"/>
+								<Input id="coaName" width="100%" value="{enhData>/coaName}"/>
+								<Label text="Description"/>
+								<Input id="coaDesc" width="100%" value="{enhData>/coaDesc}"/>
+								<Label text="Logical Database"/>
+								<Input id="coaLogicDB" width="100%" value="{enhData>/coaLogicDB}"/>
+								<Label text="Package"/>
+								<Input id="coaPkg" width="100%" value="{enhData>/coaPkg}"/>
+							</f:SimpleForm>
+							<VBox id="CustomObjectAttributes_wfl" class="margin-top">
+								<HBox>
+									<Label text="Custom Object Attributes"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="CustObjAttr_wfl" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{enhData>/CustObjAttr_wfl}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplCustObjAttr_wfl" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachCustObjAttrDep_wfl" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachCustObjAttrDep_wfl" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON2_wfl>/attachIntTechAssDep2_wfl}" visible="{intDataTechAssDepJSON2_wfl>/attachIntTechAssDepVisible2_wfl}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON2_wfl>fileName}" href="{intDataTechAssDepJSON2_wfl>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep2_wfl" activeIcon="{intDataTechAssDepJSON2_wfl>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="HANAModellingAttributes_wfl" class="margin-top">
+								<HBox>
+									<Label text="HANA Modelling Attributes"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="HanaModelAttr_wfl1" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{enhData>/HanaModelAttr_wfl}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplHanaModelAttr_wfl" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachHanaModelAttrDep_wfl" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachHanaModelAttrDep_wfl" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON3_wfl>/attachIntTechAssDep3_wfl}" visible="{intDataTechAssDepJSON3_wfl>/attachIntTechAssDepVisible3_wfl}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON3_wfl>fileName}" href="{intDataTechAssDepJSON3_wfl>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep3_wfl" activeIcon="{intDataTechAssDepJSON3_wfl>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="AbapOnHanaAttributes_wfl" class="margin-top">
+								<HBox>
+									<Label text="ABAP on HANA Custom Object Attributes"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="AbapHanaAttr_wfl" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{enhData>/AbapHanaAttr_wfl}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplAbapHanaAttr_wfl" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachAbapHanaAttrDep_wfl" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachAbapHanaAttrDep_wfl" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON4_wfl>/attachIntTechAssDep4_wfl}" visible="{intDataTechAssDepJSON4_wfl>/attachIntTechAssDepVisible4_wfl}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON4_wfl>fileName}" href="{intDataTechAssDepJSON4_wfl>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep4_wfl" activeIcon="{intDataTechAssDepJSON4_wfl>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="CustomObjectsBoxTS">
+								<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+									<content>
+										<!--<Label text="Review/Comments"/>-->
+										<Input id="CustomObjectsBoxTS_I" width="100%" value="{enhData>/CustomObject_Comments}"/>
+										<RatingIndicator maxValue="5" id="CustomObjectsBoxTS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip"
+											enabled="true" value="{enhData>CustomObject_Review}"/>
+									</content>
+								</Panel>
+							</VBox>
+						</content>
+					</Panel>
+					<Panel expandable="true" id="technical_details" expanded="false" headerText="Technical Details" width="auto" visible="true">
+						<content>
+							<VBox id="TechLogicalFlow_wfl" class="margin-top">
+								<HBox>
+									<Label text="Technical Logical Flow"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="TechLogflowtxt_wfl" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{enhData>/TechLogflow_wfl}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplTechLogflow_wfl" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachTechLogflowDep_wfl" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachTechLogflowDep_wfl" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON5_wfl>/attachIntTechAssDep5_wfl}" visible="{intDataTechAssDepJSON5_wfl>/attachIntTechAssDepVisible5_wfl}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON5_wfl>fileName}" href="{intDataTechAssDepJSON5_wfl>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep5_wfl" activeIcon="{intDataTechAssDepJSON5_wfl>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="psp_wfl" class="margin-top">
+								<HBox>
+									<Label text="Program Structure and Processing"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="psptext_wfl" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{enhData>/psp_wfl}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplpsp_wfl" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}" sendXHR="true"
+										useMultipart="false"/>
+									<Button id="uploadAttachpspDep_wfl" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachpspDep_wfl" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON6_wfl>/attachIntTechAssDep6_wfl}" visible="{intDataTechAssDepJSON6_wfl>/attachIntTechAssDepVisible6_wfl}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON6_wfl>fileName}" href="{intDataTechAssDepJSON6_wfl>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep6_wfl" activeIcon="{intDataTechAssDepJSON6_wfl>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="TechnicalDetailsBoxTS">
+								<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+									<content>
+										<!--<Label text="Review/Comments"/>-->
+										<Input id="TechnicalDetailsBoxTS_I" width="100%" value="{enhData>/TechnicalDetails_Comments}"/>
+										<RatingIndicator maxValue="5" id="TechnicalDetailsBoxTS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip"
+											enabled="true" value="{enhData>TechnicalDetails_Review}"/>
+									</content>
+								</Panel>
+							</VBox>
+						</content>
+					</Panel>
+					<Panel expandable="true" id="BusinessObjMEPanel" expanded="false" headerText="Business Object Modification and Enhancement" width="auto"
+						visible="false">
+						<content>
+							<Table noDataText="Drop column list items here and columns in the area above" id="tableBusObj" width="100%" class="myClass"
+								items="{enhData>/BusinessObjModEnh}">
+								<items>
+									<ColumnListItem>
+										<cells>
+											<HBox>
+												<Button icon="sap-icon://sys-add" type="Transparent" press="addNewRowBOR"/>
+												<!--<Button icon="sap-icon://edit" type="Transparent"/>-->
+												<Button icon="sap-icon://delete" type="Transparent" press="deleteRowBOR"/>
+											</HBox>
+											<Select selectedKey="{enhData>BorElementType}" width="70%">
+												<items>
+													<core:Item text="" key=""/>
+													<core:Item text="Method" key="Method"/>
+													<core:Item text="Event" key="Event"/>
+													<core:Item text="Attribute" key="Attribute"/>
+												</items>
+											</Select>
+											<Input value="{enhData>BorElementName}"/>
+											<Input value="{enhData>BorDescription}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column width="15%">
+										<header>
+											<Label text="Actions"/>
+										</header>
+									</Column>
+									<Column width="30%">
+										<header>
+											<Label text="BOR Element Type"/>
+										</header>
+									</Column>
+									<Column width="30%">
+										<header>
+											<Label text="Element Name"/>
+										</header>
+									</Column>
+									<Column width="30%">
+										<header>
+											<Label text="Description"/>
+										</header>
+									</Column>
+								</columns>
+							</Table>
+							<VBox id="BusinessObjectBoxTS">
+								<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+									<content>
+										<!--<Label text="Review/Comments"/>-->
+										<Input id="BusinessObjectBoxTS_I" width="100%" value="{enhData>/BusinessObject_Comments}"/>
+										<RatingIndicator maxValue="5" id="BusinessObjectBoxTS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip"
+											enabled="true" value="{enhData>BusinessObject_Review}"/>
+									</content>
+								</Panel>
+							</VBox>
+						</content>
+					</Panel>
+					<Panel expandable="true" id="WFStepsPanel" expanded="false" headerText="Workflow step details" width="auto" visible="false">
+						<content>
+							<Table noDataText="Drop column list items here and columns in the area above" id="tableWFSteps" width="100%" class="myClass"
+								items="{enhData>/StepsDetails}">
+								<items>
+									<ColumnListItem>
+										<cells>
+											<HBox>
+												<Button icon="sap-icon://sys-add" type="Transparent" press="addNewRowStepDet"/>
+												<!--<Button icon="sap-icon://edit" type="Transparent"/>-->
+												<Button icon="sap-icon://delete" type="Transparent" press="deleteRowStepDet"/>
+											</HBox>
+											<Input value="{enhData>TaskNumber}"/>
+											<Input value="{enhData>TaskType}"/>
+											<Input value="{enhData>BusinessObj}"/>
+											<Input value="{enhData>TaskDescLogic}"/>
+											<Input value="{enhData>Deadline}"/>
+											<Input value="{enhData>RoleResol}"/>
+											<Input value="{enhData>OtherWFSteps}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column width="15%">
+										<header>
+											<Label text="Actions"/>
+										</header>
+									</Column>
+									<Column width="20%">
+										<header>
+											<Label text="Task Number"/>
+										</header>
+									</Column>
+									<Column width="20%">
+										<header>
+											<Label text="Task Type"/>
+										</header>
+									</Column>
+									<Column width="20%">
+										<header>
+											<Label text="Business object"/>
+										</header>
+									</Column>
+									<Column width="20%">
+										<header>
+											<Label text="Task Desc/Logic"/>
+										</header>
+									</Column>
+									<Column width="20%">
+										<header>
+											<Label text="Deadline/Escalation"/>
+										</header>
+									</Column>
+									<Column width="20%">
+										<header>
+											<Label text="Role resolution"/>
+										</header>
+									</Column>
+									<Column width="20%">
+										<header>
+											<Label text="Others"/>
+										</header>
+									</Column>
+								</columns>
+							</Table>
+							<VBox id="WorkflowStepBoxTS">
+								<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+									<content>
+										<!--<Label text="Review/Comments"/>-->
+										<Input id="WorkflowStepBoxTS_I" width="100%" value="{enhData>/WorkflowStep_Comments}"/>
+										<RatingIndicator maxValue="5" id="WorkflowStepBoxTS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip"
+											enabled="true" value="{enhData>WorkflowStep_Review}"/>
+									</content>
+								</Panel>
+							</VBox>
+						</content>
+					</Panel>
+					<Panel expandable="true" id="WFConfigPanel" expanded="false" headerText="Workflow configuration" width="auto" visible="false">
+						<content>
+							<TextArea id="WFConfigTA" value="{enhData>/WFConfigComments}" cols="40" rows="15" width="100%"/>
+							<HBox>
+								<u:FileUploader id="fileUploadWfTS" width="90%" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}" sendXHR="true"
+									useMultipart="false"/>
+								<Button id="uploadAttachWFTS" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+							</HBox>
+							<Table mode="None" noDataText="No Attachment" id="tableAttachWFTS" width="100%" class="myClass" items="{attachDataWFTSJSON>/attachWFTS}"
+								visible="{attachDataWFTSJSON>/attachWFTSVisible}">
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Link text="{attachDataWFTSJSON>fileName}" href="{attachDataWFTSJSON>fileURL}" target="_blank"/>
+											<Button icon="sap-icon://delete" text="Delete" press="deleteFileWFTS" activeIcon="{attachDataWFTSJSON>fileURL}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column>
+										<header>
+											<Label text="File Name"/>
+										</header>
+									</Column>
+									<Column>
+										<header></header>
+									</Column>
+								</columns>
+							</Table>
+							<VBox id="WorkflowConfigurationBoxTS">
+								<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+									<content>
+										<!--<Label text="Review/Comments"/>-->
+										<Input id="WorkflowConfigurationBoxTS_I" width="100%" value="{enhData>/WorkflowConfiguration_Comments}"/>
+										<RatingIndicator maxValue="5" id="WorkflowConfigurationBoxTS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip"
+											enabled="true" value="{enhData>WorkflowConfiguration_Review}"/>
+									</content>
+								</Panel>
+							</VBox>
+						</content>
+					</Panel>
+					<Panel expandable="true" id="WFRestartCapPanel" expanded="false" headerText="Restart capability" width="auto" visible="false">
+						<content>
+							<TextArea id="WFRestCapTA" value="{enhData>/RestartCapComments}" cols="40" rows="15" width="100%"/>
+							<VBox id="RestartCapabilityBoxTS">
+								<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+									<content>
+										<!--<Label text="Review/Comments"/>-->
+										<Input id="RestartCapabilityBoxTS_I" width="100%" value="{enhData>/RestartCapability_Comments}"/>
+										<RatingIndicator maxValue="5" id="RestartCapabilityBoxTS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip"
+											enabled="true" value="{enhData>RestartCapability_Review}"/>
+									</content>
+								</Panel>
+							</VBox>
+						</content>
+					</Panel>
+					<Panel expandable="true" id="WFAsumpDepPanel" expanded="false" headerText="Assumption and dependencies" width="auto" visible="false">
+						<content>
+							<TextArea id="WFAsumpDepTA" value="{enhData>/AssumpDependencyComments}" cols="40" rows="15" width="100%"/>
+							<VBox id="WFAsumpDepBoxTS">
+								<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+									<content>
+										<!--<Label text="Review/Comments"/>-->
+										<Input id="WFAsumpDepBoxTS_I" width="100%" value="{enhData>/WFAsumpDep_Comments}"/>
+										<RatingIndicator maxValue="5" id="WFAsumpDepBoxTS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+											value="{enhData>WFAsumpDep_Review}"/>
+									</content>
+								</Panel>
+							</VBox>
+						</content>
+					</Panel>
+					<Panel expandable="true" id="WFErrorHandPanel" expanded="false" visible="false" headerText="Error Handling" width="auto">
+						<content>
+							<IconTabBar expanded="{device>/isNoPhone}">
+								<items>
+									<IconTabFilter text="Error Log">
+										<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+											<!--<Label text="Error Log"/>-->
+											<!--<core:Icon class="Help" src="sap-icon://sys-help" id="ErrorLogHelp" press="onPressHelp"/>-->
+											<!--	<TextArea value="{enhData>/ErrorLog}" rows="4"/>-->
+											<rte:RichTextEditor editorType="TinyMCE4" width="100%" height="300px" customToolbar="true" showGroupFont="true" tooltip="Enter Information"
+												value="{enhData>/ErrorLog}"/>
+										</f:SimpleForm>
+									</IconTabFilter>
+									<IconTabFilter text="Audit Log">
+										<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+											<!--<Label text="Audit Log"/>-->
+											<!--<core:Icon class="Help" src="sap-icon://sys-help" id="AuditLogHelp" press="onPressHelp"/>-->
+											<!--	<TextArea value="{enhData>/AuditLog}" rows="4"/>-->
+											<rte:RichTextEditor editorType="TinyMCE4" width="100%" height="300px" customToolbar="true" showGroupFont="true" tooltip="Enter Information"
+												value="{enhData>/AuditLog}"/>
+										</f:SimpleForm>
+									</IconTabFilter>
+									<IconTabFilter text="Error Report">
+										<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+											<!--<Label text="Error Report"/>-->
+											<!--<core:Icon class="Help" src="sap-icon://sys-help" id="ErrorReportHelp" press="onPressHelp"/>-->
+											<!--	<TextArea value="{enhData>/ErrorReport}" rows="4"/>-->
+											<rte:RichTextEditor editorType="TinyMCE4" width="100%" height="300px" customToolbar="true" showGroupFont="true" tooltip="Enter Information"
+												value="{enhData>/ErrorReport}"/>
+										</f:SimpleForm>
+									</IconTabFilter>
+									<IconTabFilter text="Return Requirement">
+										<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+											<!--<Label text="Return Requirement"/>-->
+											<!--<core:Icon class="Help" src="sap-icon://sys-help" id="ReturnRequirementsHelp" press="onPressHelp"/>-->
+											<!--	<TextArea value="{enhData>/ReturnRequirement}" rows="4"/>-->
+											<rte:RichTextEditor editorType="TinyMCE4" width="100%" height="300px" customToolbar="true" showGroupFont="true" tooltip="Enter Information"
+												value="{enhData>/ReturnRequirement}"/>
+										</f:SimpleForm>
+									</IconTabFilter>
+									<IconTabFilter text="Validations">
+										<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+											<!--<Label text="Validations"/>-->
+											<!--<core:Icon class="Help" src="sap-icon://sys-help" id="ValidationsHelp" press="onPressHelp"/>-->
+											<!--	<TextArea value="{enhData>/SecValidations}" rows="4"/>-->
+											<rte:RichTextEditor editorType="TinyMCE4" width="100%" height="300px" customToolbar="true" showGroupFont="true" tooltip="Enter Information"
+												value="{enhData>/SecValidations}"/>
+										</f:SimpleForm>
+									</IconTabFilter>
+									<IconTabFilter text="Reconciliation">
+										<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+											<!--<Label text="Reconciliation"/>-->
+											<!--<core:Icon class="Help" src="sap-icon://sys-help" id="ReconciliationHelp" press="onPressHelp"/>-->
+											<!--	<TextArea value="{enhData>/ErrReconciliation}" rows="4"/>-->
+											<rte:RichTextEditor editorType="TinyMCE4" width="100%" height="300px" customToolbar="true" showGroupFont="true" tooltip="Enter Information"
+												value="{enhData>/ErrReconciliation}"/>
+										</f:SimpleForm>
+									</IconTabFilter>
+								</items>
+							</IconTabBar>
+						</content>
+						<VBox id="WFErrorHandBoxTS">
+							<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+								<content>
+									<!--<Label text="Review/Comments"/>-->
+									<Input id="WFErrorHandBoxTS_I" width="100%" value="{enhData>/WFErrorHand_Comments}"/>
+									<RatingIndicator maxValue="5" id="WFErrorHandBoxTS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+										value="{enhData>WFErrorHand_Review}"/>
+								</content>
+							</Panel>
+						</VBox>
+					</Panel>
+					<Panel headerText="Processing Logic" expanded="false" expandable="true" id="processingLogic">
+						<content>
+							<layout:Grid defaultSpan="L12 M12 S12">
+								<layout:content>
+									<VBox>
+										<rte:RichTextEditor id="frmProcessingLogic" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+											tooltip="Enter Information" value="{FrmData>/ProcessingLogic}"/>
+										<!--							<TextArea id="frmProcessingLogic" rows="15" width="100%" value="{FrmData>/ProcessingLogic}"/> -->
+									</VBox>
+								</layout:content>
+							</layout:Grid>
+							<VBox id="CustomObjectAttributes_frm" class="margin-top">
+								<HBox>
+									<Label text="Custom Object Attributes"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="CustObjAttr_frm" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{FrmData>/CustObjAttr_frm}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplCustObjAttr_frm" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachCustObjAttrDep_frm" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachCustObjAttrDep_frm" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON2>/attachIntTechAssDep2_frm}" visible="{intDataTechAssDepJSON2_frm>/attachIntTechAssDepVisible2_frm}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON2_frm>fileName}" href="{intDataTechAssDepJSON2_frm>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep2_frm" activeIcon="{intDataTechAssDepJSON2_frm>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="HANAModellingAttributes_frm" class="margin-top">
+								<HBox>
+									<Label text="HANA Modelling Attributes"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="HanaModelAttr_frm" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{FrmData>/HanaModelAttr_frm}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplHanaModelAttr_frm" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachHanaModelAttrDep_frm" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachHanaModelAttrDep_frm" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON3_frm>/attachIntTechAssDep3_frm}" visible="{intDataTechAssDepJSON3_frm>/attachIntTechAssDepVisible3_frm}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON3_frm>fileName}" href="{intDataTechAssDepJSON3_frm>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep3_frm" activeIcon="{intDataTechAssDepJSON3_frm>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="AbapOnHanaAttributes_frm" class="margin-top">
+								<HBox>
+									<Label text="ABAP on HANA Custom Object Attributes"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="AbapHanaAttr_frm" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{FrmData>/AbapHanaAttr_frm}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplAbapHanaAttr_frm" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachAbapHanaAttrDep_frm" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachAbapHanaAttrDep_frm" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON4_frm>/attachIntTechAssDep4_frm}" visible="{intDataTechAssDepJSON4_frm>/attachIntTechAssDepVisible4_frm}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON4_frm>fileName}" href="{intDataTechAssDepJSON4_frm>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep4_frm" activeIcon="{intDataTechAssDepJSON4_frm>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="OdataAttributes_frm" class="margin-top">
+								<HBox>
+									<Label text="OData Service Related Custom Object Attributes"/>
+									<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+								</HBox>
+								<rte:RichTextEditor id="OdataAttr_frm" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+									tooltip="Enter Information" value="{FrmData>/OdataAttr_frm}"/>
+								<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+								<HBox>
+									<u:FileUploader id="fileUplOdataAttr_frm" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+										sendXHR="true" useMultipart="false"/>
+									<Button id="uploadAttachOdataAttrDep_frm" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachOdataAttrDep_frm" width="100%" class="myClass"
+									items="{intDataTechAssDepJSON5_frm>/attachIntTechAssDep5_frm}" visible="{intDataTechAssDepJSON5_frm>/attachIntTechAssDepVisible5_frm}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON5_frm>fileName}" href="{intDataTechAssDepJSON5_frm>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep5_frm" activeIcon="{intDataTechAssDepJSON5_frm>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
+							<VBox id="ProcessingLogicBoxTS">
+								<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+									<content>
+										<!--<Label text="Review/Comments"/>-->
+										<Input id="ProcessingLogicBoxTS_I" width="100%" value="{FrmData>/ProcessingLogic_Comments}"/>
+										<RatingIndicator maxValue="5" id="ProcessingLogicBoxTS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip"
+											enabled="true" value="{FrmData>ProcessingLogic_Review}"/>
+									</content>
+								</Panel>
+							</VBox>
+						</content>
+					</Panel>
+					<Panel headerText="Flow Chart" expanded="false" expandable="true" id="formFlowChartPanel">
+						<content>
+							<layout:Grid defaultSpan="L6 M6 S6">
+								<layout:content>
+									<VBox>
+										<HBox>
+											<u:FileUploader id="fileUploadFormFlowChart" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+												sendXHR="true" useMultipart="false"/>
+											<Button id="uploadFormFlowChart" text="Upload" icon="sap-icon://upload" press="callAttachment"/>
+										</HBox>
+										<Table mode="None" noDataText="No Attachment" id="tableAttachFormFlowChart" width="100%" class="myClass"
+											items="{intDataTechFlowChartJSON>/attachIntTechFlowChart}" visible="{intDataTechFlowChartJSON>/attachIntTechFlowChartVisible}">
+											<items>
+												<ColumnListItem>
+													<cells>
+														<Link text="{intDataTechFlowChartJSON>fileName}" href="{intDataTechFlowChartJSON>fileURL}"/>
+														<Button icon="sap-icon://delete" text="Delete" press="deleteFileFlowChart" activeIcon="{intDataTechFlowChartJSON>fileURL}"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+											<columns>
+												<Column>
+													<header>
+														<Label text="File Name"/>
+													</header>
+												</Column>
+												<Column>
+													<header></header>
+												</Column>
+											</columns>
+										</Table>
+									</VBox>
+								</layout:content>
+							</layout:Grid>
+							<VBox id="FlowLogicBoxTS">
+								<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+									<content>
+										<!--<Label text="Review/Comments"/>-->
+										<Input id="FlowLogicBoxTS_I" width="100%" value="{FrmData>/FlowLogic_Comments}"/>
+										<RatingIndicator maxValue="5" id="FlowLogicBoxTS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+											value="{FrmData>FlowLogic_Review}"/>
+									</content>
+								</Panel>
+							</VBox>
+						</content>
+					</Panel>
+					<Panel headerText="Technical Assumptions and Dependencies" expanded="false" expandable="true" id="techAssumpDependPanel">
+						<content>
+							<layout:Grid defaultSpan="L12 M12 S12">
+								<layout:content>
+									<VBox>
+										<rte:RichTextEditor id="frmTechAssumpDepend" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+											tooltip="Enter Information" value="{FrmData>/TechnicalAssumptions}"/>
+										<!--									<TextArea id="frmTechAssumpDepend" rows="15" width="100%" value="{FrmData>/TechnicalAssumptions}"/> -->
+									</VBox>
+								</layout:content>
+							</layout:Grid>
+							<VBox id="TechAssBoxTS">
+								<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+									<content>
+										<!--<Label text="Review/Comments"/>-->
+										<Input id="TechAssBoxTS_I" width="100%" value="{FrmData>/TechAss_Comments}"/>
+										<RatingIndicator maxValue="5" id="TechAssBoxTS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+											value="{FrmData>TechAss_Review}"/>
+									</content>
+								</Panel>
+							</VBox>
+						</content>
+					</Panel>
+					<Panel expandable="true" id="Enherrinf" expanded="true" headerText="Error Handling and Security" width="auto">
+						<rte:RichTextEditor id="Errinfo" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true" tooltip="Enter Information"
+							value="{FrmData>/ErrInfo}"/>
+						<VBox>
+							<HBox>
+								<u:FileUploader id="fileUplErrHandle" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+									sendXHR="true" useMultipart="false"/>
+								<Button id="uploadAttachErrHandle" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+							</HBox>
+							<Table mode="None" noDataText="No Attachment" id="tableAttachErrHandle" width="100%" class="myClass"
+								items="{intDataTechAssDepJSON7>/attachIntTechAssDep7}" visible="{intDataTechAssDepJSON7>/attachIntTechAssDepVisible7}">
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Link text="{intDataTechAssDepJSON7>fileName}" href="{intDataTechAssDepJSON7>fileURL}" target="_blank"/>
+											<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep7" activeIcon="{intDataErrHandleDepJSON1>fileURL1}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column>
+										<header>
+											<Label text="File Name"/>
+										</header>
+									</Column>
+									<Column>
+										<header></header>
+									</Column>
+								</columns>
+							</Table>
+						</VBox>
+						<VBox id="FormErrorHandlingBoxTS">
+							<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+								<content>
+									<!--<Label text="Review/Comments"/>-->
+									<Input id="FormErrorHandlingBoxTS_I" width="100%" value="{FrmData>/FormErrorHandling_Comments}"/>
+									<RatingIndicator maxValue="5" id="FormErrorHandlingBoxTS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip"
+										enabled="true" value="{FrmData>FormErrorHandling_Review}"/>
+								</content>
+							</Panel>
+						</VBox>
+					</Panel>
+					<Panel expandable="true" id="Enhattach" expanded="true" headerText="Attachments" width="auto">
+						<VBox id="Attachments_wfl" class="margin-top">
+							<HBox>
+								<Label text="Appendix / Object Templates"/>
+								<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+							</HBox>
+							<rte:RichTextEditor id="attachment_wfl" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true"
+								tooltip="Enter Information" value="{FrmData>/attach_wfl}"/>
+							<!--						<TextArea id="TechAssumptions" cols="40" rows="15" width="100%" liveChange="onLiveChangeTechAssumptions"
+									value="{enhData>/TechnicalAssumptions}"/> -->
+							<HBox>
+								<u:FileUploader id="fileUplappendix_wfl" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+									sendXHR="true" useMultipart="false"/>
+								<Button id="uploadAttachAppendixDep_wfl" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+							</HBox>
+							<Table mode="None" noDataText="No Attachment" id="tableAttachAppendixDep_wfl" width="100%" class="myClass"
+								items="{intDataTechAssDepJSON7_wfl>/attachIntTechAssDep7_wfl}" visible="{intDataTechAssDepJSON7_wfl>/attachIntTechAssDepVisible7_wfl}">
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Link text="{intDataTechAssDepJSON7_wfl>fileName}" href="{intDataTechAssDepJSON7_wfl>fileURL}" target="_blank"/>
+											<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep5_wfl" activeIcon="{intDataTechAssDepJSON5_wfl>fileURL}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column>
+										<header>
+											<Label text="File Name"/>
+										</header>
+									</Column>
+									<Column>
+										<header></header>
+									</Column>
+								</columns>
+							</Table>
+						</VBox>
+						<VBox>
+							<HBox>
+								<u:FileUploader id="fileUplTechAssumpDep1" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+									sendXHR="true" useMultipart="false"/>
+								<Button id="uploadAttachTechAssumpDep1" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+							</HBox>
+							<Table mode="None" noDataText="No Attachment" id="tableAttachTechAssumpDep1" width="100%" class="myClass"
+								items="{intDataTechAssDepJSON1>/attachIntTechAssDep1}" visible="{intDataTechAssDepJSON1>/attachIntTechAssDepVisible1}">
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Link text="{intDataTechAssDepJSON1>fileName}" href="{intDataTechAssDepJSON1>fileURL}" target="_blank"/>
+											<Button icon="sap-icon://delete" text="Delete" press="deleteFileTechAssumpDep1" activeIcon="{intDataTechAssDepJSON1>fileURL1}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column>
+										<header>
+											<Label text="File Name"/>
+										</header>
+									</Column>
+									<Column>
+										<header></header>
+									</Column>
+								</columns>
+							</Table>
+						</VBox>
+					</Panel>
+				</IconTabFilter>
+				<!--<IconTabFilter text="Technical Details">-->
+				<!--	<Label text="Selection Screen Details"/>-->
+				<!--	<Table noDataText="Drop column list items here and columns in the area above" id="table1" width="100%" class="myClass">-->
+				<!--		<headerToolbar>-->
+				<!--			<Toolbar>-->
+				<!--				<ToolbarSpacer></ToolbarSpacer>-->
+				<!--				<Button text="Add Row" type="Emphasized" press="onAddRow" icon="sap-icon://add" tooltip="Add New Row"/>-->
+				<!--				<Button text="Delete Row" type="Reject" press="onDeleteRow" icon="sap-icon://sys-minus" tooltip="Delete One Row"/>-->
+				<!--			</Toolbar>-->
+				<!--		</headerToolbar>-->
+				<!--		<items>-->
+				<!--			<ColumnListItem id="item0">-->
+				<!--				<cells>-->
+				<!--					<Select>-->
+				<!--						<items>-->
+				<!--							<core:Item text="Radio Button" key="rb"/>-->
+				<!--							<core:Item text="CheckBox" key="chkb"/>-->
+				<!--							<core:Item text="Parameter" key="pm"/>-->
+				<!--							<core:Item text="Select Options" key="so"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--<Input value="CHKBX" id="txt1"/>-->
+				<!--					<Input value="Simulation" id="txt2"/>-->
+				<!--					<Input value="" id="txt3"/>-->
+				<!--					<Input value="TAB1" id="txt4"/>-->
+				<!--					<Input value="FIELD1" id="txt5"/>-->
+				<!--<Input value="Y" id="txt6"/>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--				</cells>-->
+				<!--			</ColumnListItem>-->
+				<!--			<ColumnListItem id="item1">-->
+				<!--				<cells>-->
+				<!--<Input value="PAR" id="txt7"/>-->
+				<!--					<Select>-->
+				<!--						<items>-->
+				<!--							<core:Item text="Radio Button" key="rb"/>-->
+				<!--							<core:Item text="CheckBox" key="chkb"/>-->
+				<!--							<core:Item text="Parameter" key="pm"/>-->
+				<!--							<core:Item text="Select Options" key="so"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--					<Input value="Input File Path" id="txt8"/>-->
+				<!--					<Input value="" id="txt9"/>-->
+				<!--					<Input value="TAB1" id="txt10"/>-->
+				<!--					<Input value="FIELD2" id="txt11"/>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--				</cells>-->
+				<!--			</ColumnListItem>-->
+				<!--			<ColumnListItem id="item2">-->
+				<!--				<cells>-->
+				<!--<Input value="SELOPT" id="txt13"/>-->
+				<!--					<Select>-->
+				<!--						<items>-->
+				<!--							<core:Item text="Radio Button" key="rb"/>-->
+				<!--							<core:Item text="CheckBox" key="chkb"/>-->
+				<!--							<core:Item text="Parameter" key="pm"/>-->
+				<!--							<core:Item text="Select Options" key="so"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--					<Input value="Plant" id="txt14"/>-->
+				<!--					<Input value="" id="txt15"/>-->
+				<!--					<Input value="T001W" id="txt16"/>-->
+				<!--					<Input value="WERKS" id="txt17"/>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--				</cells>-->
+				<!--			</ColumnListItem>-->
+				<!--			<ColumnListItem id="item3">-->
+				<!--				<cells>-->
+				<!--<Input value="SELOPT" id="txt19"/>-->
+				<!--					<Select>-->
+				<!--						<items>-->
+				<!--							<core:Item text="Radio Button" key="rb"/>-->
+				<!--							<core:Item text="CheckBox" key="chkb"/>-->
+				<!--							<core:Item text="Parameter" key="pm"/>-->
+				<!--							<core:Item text="Select Options" key="so"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--					<Input value="Company Code" id="txt20"/>-->
+				<!--					<Input value="" id="txt21"/>-->
+				<!--					<Input value="T001" id="txt22"/>-->
+				<!--					<Input value="BUKRS" id="txt23"/>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--				</cells>-->
+				<!--			</ColumnListItem>-->
+				<!--		</items>-->
+				<!--		<columns>-->
+				<!--			<Column id="col1">-->
+				<!--				<header>-->
+				<!--					<Label text="Element Type" id="label1"/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--			<Column id="col2">-->
+				<!--				<header>-->
+				<!--					<Label text="Field Description" id="label2"/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--			<Column id="col3">-->
+				<!--				<header>-->
+				<!--					<Label text="Tech Field Name" id="label3"/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--			<Column id="col4">-->
+				<!--				<header>-->
+				<!--					<Label text="Table" id="label4"/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--			<Column id="col5">-->
+				<!--				<header>-->
+				<!--					<Label text="Field" id="label5"/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--			<Column id="col6">-->
+				<!--				<header>-->
+				<!--					<Label text="Mandatory" id="label6"/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--		</columns>-->
+				<!--	</Table>-->
+				<!--	<Label text="Output Requirement"/>-->
+				<!--	<Table noDataText="Drop column list items here and columns in the area above" id="table2" width="100%" class="myClass">-->
+				<!--		<headerToolbar>-->
+				<!--			<Toolbar>-->
+				<!--				<ToolbarSpacer></ToolbarSpacer>-->
+				<!--				<Button text="Add Row" type="Emphasized" press="onAddRow" icon="sap-icon://add" tooltip="Add New Row"/>-->
+				<!--				<Button text="Delete Row" type="Reject" press="onDeleteRow" icon="sap-icon://sys-minus" tooltip="Delete One Row"/>-->
+				<!--			</Toolbar>-->
+				<!--		</headerToolbar>-->
+				<!--		<items>-->
+				<!--			<ColumnListItem id="itm0">-->
+				<!--				<cells>-->
+				<!--					<Input value="MARA" id="txt25"/>-->
+				<!--					<Input value="MATNR" id="txt26"/>-->
+				<!--					<Input value="Material Number" id="txt27"/>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--				</cells>-->
+				<!--			</ColumnListItem>-->
+				<!--			<ColumnListItem id="itm1">-->
+				<!--				<cells>-->
+				<!--					<Input value="MARA" id="txt30"/>-->
+				<!--					<Input value="MTART" id="txt31"/>-->
+				<!--					<Input value="Material Type" id="txt32"/>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--				</cells>-->
+				<!--			</ColumnListItem>-->
+				<!--			<ColumnListItem id="itm2">-->
+				<!--				<cells>-->
+				<!--					<Input value="MARA"/>-->
+				<!--					<Input value="MBRSH"/>-->
+				<!--					<Input value="Industry Sector"/>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--				</cells>-->
+				<!--			</ColumnListItem>-->
+				<!--			<ColumnListItem id="itm3">-->
+				<!--				<cells>-->
+				<!--					<Input value="MARC"/>-->
+				<!--					<Input value="MATNR"/>-->
+				<!--					<Input value=""/>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--				</cells>-->
+				<!--			</ColumnListItem>-->
+				<!--			<ColumnListItem id="itm4">-->
+				<!--				<cells>-->
+				<!--					<Input value="MARC"/>-->
+				<!--					<Input value="WERKS"/>-->
+				<!--					<Input value="Plant"/>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--				</cells>-->
+				<!--			</ColumnListItem>-->
+				<!--			<ColumnListItem id="itm5">-->
+				<!--				<cells>-->
+				<!--					<Input value="MARC"/>-->
+				<!--					<Input value="MAABC"/>-->
+				<!--					<Input value="ABC Indicator"/>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--					<Select>-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Yes" key="Yes"/>-->
+				<!--							<core:Item text="No" key="No"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--				</cells>-->
+				<!--			</ColumnListItem>-->
+				<!--		</items>-->
+				<!--		<columns>-->
+				<!--			<Column id="column1">-->
+				<!--				<header>-->
+				<!--					<Label text="Table" id="label11"/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--			<Column id="column2">-->
+				<!--				<header>-->
+				<!--					<Label text="Field" id="label12"/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--			<Column id="column3">-->
+				<!--				<header>-->
+				<!--					<Label text="Column Header" id="label13"/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--			<Column id="column4">-->
+				<!--				<header>-->
+				<!--					<Label text="Key" id="label14"/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--			<Column id="column5">-->
+				<!--				<header>-->
+				<!--					<Label text="Output" id="label15"/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--		</columns>-->
+				<!--	</Table>-->
+				<!--	<f:SimpleForm layout="ResponsiveGridLayout" editable="true">-->
+				<!--		<Label text="Dependancy/Assumptions"/>-->
+				<!--		<TextArea id="dependancy" cols="40" rows="5" width="70%"/>-->
+				<!--	</f:SimpleForm>-->
+				<!--</IconTabFilter>-->
+				<!--<IconTabFilter text="Error Handling and Security">-->
+				<IconTabFilter text="Security" count="*">
+					<HBox id="securityReasons">
+						<CheckBox id="CB2-01" text="HTTPS/SFTP" key="HTTPSFSFTP"/>
+						<CheckBox id="CB2-02" text="User Authorization" key="UserFAuthorization"/>
+						<CheckBox id="CB2-03" text="Encryption" key="Encryption"/>
+					</HBox>
+					<VBox>
+						<HBox>
+							<Label text="Security Section"/>
+							<!--<Text text="(max. 500 Chars)" class="fieldInfo"/>-->
+						</HBox>
+						<rte:RichTextEditor id="security" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true" tooltip="Enter Information"
+							value="{enhData>/securityComments}"/>
+						<!--				<TextArea id="security" cols="40" rows="15" width="100%" value="{enhData>/securityComments}"/> -->
+						<!--<TextArea id="security" cols="40" rows="5" width="90%" liveChange="onLiveChangeSecurity" value="{enhData>/securityComments}"/>-->
+						<!--<Text id="fsSecurityCharCount" class="fieldInfo1"/>-->
+						<!--<Text id="fsSecurityErr" text="{i18n>errorMaxLength}" class="errorInfo" visible="false"/>-->
+					</VBox>
+					<!--<f:SimpleForm layout="ResponsiveGridLayout" editable="true">-->
+					<!--	<Label text="Security Section"/>-->
+					<!--	<TextArea id="security" cols="40" rows="5" width="70%"/>-->
+					<!--<Label text="Error Handling"/>-->
+					<!--<TextArea id="error" cols="40" rows="5" width="70%"/>-->
+					<!--</f:SimpleForm>-->
+				</IconTabFilter>
+				<IconTabFilter text="User Acceptance" count="*">
+					<Table noDataText="Drop column list items here and columns in the area above" id="table11" class="myClass1" width="100%"
+						items="{enhData>/userAcceptance}">
+						<items>
+							<ColumnListItem id="item11">
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent" press="addNewRowUA"/>
+										<Button icon="sap-icon://delete" type="Transparent" press="deleteRowUA"/>
+										<Input visible="false" value="{enhData>Index}" id="UASIndex" width="0px"/>
+									</HBox>
+									<TextArea growing="true" value="{enhData>step}" id="text11"/>
+									<Select selectedKey="{enhData>testType}">
+										<items>
+											<core:Item text="" key=""/>
+											<core:Item text="Positive" key="Positive"/>
+											<core:Item text="Negative" key="Negative"/>
+										</items>
+									</Select>
+									<TextArea growing="true" value="{enhData>scenario}" id="text13"/>
+									<TextArea growing="true" value="{enhData>testData}"/>
+									<TextArea growing="true" value="{enhData>stepsPer}"/>
+									<TextArea growing="true" value="{enhData>actualResults}"/>
+									<TextArea growing="true" value="{enhData>expectedResults}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+						<columns>
+							<Column width="9%">
+								<header>
+									<Label text="Actions"/>
+								</header>
+							</Column>
+							<Column width="9%">
+								<header>
+									<Label text="Step" id="step"/>
+								</header>
+							</Column>
+							<Column width="12%">
+								<header>
+									<Label text="Test Type" id="testtype"/>
+								</header>
+							</Column>
+							<Column width="20%">
+								<header>
+									<Label text="Scenario" id="scenario"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Test Data" id="testdata"/>
+								</header>
+							</Column>
+							<Column width="25%">
+								<header>
+									<Label text="Steps Performed" id="stepsperformed"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Actual Results" id="actualresults"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Expected Results"/>
+								</header>
+							</Column>
+						</columns>
+					</Table>
+				</IconTabFilter>
+				<IconTabFilter id="commLog" text="CommLog" count="*">
+					<Table noDataText="Drop column list items here and columns in the area above" id="commLogTable" width="100%" class="myClass1">
+						<!--<headerToolbar>-->
+						<!--	<Toolbar>-->
+						<!--		<ToolbarSpacer></ToolbarSpacer>-->
+						<!--		<Button text="Add Row" type="Emphasized" press="onAddRow" icon="sap-icon://add" tooltip="Add New Row"/>-->
+						<!--		<Button text="Delete Row" type="Reject" press="onDeleteRow" icon="sap-icon://sys-minus" tooltip="Delet One Row"/>-->
+						<!--	</Toolbar>-->
+						<!--</headerToolbar>-->
+						<columns>
+							<Column>
+								<header>
+									<Label text="Actions"/>
+								</header>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+								<Text text="Issue Description"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+								<Text text="Priority"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+								<Text text="Date Logged"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+								<Text text="Status"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+								<Text text="Date Resolved"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+								<Text text="Resolution"/>
+							</Column>
+							<Column>
+								<header>
+									<Label/>
+								</header>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://edit" type="Transparent"/>
+										<Button icon="sap-icon://delete" type="Transparent"/>
+										<Button text="Details" type="Transparent"/>
+									</HBox>
+									<TextArea growing="true" value="{IssueDesc}"/>
+									<!--<Select forceSelection="false"-->
+									<!--	items="{ path: '/items' }">-->
+									<!--	<core:Item key="{key}" text="{text}"/>-->
+									<!--</Select>-->
+									<Select>
+										<!-- here's the relative dropdown binding -->
+										<items>
+											<core:Item text="Low" key="Low"/>
+											<core:Item text="Medium" key="Medium"/>
+											<core:Item text="High" key="High"/>
+										</items>
+									</Select>
+									<!--<Input value="{Priority}"/>-->
+									<DatePicker displayFormat="dd/MM/yyyy"></DatePicker>
+									<!--<Input value="{DateLogged}"/>-->
+									<Select>
+										<!-- here's the relative dropdown binding -->
+										<items>
+											<core:Item text="Open" key="Open"/>
+											<core:Item text="Closed" key="Closed"/>
+										</items>
+									</Select>
+									<!--<Input value="{IssueStatus}"/>-->
+									<DatePicker displayFormat="dd/MM/yyyy"></DatePicker>
+									<!--<Input value="{DateResolved}"/>-->
+									<TextArea growing="true" value="{Resolution}"/>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent"/>
+										<Button icon="sap-icon://sys-minus" type="Transparent"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</IconTabFilter>
+				<IconTabFilter id="mappingTab" text="Mapping"></IconTabFilter>
+			</items>
+		</IconTabBar>
+		<semantic:customFooterContent>
+			<Button icon="sap-icon://message-popup" id="idPopOverContainerTS" type="Emphasized" press="handleMessagePopoverPress" visible="false"/>
+			<Button icon="sap-icon://locked" text="On Hold" type="Emphasized" press="onHold" tooltip="Save changes" id="oBTHold" visible="true"/>
+			<Button icon="sap-icon://save" text="Save" type="Emphasized" press="onSave" tooltip="Save changes" id="oBTSave"/>
+			<Button icon="sap-icon://complete" text="Submit" type="Emphasized" press="onFooterButtonPress" tooltip="Submit Document" id="oBTSubmit"/>
+			<Button icon="sap-icon://approvals" text="Approve" type="Emphasized" press="onApprove" tooltip="Approve Request" id="oBTApprove"
+				visible="false"/>
+			<Button icon="sap-icon://accept" text="Accept" type="Emphasized" press="onAccept" tooltip="Accept" id="oBTAcceptApproval" visible="false"/>
+			<Button icon="sap-icon://print" text="Print" type="Emphasized" press="onPrint" tooltip="Print Document" id="idPrintScreen" visible="false"/>
+		</semantic:customFooterContent>
+	</semantic:FullscreenPage>
+</mvc:View>

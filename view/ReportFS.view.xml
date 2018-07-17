@@ -1,0 +1,489 @@
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:ui="sap.suite.ui.commons"
+	controllerName="com.automation.toolAutomationNew.controller.ReportFS" xmlns:html="http://www.w3.org/1999/xhtml">
+	<semantic:FullscreenPage id="page" semanticRuleSet="Optimized" title="{i18n>FSTitle}" busy="{objectView>/busy}"
+		busyIndicatorDelay="{objectView>/delay}" navButtonPress="onNavBack" showNavButton="true" class="sapUiSizeCompact">
+		<semantic:content>
+			<OverflowToolbar width="100%" id="__toolbar5">
+				<content>
+					<Select id="doctype" change="onChange">
+						<items>
+							<core:ListItem text="Functional Specification" key="Functional" id="funcspec"/>
+							<core:ListItem text="Technical Specification" key="Technical" id="techspec"/>
+						</items>
+					</Select>
+					<ToolbarSpacer id="__spacer5"/>
+					<Select id="versiontypeNew" change="onChangeVersionNew">
+						<items>
+							<core:ListItem text="Version 1.0" key="Version 1.0"/>
+						</items>
+					</Select>
+					<Select id="versiontypeExisting" change="onChangeVersionExisting" selectedKey="Version 1.0" visible="false">
+						<items>
+							<core:ListItem text="Version 1.0" key="Version 1.0"/>
+							<core:ListItem text="Version 2.0" key="Version 2.0"/>
+							<core:ListItem text="Version 3.0" key="Version 3.0"/>
+						</items>
+					</Select>
+				</content>
+			</OverflowToolbar>
+			<HBox>
+				<HBox justifyContent="Start" width="70%">
+					<ui:ProcessFlow id="processflow2" scrollable="false" nodes="{pf2>/nodes}" lanes="{pf2>/lanes}" headerPress="onHeaderPress"
+						class="processFlow">
+						<ui:nodes>
+							<ui:ProcessFlowNode laneId="{pf2>lane}" nodeId="{pf2>id}" title="{pf2>title}" children="{pf2>children}" state="{pf2>state}"
+								stateText="{pf2>stateText}" texts="{pf2>texts}" highlighted="{pf2>highlighted}" focused="{pf2>focused}"/>
+						</ui:nodes>
+						<ui:lanes>
+							<ui:ProcessFlowLaneHeader laneId="{pf2>id}" iconSrc="{pf2>icon}" text="{pf2>label}" position="{pf2>position}" state="{pf2>state}"/>
+						</ui:lanes>
+					</ui:ProcessFlow>
+				</HBox>
+				<HBox width="100%" justifyContent="End">
+					<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false"
+						emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+						editable="true">
+						<Label text="Approver"/>
+						<Input width="80%" value="{reportData>/Approver}"/>
+						<Label text="Reviewer"/>
+						<Input width="80%" value="{reportData>/Reviewer}"/>
+						<Label text="Author"/>
+						<Input width="80%" value="{reportData>/Author}"></Input>
+					</f:SimpleForm>
+				</HBox>
+			</HBox>
+		</semantic:content>
+		<IconTabBar id="idIconTabBarNoIcons" select="reportTabSelect" expanded="{device>/isNoPhone}"
+			class="sapUiResponsiveContentPadding mandatory iconTabBarpadding">
+			<items>
+				<IconTabFilter text="Requirements" count="*" key="reportReqTab">
+					<VBox width="100%">
+						<layout:Grid defaultSpan="L6 M6 S6">
+							<layout:content>
+								<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="false"
+									emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"
+									editable="true">
+									<Label text="Object ID"/>
+									<Input value="{reportData>/ObjectID}" width="100%" id="repObjId" enabled="false"/>
+									<Label text="Process Area"/>
+									<MultiComboBox width="500px" id="processareaFS" items="{path: 'reportData>/processArea'}">
+										<items>
+											<core:Item key="{reportData>ProcessAreaName}" text="{reportData>ProcessAreaName}"/>
+										</items>
+									</MultiComboBox>
+									<Label text="Complexity"/>
+									<MultiComboBox width="500px" id="repComplexity">
+										<items>
+											<core:Item text="Simple" key="Simple"/>
+											<core:Item text="Medium" key="Medium"/>
+											<core:Item text="Complex" key="Complex"/>
+										</items>
+									</MultiComboBox>
+									<Label text="Dependencies"/>
+									<HBox>
+										<CheckBox text="Configuration" id="Configuration"/>
+										<CheckBox text="Development" id="Development"/>
+										<CheckBox text="Execution" id="Execution"/>
+									</HBox>
+									<Label text="Processing Mode"/>
+									<RadioButtonGroup columns="3" width="100%" id="repRadioGrp" selectedKey="{reportData>/ProcessingMode}">
+										<buttons>
+											<RadioButton id="RB1-11" text="Batch" key="Batch"/>
+											<RadioButton id="RB1-12" text="Online/Dialog" key="Online/Dialog"/>
+											<RadioButton id="RB1-13" text="Others" key="Others"/>
+										</buttons>
+									</RadioButtonGroup>
+								</f:SimpleForm>
+								<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false"
+									emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"
+									editable="true">
+									<Label text="Object Title"/>
+									<Input value="{reportData>/ObjectTitle}" width="100%" id="repObjTitle"/>
+									<Label text="Story Number/Comment"/>
+									<Input value="{reportData>/StoryNumberFComment}" width="100%" id="repStoryCom"/>
+									<Label text="Frequency"/>
+									<MultiComboBox width="500px" id="multiComboFreq">
+										<items>
+											<core:Item key="Annually" text="Annually"/>
+											<core:Item key="Quaterly" text="Quaterly"/>
+											<core:Item key="Monthly" text="Monthly"/>
+											<core:Item key="Weekly" text="Weekly"/>
+											<core:Item key="Daily" text="Daily"/>
+											<core:Item key="On Demand" text="On Demand"/>
+											<core:Item key="Other" text="Other"/>
+										</items>
+									</MultiComboBox>
+									<Label text="Report Type"/>
+									<MultiComboBox width="500px" id="multireportType">
+										<items>
+											<core:Item key="ALV Grid" text="ALV Grid"/>
+											<core:Item key="ALV List" text="ALV List"/>
+											<core:Item key="ALV with IDA" text="ALV with IDA"/>
+											<core:Item key="Tableau" text="Tableau"/>
+											<core:Item key="QuickView" text="QuickView"/>
+											<core:Item key="SAP UI5" text="SAP UI5"/>
+											<core:Item key="Analysis for office" text="Analysis for office"/>
+											<core:Item key="BO Design Studio" text="BO Design Studio"/>
+											<core:Item key="Webi" text="Webi"/>
+											<core:Item key="Crystal Report" text="Crystal Report"/>
+											<core:Item key="Other" text="Other"/>
+										</items>
+									</MultiComboBox>
+									<Label text="Performance Requirement"/>
+									<Input value="" width="100%" id="repPerfReq"/>
+								</f:SimpleForm>
+							</layout:content>
+						</layout:Grid>
+					
+						<Panel headerText="Report General Details" expanded="false" expandable="true" id="reportGenPanel">
+						<content>
+								<layout:Grid defaultSpan="L12 M12 S12">
+									<layout:content>
+										<VBox>
+											<layout:VerticalLayout id="idVerticalLayoutRCD" class="sapUiContentPadding" width="100%"></layout:VerticalLayout>
+											<VBox>
+												<Button text="Sample Data Sheet" icon="sap-icon://excel-attachment" class="sapUiSmallMarginBegin" press="openSampleSheet"/>
+												<HBox>
+													<u:FileUploader id="fileUploadRepReq" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+														sendXHR="true" useMultipart="false"/>
+													<Button id="uploadAttachRepReq" text="Upload" icon="sap-icon://upload" press="callAttachment"/>
+												</HBox>
+												<Table mode="None" noDataText="No Attachment" id="tableAttachReportReq" width="100%" class="myClass" items="{reportData>/attachRepReq}"
+													visible="{reportData>/attachRepReqVisible}">
+													<items>
+														<ColumnListItem>
+															<cells>
+																<Link text="{reportData>fileName}" href="{reportData>fileURL}"/>
+																<Button text="Delete" press="deleteFileFrmRepVali" activeIcon="{reportData>fileURL}"/>
+															</cells>
+														</ColumnListItem>
+													</items>
+													<columns>
+														<Column>
+															<header>
+																<Label text="File Name"/>
+															</header>
+														</Column>
+														<Column>
+															<header></header>
+														</Column>
+													</columns>
+												</Table>
+											</VBox>
+										</VBox>
+										<VBox id="reviewComment0">
+											<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+												<content>
+													<Input id="input18" width="100%" value="{reportData>/ReportDetailsComment}"/>
+													<RatingIndicator id="ri19" maxValue="5" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+														value="{reportData>/ReportDetailsRating}"/>
+												</content>
+											</Panel>
+										</VBox>
+									</layout:content>
+								</layout:Grid>
+							</content>
+						</Panel>
+						<Panel headerText="Error Handling" expanded="false" expandable="true" id="reportErrorHandlePanel">
+							<layout:Grid defaultSpan="L12 M12 S12">
+								<layout:content>
+									<VBox>
+										<HBox>
+											<CheckBox id="CB-001" text="Selection screen validations"/>
+										</HBox>
+										<Label class="fieldInfo"/>
+										<TextArea id="errorRepdetails" rows="15" width="100%" liveChange="onLiveChangeErrorDetails" value="{reportData>/ErrorHandling}"/>
+										<Text id="fsObjDetErrorCharCount" class="fieldInfo1"/>
+										<Text id="fsObjDetErrorErr" text="{i18n>errorMaxLength}" class="errorInfo" visible="false"/>
+										<HBox>
+											<u:FileUploader id="fileUploadRepReqError" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+												sendXHR="true" useMultipart="false"/>
+											<Button id="uploadAttachRepReqError" text="Upload" icon="sap-icon://upload" press="callAttachmentError"/>
+											<!--<Button text="Upload" icon="sap-icon://upload"/>-->
+										</HBox>
+										<Table mode="None" noDataText="No Attachment" id="tableAttachReportReqError" width="100%" class="myClass"
+											items="{reportData>/attachRepReqError}" visible="{reportData>/attachRepReqVisibleError}">
+											<items>
+												<ColumnListItem>
+													<cells>
+														<Link text="{reportData>fileName}" href="{reportData>fileURL}"/>
+														<Button text="Delete" press="deleteFileFrmRepErrVal" activeIcon="{reportData>fileURL}"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+											<columns>
+												<Column>
+													<header>
+														<Label text="File Name"/>
+													</header>
+												</Column>
+												<Column>
+													<header></header>
+												</Column>
+											</columns>
+										</Table>
+									</VBox>
+									<!--</VBox>-->
+									<VBox id="reviewComment3">
+										<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+											<content>
+												<Input id="input118" width="100%" value="{reportData>/ErrorHandlingComment}"/>
+												<RatingIndicator id="ri119" maxValue="5" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+													value="{reportData>/ErrorHandlingRating}"/>
+											</content>
+										</Panel>
+									</VBox>
+								</layout:content>
+							</layout:Grid>
+						</Panel>
+						<Panel expandable="true" expanded="false" headerText="Attachments and Documentation " width="auto">
+						<content>
+							<HBox>
+								<u:FileUploader id="fileUploadCommon" width="90%" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+									sendXHR="true" useMultipart="false"/>
+								<Button id="uploadAttachCommon" text="Upload" icon="sap-icon://upload" press="callAttachment"/>
+							</HBox>
+							<Table mode="None" noDataText="No Attachment" id="attachments" width="100%" class="myClass" items="{reportData>/attachRepCommon}"
+								visible="{reportData>/attachRepCommonVisible}">
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Link text="{reportData>fileName}" href="{reportData>fileURL}" target="_blank"/>
+											<Button id="deleteConvMapValidi" text="Delete" icon="sap-icon://delete" press="deleteFileAttachCommonCheck" activeIcon="{reportData>fileURL}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column>
+										<header>
+											<Label text="File Name"/>
+										</header>
+									</Column>
+									<Column>
+										<header></header>
+									</Column>
+								</columns>
+							</Table>
+						</content>
+					</Panel>
+					</VBox>
+				</IconTabFilter>
+				<IconTabFilter text="Security" count="*">
+					<f:SimpleForm layout="ResponsiveGridLayout" editable="true" id="securityReasons" visible="false">
+						<CheckBox id="CB2-01" text="HTTPS/SFTP" key="http"/>
+						<CheckBox id="CB2-02" text="User Authorization" key="userAuth"/>
+						<CheckBox id="CB2-03" text="Encryption" key="encryption"/>
+					</f:SimpleForm>
+					<layout:Grid defaultSpan="L12 M12 S12" visible="false" >
+						<layout:content>
+							<VBox>
+								<HBox>
+									<Label text="Security Section"/>
+									<Text class="fieldInfo"/>
+								</HBox>
+								<TextArea id="security" value="{reportData>/SecuritySection}" rows="15" width="100%" liveChange="onLiveChangeSecurity"/>
+								<Text id="fsSecurityCharCount" class="fieldInfo1"/>
+								<Text id="fsSecurityErr" text="{i18n>errorMaxLength}" class="errorInfo" visible="false"/>
+							</VBox>
+							<VBox id="reviewComment4">
+								<Label text="Review/Comments"/>
+								<Input id="input8" width="100%" value="{reportData>/SecurityComment}"/>
+								<RatingIndicator id="ri9" maxValue="5" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+									value="{reportData>/SecurityRating}"/>
+							</VBox>
+						</layout:content>
+					</layout:Grid>
+					<IconTabBar id="idIconTabBarNoIcons1" expanded="{device>/isNoPhone}">
+						<items>
+							<IconTabFilter text="HTTPS/SFTP">
+								<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+									<HBox>
+										<!--<core:Icon class="Help" src="sap-icon://sys-help" id="HTTPS_SFTP_Help" press="onPressHelp"/>-->
+									</HBox>
+									<TextArea value="{reportData>/HTTPS_SFTP_}" rows="4"/>
+								</f:SimpleForm>
+							</IconTabFilter>
+							<IconTabFilter text="User Authorization">
+								<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+									<HBox>
+										<!--<core:Icon class="Help" src="sap-icon://sys-help" id="UserAuth_Help" press="onPressHelp"/>-->
+									</HBox>
+									<TextArea value="{reportData>/UserAuth}" rows="4"/>
+								</f:SimpleForm>
+							</IconTabFilter>
+							<IconTabFilter text="Encryption">
+								<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+									<HBox>
+										<!--<core:Icon class="Help" src="sap-icon://sys-help" id="Encryp_Help" press="onPressHelp"/>-->
+									</HBox>
+									<TextArea value="{reportData>/Encryp}" rows="4"/>
+								</f:SimpleForm>
+							</IconTabFilter>
+							
+						</items>
+					</IconTabBar>
+					<Panel expandable="true" visible="true" expanded="false" headerText="Auditing and Control Requirements" width="auto">
+						<content>
+							<!--<TextArea width="100%" value="{intData>/AuditingandControlRequirements}" visible="true"/>-->
+							<layout:VerticalLayout id="idVerticalLayoutACR" class="sapUiContentPadding" width="100%"></layout:VerticalLayout>
+						</content>
+					</Panel>
+					
+				</IconTabFilter>
+				<IconTabFilter text="User Acceptance" count="*">
+					<Table mode="None" noDataText="Drop column list items here and columns in the area above" id="table2" width="100%" class="myClass1"
+						items="{reportData>/userAcceptance}">
+						<headerToolbar>
+							<Toolbar>
+								<ToolbarSpacer></ToolbarSpacer>
+								<Button icon="sap-icon://download" press="onDataExport"/>
+							</Toolbar>
+						</headerToolbar>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent" press="addNewRowUA"/>
+										<Button icon="sap-icon://delete" type="Transparent" press="deleteRowUA"/>
+									</HBox>
+									<TextArea growing="true" value="{reportData>step}" enabled="true"/>
+									<Select selectedKey="{reportData>testType}" width="100%">
+										<items>
+											<core:Item text="" key=""/>
+											<core:Item text="Positive" key="Positive"/>
+											<core:Item text="Negative" key="Negative"/>
+										</items>
+									</Select>
+									<TextArea growing="true" value="{reportData>scenario}"/>
+									<TextArea growing="true" value="{reportData>testData}"/>
+									<TextArea growing="true" value="{reportData>stepsPer}"/>
+									<TextArea growing="true" value="{reportData>actualResults}"/>
+									<TextArea growing="true" value="{reportData>expectedResults}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+						<columns>
+							<Column width="10%">
+								<header>
+									<Label text="Actions"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Step" id="step"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Test Type" id="testtype"/>
+								</header>
+							</Column>
+							<Column width="25%">
+								<header>
+									<Label text="Scenario" id="scenario"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Test Data" id="testdata"/>
+								</header>
+							</Column>
+							<Column width="25%">
+								<header>
+									<Label text="Steps Performed"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Expected Results" tooltip="Expected Results"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Actual Results"/>
+								</header>
+							</Column>
+							<Column>
+								<header>
+									<Label/>
+								</header>
+							</Column>
+						</columns>
+					</Table>
+				</IconTabFilter>
+				<IconTabFilter id="commLog" text="Clarification Log" visible="false" count="*">
+					<Table noDataText="Drop column list items here and columns in the area above" id="commLogTable" width="100%" class="myClass1"
+						items="{reportData>/CommLog}">
+						<columns>
+							<Column width="10%">
+								<Text text="Actions"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="25%">
+								<Text text="Issue Description"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Priority"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Date Logged"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Status"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Date Resolved"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="15%">
+								<Text text="Resolution"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Assigned To"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent" press="addNewRowComLog"/>
+										<!--<Button icon="sap-icon://edit" type="Transparent"/>-->
+										<Button icon="sap-icon://delete" type="Transparent" press="deleteRowComLog"/>
+									</HBox>
+									<TextArea growing="true" value="{reportData>IssueDesc}"/>
+									<Select selectedKey="{reportData>Priority}">
+										<items>
+											<core:Item text="" key=""/>
+											<core:Item text="Low" key="Low"/>
+											<core:Item text="Medium" key="Medium"/>
+											<core:Item text="High" key="High"/>
+										</items>
+									</Select>
+									<DatePicker displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" value="{reportData>DateLogg}"/>
+									<Select selectedKey="{reportData>Status}">
+										<items>
+											<core:Item text="" key=""/>
+											<core:Item text="Open" key="Open"/>
+											<core:Item text="Closed" key="Closed"/>
+										</items>
+									</Select>
+									<DatePicker displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" value="{reportData>DateResol}"/>
+									<TextArea growing="true" value="{reportData>Resolv}"/>
+									<TextArea growing="true" value="{reportData>AssignedTo}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+		<semantic:customFooterContent>
+			<Button icon="sap-icon://message-popup" type="Emphasized" press="handleMessagePopoverPress" id="repFSPopOver" visible="false"/>
+			<Button icon="sap-icon://locked" text="On Hold" type="Emphasized" press="onHold" tooltip="Save changes" id="oBTHold" visible="false"/>
+		
+			<Button icon="sap-icon://complete" visible="false" enabled="false" text="Submit" type="Emphasized" press="onSubmit" id="repFSSubmit"
+				tooltip="Submit Document"/>
+			<Button icon="sap-icon://save" text="Save" type="Emphasized" id="repSave" press="onSave" tooltip="Save changes"/>
+			<Button id="onPrintRepFS" icon="sap-icon://print" text="Print" type="Emphasized" press="onPrint" tooltip="Print Document" enabled="false"/>
+		</semantic:customFooterContent>
+	</semantic:FullscreenPage>
+</mvc:View>

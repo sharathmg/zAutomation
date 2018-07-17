@@ -1,0 +1,43 @@
+{
+  "deploy": {
+    "destination": "SDA",
+    "name": "ZAUTOMATION_OT"
+  },
+  "projectType": [
+    "sap.watt.uitools.ide.fiori",
+    "com.watt.common.builder.sapui5clientbuild"
+  ],
+  "build": {
+    "buildRequired": true,
+    "targetFolder": "dist",
+    "lastBuildDateTime": "Thu, 12 Jul 2018 14:39:26 GMT"
+  },
+  "generation": [
+    {
+      "templateId": "servicecatalog.connectivityComponent",
+      "templateVersion": "0.0.0",
+      "dateTimeStamp": "Wed, 09 Aug 2017 07:38:26 GMT"
+    }
+  ],
+  "hybrid": {
+    "backendDestination": "R4E",
+    "FacadeConfig": {
+      "cordova-plugin-device-orientation": false,
+      "accelerometer": {},
+      "compass": {},
+      "bFacade": false
+    }
+  },
+  "hcpdeploy": {
+    "account": "p1942441165trial",
+    "name": "zautohtml",
+    "lastVersionWeTriedToDeploy": "1.0.2"
+  },
+  "mockpreview": {
+    "mockUri": "",
+    "metadataFilePath": "",
+    "loadJSONFiles": false,
+    "loadCustomRequests": false,
+    "mockRequestsFilePath": ""
+  }
+}

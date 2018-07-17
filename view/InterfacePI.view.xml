@@ -1,0 +1,715 @@
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:ui="sap.suite.ui.commons" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar"
+	controllerName="com.automation.toolAutomationNew.controller.InterfacePI" xmlns:html="http://www.w3.org/1999/xhtml">
+	<semantic:FullscreenPage id="page" semanticRuleSet="Optimized" title="{intData>/Title}" busy="{objectView>/busy}" class="sapUiSizeCompact"
+		busyIndicatorDelay="{objectView>/delay}" navButtonPress="onNavBack" showNavButton="true">
+		<semantic:content>
+			<OverflowToolbar width="100%" id="__toolbar5">
+				<content>
+					<Select id="doctype" change="onChange">
+						<items>
+							<core:ListItem text="Functional Specification" key="Functional" id="funcspec"/>
+							<core:ListItem text="SAP Technical Specification" key="Technical" id="techspec"/>
+							<core:ListItem text=" SAP PI Technical Specification" key="PITechnical" id="pitechspec"/>
+						</items>
+					</Select>
+					<ToolbarSpacer/>
+					<Select id="versiontypeNewTech" selectedKey="{intData>/Verion10}" change="onChangeVersionNewTech">
+						<items>
+							<core:ListItem text="Version 1.0" key="Verion 1.0"/>
+						</items>
+					</Select>
+					<Select id="versiontypeExistingTech" visible="false" selectedKey="{intData>/versionTypeExist}" change="onChangeVersionExistingTech">
+						<items>
+							<core:ListItem text="Version 1.0" key="Version 1.0"/>
+							<core:ListItem text="Version 2.0" key="Version 2.0"/>
+							<core:ListItem text="Version 3.0" key="Version 3.0"/>
+						</items>
+					</Select>
+				</content>
+			</OverflowToolbar>
+			<!--			<ObjectHeader id="objectHeader" title="Object 2104 - Material Master Update">
+				<attributes>
+					<ObjectAttribute text="{1Tab>/AuditExtid}"/>
+					<ObjectAttribute text="{1Tab>/AuditTypeDesc}"/>
+				</attributes>
+				<statuses></statuses>
+			</ObjectHeader>-->
+			<!--<layout:Grid>-->
+			<!--	<layout:content>-->
+			<!--		<Label text="Completion Percentage"/>-->
+			<!--		<ProgressIndicator percentValue="70" displayValue="70%" showValue="true" state="None" height="22px"/>-->
+			<!--	</layout:content>-->
+			<!-- sap.ui.core.LayoutData -->
+			<!--</layout:Grid>-->
+			<HBox>
+				<HBox justifyContent="Start" width="70%">
+					<ui:ProcessFlow id="processflow2" scrollable="false" nodes="{pf2>/nodes}" lanes="{pf2>/lanes}" headerPress="onHeaderPress">
+						<ui:nodes>
+							<ui:ProcessFlowNode laneId="{pf2>lane}" nodeId="{pf2>id}" title="{pf2>title}" children="{pf2>children}" state="{pf2>state}"
+								stateText="{pf2>stateText}" texts="{pf2>texts}" highlighted="{pf2>highlighted}" focused="{pf2>focused}"/>
+						</ui:nodes>
+						<ui:lanes>
+							<ui:ProcessFlowLaneHeader laneId="{pf2>id}" iconSrc="{pf2>icon}" text="{pf2>label}" position="{pf2>position}" state="{pf2>state}"/>
+						</ui:lanes>
+					</ui:ProcessFlow>
+				</HBox>
+				<HBox justifyContent="End" width="100%">
+					<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false"
+						emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+						editable="true">
+						<Label text="Approver"/>
+						<Input id="App" width="80%" value="{intData>/Approver}"/>
+						<Label text="Reviewer"/>
+						<Input id="rev" width="80%" value="{intData>/Reviewer}"/>
+						<Label text="Author"/>
+						<Input id="Author" width="80%" value="{intData>/Author}"/>
+					</f:SimpleForm>
+				</HBox>
+			</HBox>
+		</semantic:content>
+		<IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding mandatory iconTabBarpadding">
+			<items>
+				<!--<IconTabFilter text="General Attributes">-->
+				<!--	<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false"-->
+				<!--		emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"-->
+				<!--		editable="true">-->
+				<!--		<core:Title text=""/>-->
+				<!--		<Label text="Object Type"/>-->
+				<!--		<Label text="Object ID"/>-->
+				<!--		<Input id="frice" value="2104" width="80%"/>-->
+				<!--<Label text="Object Description"/>-->
+				<!--<Input id="fricedesc" value="Material Master Update" width="50%"/>-->
+				<!--		<Label text="Story Number/Comment"/>-->
+				<!--		<Input id="storynumber" value="431" width="80%"/>-->
+				<!--		<core:Title text=""/>-->
+				<!--		<Label text="Object Description"/>-->
+				<!--		<Input id="fricedesc" value="Material Master Update" width="80%"/>-->
+				<!--		<Label text="Developer Name"/>-->
+				<!--		<Input id="dname" value="Manpreet" width="80%"/>-->
+				<!--	</f:SimpleForm>-->
+				<!--</IconTabFilter>-->
+				<IconTabFilter id="approvalTab" text="Approvals" count="*">
+					<Table noDataText="Drop column list items here and columns in the area above" id="table0" width="100%" class="myClass">
+						<items>
+							<ColumnListItem id="__item0">
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://edit" type="Transparent"/>
+										<Button icon="sap-icon://delete" type="Transparent"/>
+										<Button text="Details" type="Transparent"/>
+									</HBox>
+									<Input value="1" id="__text11"/>
+									<DatePicker displayFormat="dd/MM/yyyy" value=""></DatePicker>
+									<!--<Input value="28/09/2016" id="__text12"/>-->
+									<Input value="Additions" id="__text13"/>
+									<Input value="RSAWARKAR" id="__text14"/>
+									<Input value="SUNANDA" id="__text16"/>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent"/>
+										<Button icon="sap-icon://sys-minus" type="Transparent"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+							<ColumnListItem id="__item1">
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://edit" type="Transparent"/>
+										<Button icon="sap-icon://delete" type="Transparent"/>
+										<Button text="Details" type="Transparent"/>
+									</HBox>
+									<Input value="2" id="__text20"/>
+									<DatePicker displayFormat="dd/MM/yyyy" value=""></DatePicker>
+									<!--<Input value="20/10/2016" id="__text15"/>-->
+									<Input value="Additions" id="__text17"/>
+									<Input value="RSAWARKAR" id="__text18"/>
+									<Input value="SUNANDA" id="__text19"/>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent"/>
+										<Button icon="sap-icon://sys-minus" type="Transparent"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+						</items>
+						<columns>
+							<Column>
+								<header>
+									<Label text="Actions"/>
+								</header>
+							</Column>
+							<Column id="__column0">
+								<header>
+									<Label text="Sequence/Sprint" id="__label7"/>
+								</header>
+							</Column>
+							<Column id="__column1">
+								<header>
+									<Label text="Date" id="__label8"/>
+								</header>
+							</Column>
+							<Column id="__column2">
+								<header>
+									<Label text="Additions/Modifications" id="__label9"/>
+								</header>
+							</Column>
+							<Column id="__column3">
+								<header>
+									<Label text="Prepared By" id="__label10"/>
+								</header>
+							</Column>
+							<Column id="__column4">
+								<header>
+									<Label text="Approved By" id="__label11"/>
+								</header>
+							</Column>
+							<Column>
+								<header>
+									<Label/>
+								</header>
+							</Column>
+						</columns>
+					</Table>
+				</IconTabFilter>
+				<IconTabFilter text="Technical Design" count="*">
+					<Panel headerText="Integration Scenario" expandable="true" expanded="true" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+								<Label text="Business Scenario"/>
+								<Input id="prgName" value="{intData>/BusinessScenario}" width="70%"/>
+								<Label text="SWC and Namespace"/>
+								<!--	<TextArea id="inclFiles" value="{intData>/IncludeFiles}" cols="40" rows="15" width="100%"/>-->
+								<Input value="{intData>/SWCNamespace}" width="70%"/>
+								<Label text="Description"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/PIDescription}" width="70%"/>
+							</f:SimpleForm>
+						</content>
+					</Panel>
+					<Panel headerText="Message Mapping" expandable="true" expanded="false" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+								<Label text="Mapping Name"/>
+								<Input value="{intData>/MMappingName}" width="70%"/>
+								<Label text="Source Message"/>
+								<!--	<TextArea id="inclFiles" value="{intData>/IncludeFiles}" cols="40" rows="15" width="100%"/>-->
+								<Input value="{intData>/MSourceMessage}" width="70%"/>
+								<Label text="Target Message"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/MTargetMessage}" width="70%"/>
+								<Label text="Complexity"/>
+								<HBox>
+									<CheckBox id="MHigh" text="High"/>
+									<CheckBox id="MMedium" text="Medium"/>
+									<CheckBox id="MLow" text="Low"/>
+								</HBox>
+								<Label text="Implementation Type"/>
+								<HBox>
+									<CheckBox id="MGraphical" text="Graphical"/>
+									<CheckBox id="MJava" text="Java"/>
+									<CheckBox id="MXSLT" text="XSLT"/>
+									<CheckBox id="MABAP" text="ABAP"/>
+								</HBox>
+								<Label text="Parameters:"/>
+								<Label text="Parameter Name"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/MPName}" width="70%"/>
+								<Label text="Type"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/MPType}" width="70%"/>
+								<Label text="External Archives Used :"/>
+								<Label text="Archive Name"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/MArchiveName}" width="70%"/>
+								<Label text="Namespace"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/MArchiveNamespace}" width="70%"/>
+								<Label text="Function Libraries Used"/>
+								<Label text="Library Name"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/MLibraryName}" width="70%"/>
+								<Label text="Namespace"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/MLibraryNamespace}" width="70%"/>
+							</f:SimpleForm>
+						</content>
+					</Panel>
+					<Panel headerText="Operation Mapping" expandable="true" expanded="false" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+								<Label text="Name"/>
+								<Input value="{intData>/OMappingName}" width="70%"/>
+								<Label text="Source Operation"/>
+								<!--	<TextArea id="inclFiles" value="{intData>/IncludeFiles}" cols="40" rows="15" width="100%"/>-->
+								<Input value="{intData>/OSourceMessage}" width="70%"/>
+								<Label text="Target Operation"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/OTargetMessage}" width="70%"/>
+								<Label text="Parameters:"/>
+								<Label text="Parameter Name"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/OPName}" width="70%"/>
+								<Label text="Type"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/OPType}" width="70%"/>
+								<Label text="Mapping"/>
+								<Label text="Mapping Program"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/OMProgram}" width="70%"/>
+								<Label text="Namespace"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/OMNamespace}" width="70%"/>
+								<Label text="Type of Mapping"/>
+								<HBox>
+									<CheckBox id="OGraphical" text="Graphical"/>
+									<CheckBox id="OJava" text="Java"/>
+									<CheckBox id="OXSLT" text="XSLT"/>
+									<CheckBox id="OABAP" text="ABAP"/>
+								</HBox>
+								<Label text="Parameter Name"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/OMParameterName}" width="70%"/>
+								<Label text="Parameter Type"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/OMParameterType}" width="70%"/>
+							</f:SimpleForm>
+						</content>
+					</Panel>
+					<Panel headerText="Service Interfaces" expandable="true" expanded="false" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+								<Label text="Service Interface – 1 :"/>
+								<Label text="Name"/>
+								<Input value="{intData>/SIName}" width="70%"/>
+								<Label text="Description"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/SIDescription}" width="70%"/>
+								<Label text="Namespace"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/SINamespace}" width="70%"/>
+								<Label text="Category"/>
+								<HBox>
+									<CheckBox id="SIInbound" text="Inbound"/>
+									<CheckBox id="SIOutbound" text="Outbound"/>
+									<CheckBox id="SIAbstract" text="Abstract"/>
+								</HBox>
+								<Label text="Interface Pattern"/>
+								<HBox>
+									<CheckBox id="SIStateless" text="Stateless"/>
+									<CheckBox id="SIStatelessXIC" text="Stateless(XI 3.0 compatible)"/>
+									<CheckBox id="SIAStateful" text="Stateful"/>
+									<CheckBox id="SITUCC" text="TU and C C"/>
+								</HBox>
+								<Label text="Associated Operations"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/SIAssociatedOperations}" width="70%"/>
+								<Label text="Operation : 1 :"/>
+								<Label text="Name"/>
+								<Input value="{intData>/OSIName}" width="70%"/>
+								<Label text="Description"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/OSIDescription}" width="70%"/>
+								<Label text="Namespace"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/OSINamespace}" width="70%"/>
+								<Label text="Pattern"/>
+								<HBox>
+									<CheckBox id="OSINormal" text="Normal"/>
+									<CheckBox id="OSICommit" text="Commit"/>
+									<CheckBox id="OSIRollback" text="Rollback"/>
+									<CheckBox id="OSICompensate" text="Compensate"/>
+									<CheckBox id="OSIConfirm" text="Confirm"/>
+									<CheckBox id="OSITentativeUpdate" text="Tentative Update"/>
+								</HBox>
+								<Label text="Mode"/>
+								<HBox>
+									<CheckBox id="OSISynchronous" text="Synchronous"/>
+									<CheckBox id="OSIASynchronous" text="Asynchronous"/>
+								</HBox>
+								<Label text="Associated Message Type"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/OSIAssociatedMessageType}" width="70%"/>
+								<Label text="Role"/>
+								<HBox>
+									<CheckBox id="OSIRequest" text="Request"/>
+									<CheckBox id="OSIFault" text="Fault"/>
+								</HBox>
+							</f:SimpleForm>
+						</content>
+					</Panel>
+					<Panel headerText="Imported Objects" expandable="true" expanded="false" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+								<Label text="Type"/>
+								<HBox>
+									<CheckBox id="IOIDOC" text="IDOC"/>
+									<CheckBox id="IORFC" text="RFC"/>
+								</HBox>
+								<Label text="Name"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/IOName}" width="70%"/>
+							</f:SimpleForm>
+						</content>
+					</Panel>
+					<Panel headerText="Communication Component" expandable="true" expanded="false" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+								<Label text="Name"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/CC1Name}" width="70%"/>
+								<Label text="Type"/>
+								<HBox>
+									<CheckBox id="CC1BussinessSystem" text="Bussiness System"/>
+									<CheckBox id="CC1BussinessComponent" text="Bussiness Component"/>
+									<CheckBox id="CC1IntegrationProcess" text="Integration Process"/>
+								</HBox>
+								<Label text="Name"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/CC2Name}" width="70%"/>
+								<Label text="Type"/>
+								<HBox>
+									<CheckBox id="CC2BussinessSystem" text="Business System"/>
+									<CheckBox id="CC2BussinessComponent" text="Business Component"/>
+									<CheckBox id="CC2IntegrationProcess" text="Integration Process"/>
+								</HBox>
+							</f:SimpleForm>
+						</content>
+					</Panel>
+					<Panel headerText="Sender Communication Details" expandable="true" expanded="false" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+								<Label text="Adapter Engine"/>
+								<HBox>
+									<CheckBox id="SCCentral" text="Central"/>
+									<CheckBox id="SCDecentral" text="Decentral"/>
+									<CheckBox id="SCPCK" text="PCK"/>
+								</HBox>
+								<Label text="Party"/>
+								<Input value="{intData>/SCParty}" width="70%"/>
+								<Label text="Channel"/>
+								<Input value="{intData>/SCChannel}" width="70%"/>
+								<Label text="Communication Component"/>
+								<Input value="{intData>/SCCC}" width="70%"/>
+								<Label text="Adapter Type"/>
+								<Input value="{intData>/SCAdapterType}" width="70%"/>
+								<Label text="HTTP Adapter:"/>
+								<Label text="Service Name"/>
+								<Input value="{intData>/SCServiceName}" width="70%"/>
+								<Label text="Message Format"/>
+								<HBox>
+									<CheckBox id="SCJSON" text="JSON"/>
+									<CheckBox id="SCFlat" text="Flat"/>
+									<CheckBox id="SCCSV" text="CSV"/>
+								</HBox>
+								<Label text="Message Protocol"/>
+								<HBox>
+									<CheckBox id="SCHTTP" text="HTTP"/>
+									<CheckBox id="SCHTTPS" text="HTTPS"/>
+								</HBox>
+								<Label text="Authentication Method"/>
+								<HBox>
+									<CheckBox id="SCcertificate" text="Certificate"/>
+									<CheckBox id="SCHTTPPost" text="HTTP Post"/>
+									<CheckBox id="SCHTTPGet" text="HTTP Get"/>
+									<CheckBox id="SCother" text="other"/>
+								</HBox>
+								<Label text="Additional Information"/>
+								<Input value="{intData>/SCAdditionalInformation}" width="70%"/>
+							</f:SimpleForm>
+						</content>
+					</Panel>
+					<Panel headerText="Receiver Communication Details" expandable="true" expanded="false" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+								<Label text="Adapter Engine"/>
+								<HBox>
+									<CheckBox id="RCCentral" text="Central"/>
+									<CheckBox id="RCDecentral" text="Decentral"/>
+									<CheckBox id="RCPCK" text="PCK"/>
+								</HBox>
+								<Label text="Party"/>
+								<Input value="{intData>/RCParty}" width="70%"/>
+								<Label text="Channel"/>
+								<Input value="{intData>/RCChannel}" width="70%"/>
+								<Label text="Communication Component"/>
+								<Input value="{intData>/RCCC}" width="70%"/>
+								<Label text="Adapter Type"/>
+								<Input value="{intData>/RCAdapterType}" width="70%"/>
+								<Label text="RFC Adapter :"/>
+								<Label text="Function Module / BAPI"/>
+								<Input value="{intData>/RCFunctionModule}" width="70%"/>
+								<Label text="Execution Mode"/>
+								<HBox>
+									<CheckBox id="RCsynchronous" text="synchronous"/>
+									<CheckBox id="RCasynchronous" text="asynchronous"/>
+								</HBox>
+								<Label text="Additional Information"/>
+								<Input value="{intData>/RCAdditionalInformation}" width="70%"/>
+							</f:SimpleForm>
+						</content>
+					</Panel>
+					<Panel headerText="Integration Flow" expandable="true" expanded="false" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+								<Label text="Flow Name"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/IFFlowName}" width="70%"/>
+								<Label text="Enterprise Integration Patterns"/>
+								<HBox>
+									<CheckBox id="IFPointtoPointChannel" text="Point-to-Point Channel"/>
+									<CheckBox id="IFMessageTranslator" text="Message Translator"/>
+									<CheckBox id="IFRecipientList" text="Recipient List"/>
+									<CheckBox id="IFecipientListD" text="Recipient List (Dynamic Conditions)"/>
+								</HBox>
+							</f:SimpleForm>
+						</content>
+					</Panel>
+					<Panel headerText="Integrated Configurations" expandable="true" expanded="false" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+								<Label text="Sender Details :"/>
+								<Label text="Communication Party"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/ICOSCommunicationParty}" width="70%"/>
+								<Label text="Communication component"/>
+								<Input value="{intData>/ICOSCommunicationcomponent}" width="70%"/>
+								<Label text="Interface"/>
+								<Input value="{intData>/ICOSInterface}" width="70%"/>
+								<Label text="Namespace"/>
+								<Input value="{intData>/ICOSNamespace}" width="70%"/>
+								<Label text="Receiver Details :"/>
+								<Label text="Communication Party"/>
+								<!--	<TextArea cols="40" value="{intData>/InterfaceTransaction}" rows="15" width="100%"/>-->
+								<Input value="{intData>/ICORCommunicationParty}" width="70%"/>
+								<Label text="Communication component"/>
+								<Input value="{intData>/ICORCommunicationcomponent}" width="70%"/>
+								<Label text="Interface"/>
+								<Input value="{intData>/ICORInterface}" width="70%"/>
+								<Label text="Namespace"/>
+								<Input value="{intData>/ICORNamespace}" width="70%"/>
+							</f:SimpleForm>
+						</content>
+					</Panel>
+					<!--<Panel headerText="Mapping Sheet/Flow Chart/Other Document" expandable="true" expanded="false" width="auto">-->
+					<!--	<content>-->
+					<!--		<VBox>-->
+					<!--							<HBox>-->
+					<!--								<u:FileUploader id="fileUploadIntDet" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}" sendXHR="true"-->
+					<!--									width="360px" useMultipart="false"/>-->
+					<!--								<Button id="uploadAttachIntDet" hAlign="Left" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>-->
+					<!--							</HBox>-->
+					<!--							<Table mode="None" noDataText="No Attachment" id="tableAttachIntDet" width="100%" class="myClass" items="{intDataDet>/attachIntDet}"-->
+					<!--								visible="{intDataDet>/attachIntDetVisible}">-->
+					<!--								<items>-->
+					<!--									<ColumnListItem>-->
+					<!--										<cells>-->
+					<!--											<Link text="{intDataDet>fileName}" href="{intDataDet>fileURL}"/>-->
+					<!--											<Button text="Delete" press="deleteFileintDataDet" activeIcon="{intDataDet>fileURL}"/>-->
+					<!--icon="sap-icon://delete"-->
+					<!--										</cells>-->
+					<!--									</ColumnListItem>-->
+					<!--								</items>-->
+					<!--								<columns>-->
+					<!--									<Column>-->
+					<!--										<header>-->
+					<!--											<Label text="File Name"/>-->
+					<!--										</header>-->
+					<!--									</Column>-->
+					<!--									<Column>-->
+					<!--										<header></header>-->
+					<!--									</Column>-->
+					<!--								</columns>-->
+					<!--							</Table>-->
+					<!--						</VBox>-->
+					<!--	</content>-->
+					<!--</Panel>-->
+					<!--<Panel headerText="IDOC Based Interface" expandable="true" expanded="false" width="auto">-->
+					<!--	<content>-->
+					<!--		<TextArea cols="40" value="{intData>/IDOCBasedInterface}" rows="15" width="100%"/>-->
+					<!--	</content>-->
+					<!--</Panel>-->
+					<!--<Panel headerText="Service Based Interface – OData" expandable="true" expanded="false" width="auto">-->
+					<!--	<content>-->
+					<!--		<TextArea cols="40" value="{intData>/ServiceBasedInterface}" rows="15" width="100%"/>-->
+					<!--	</content>-->
+					<!--</Panel>-->
+					<!--<Panel headerText="SOAP API" expandable="true" expanded="false" width="auto">-->
+					<!--	<content>-->
+					<!--		<TextArea cols="40" value="{intData>/SOAPAPI}" rows="15" width="100%"/>-->
+					<!--	</content>-->
+					<!--</Panel>-->
+					<!--<Panel headerText="RFC Interface" expandable="true" expanded="false" width="auto">-->
+					<!--	<content>-->
+					<!--		<TextArea cols="40" value="{intData>/RFCInterface}" rows="15" width="100%"/>-->
+					<!--	</content>-->
+					<!--</Panel>-->
+				</IconTabFilter>
+				<IconTabFilter text="Error Handling and Security" count="*">
+					<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+						<Label text="Security Section"/>
+						<TextArea id="security" value="{intData>/SecuritySection}" cols="40" rows="15" width="100%"/>
+						<Label text="Error Handling"/>
+						<TextArea id="error" value="{intData>/ErrorHandling}" cols="40" rows="15" width="100%"/>
+					</f:SimpleForm>
+				</IconTabFilter>
+				<IconTabFilter text="User Acceptance" count="*">
+					<HBox justifyContent="End" width="100%">
+						<Button id="ExportExcel" class="ExportEx" icon="sap-icon://excel-attachment" text="Export" press="onDataExport" visible="true"/></HBox>
+					<Table mode="None" noDataText="Drop column list items here and columns in the area above" id="table2" width="100%" class="myClass1"
+						items="{intData>/userAcceptance}">
+						<items>
+							<ColumnListItem id="item0">
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent" press="addNewRowUA"/>
+										<!--<Button icon="sap-icon://edit" type="Transparent"/>-->
+										<Button icon="sap-icon://delete" type="Transparent" press="deleteRowUA"/>
+										<Input visible="false" value="{intData>Index}" id="UASIndex" width="0px"/>
+									</HBox>
+									<TextArea growing="true" value="{intData>step}" id="UAStep"/>
+									<Select selectedKey="{intData>testType}" width="100%">
+										<items>
+											<core:Item text="" key=""/>
+											<core:Item text="Positive" key="Positive"/>
+											<core:Item text="Negative" key="Negative"/>
+										</items>
+									</Select>
+									<TextArea growing="true" value="{intData>scenario}" id="text13"/>
+									<TextArea growing="true" value="{intData>testData}"/>
+									<TextArea growing="true" value="{intData>stepsPer}"/>
+									<TextArea growing="true" value="{intData>expectedResults}"/>
+									<TextArea growing="true" value="{intData>actualResults}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+						<columns>
+							<Column width="10%">
+								<header>
+									<Label text="Actions"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Step" id="step"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Test Type" id="testtype"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Scenario" id="scenario"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Test Data" id="testdata"/>
+								</header>
+							</Column>
+							<Column width="20%">
+								<header>
+									<Label text="Steps Performed" id="stepsperformed"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Expected Results"/>
+								</header>
+							</Column>
+							<Column width="20%">
+								<header>
+									<Label text="Actual Results" id="actualresults"/>
+								</header>
+							</Column>
+						</columns>
+					</Table>
+				</IconTabFilter>
+				<!--<IconTabFilter id="commLog" text="CommLog" count="*">-->
+				<!--	<Table noDataText="Drop column list items here and columns in the area above" item="{path: '/intData'}" id="commLogTable" width="100%"-->
+				<!--		class="myClass">-->
+				<!--		<columns>-->
+				<!--			<Column>-->
+				<!--				<header>-->
+				<!--					<Label text="Actions"/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">-->
+				<!--				<Text text="Issue Description"/>-->
+				<!--			</Column>-->
+				<!--			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">-->
+				<!--				<Text text="Priority"/>-->
+				<!--			</Column>-->
+				<!--			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">-->
+				<!--				<Text text="Date Logged"/>-->
+				<!--			</Column>-->
+				<!--			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">-->
+				<!--				<Text text="Status"/>-->
+				<!--			</Column>-->
+				<!--			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">-->
+				<!--				<Text text="Date Resolved"/>-->
+				<!--			</Column>-->
+				<!--			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">-->
+				<!--				<Text text="Resolution"/>-->
+				<!--			</Column>-->
+				<!--			<Column>-->
+				<!--				<header>-->
+				<!--					<Label/>-->
+				<!--				</header>-->
+				<!--			</Column>-->
+				<!--		</columns>-->
+				<!--		<items>-->
+				<!--			<ColumnListItem>-->
+				<!--				<cells>-->
+				<!--					<HBox>-->
+				<!--						<Button icon="sap-icon://edit" type="Transparent"/>-->
+				<!--						<Button icon="sap-icon://delete" type="Transparent"/>-->
+				<!--						<Button text="Details" type="Transparent"/>-->
+				<!--					</HBox>-->
+				<!--					<Input value="{IssueDesc}"/>-->
+				<!--					<Select selectedKey="{intData>/low}">-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Low" key="Low"/>-->
+				<!--							<core:Item text="Medium" key="Medium"/>-->
+				<!--							<core:Item text="High" key="High"/>-->
+				<!--						</items>-->
+				<!--					</Select>-->
+				<!--<Input value="{Priority}"/>-->
+				<!--					<DatePicker displayFormat="dd/MM/yyyy"></DatePicker>-->
+				<!--<Input value="{DateLogged}"/>-->
+				<!--					<Select selectedKey="{intData>/open}">-->
+				<!-- here's the relative dropdown binding -->
+				<!--						<items>-->
+				<!--							<core:Item text="Open" key="Open"/>-->
+				<!--							<core:Item text="Closed" key="Closed"/>-->
+				<!--						</items>-->
+				<!--					</Select >-->
+				<!--<Input value="{IssueStatus}"/>-->
+				<!--					<DatePicker displayFormat="dd/MM/yyyy"></DatePicker>-->
+				<!--<Input value="{DateResolved}"/>-->
+				<!--					<Input value="{Resolution}"/>-->
+				<!--					<HBox>-->
+				<!--						<Button icon="sap-icon://sys-add" type="Transparent"/>-->
+				<!--						<Button icon="sap-icon://sys-minus" type="Transparent"/>-->
+				<!--					</HBox>-->
+				<!--				</cells>-->
+				<!--			</ColumnListItem>-->
+				<!--		</items>-->
+				<!--	</Table>-->
+				<!--</IconTabFilter>-->
+				<IconTabFilter id="mappingTab" text="Mapping"></IconTabFilter>
+			</items>
+		</IconTabBar>
+		<semantic:customFooterContent>
+			<Button id="idPopOverContainer" icon="sap-icon://message-popup" type="Emphasized" press="handleMessagePopoverPress" visible="false"/>
+			<Button icon="sap-icon://locked" text="On Hold" type="Emphasized" press="onHold" tooltip="Save changes" id="oBTHold" visible="false"/>
+		
+			<Button icon="sap-icon://complete" enabled="false" text="Submit" visible="false" type="Emphasized" press="onSubmit" id="oBTSubmit"
+				tooltip="Submit Document"/>
+			<!--<Button icon="sap-icon://save" text="Save" type="Emphasized" press="onSave" id="oBTSave" tooltip="Save changes"/>-->
+			<Button icon="sap-icon://save" text="Save" type="Emphasized" press="onSave" id="oBTSave" tooltip="Save changes"/>
+			<Button icon="sap-icon://print" text="Print" type="Emphasized" press="onPrint" id="oBTPrint" tooltip="Print Document"/>
+		</semantic:customFooterContent>
+	</semantic:FullscreenPage>
+</mvc:View>

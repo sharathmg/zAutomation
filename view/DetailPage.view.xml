@@ -1,0 +1,1818 @@
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:ui="sap.suite.ui.commons"
+ xmlns:rte="sap.ui.richtexteditor"	controllerName="com.automation.toolAutomationNew.controller.DetailPage">
+	<semantic:FullscreenPage id="page" semanticRuleSet="Optimized" busy="{objectView>/busy}" busyIndicatorDelay="{objectView>/delay}"
+		navButtonPress="onNavBack" showNavButton="true" class="sapUiSizeCompact" title="{enhData>/HeaderTitle}">
+		<semantic:content>
+			<OverflowToolbar width="100%" id="__toolbar5">
+				<content>
+					<Select id="doctype" change="onChange">
+						<items>
+							<core:ListItem text="Functional Specification" key="Functional" id="funcspec"/>
+							<core:ListItem text="Technical Specification" key="Technical" id="techspec"/>
+						</items>
+					</Select>
+					<ToolbarSpacer id="__spacer5"/>
+					<Select id="versiontypeNew" change="onChangeVersionNew">
+						<items>
+							<core:ListItem text="Version 1.0" key="Version 1.0"/>
+						</items>
+					</Select>
+					<Select id="versiontypeExisting" change="onChangeVersionExisting" selectedKey="Version 1.0" >
+						<items>
+							<core:ListItem text="Version 1.0" key="Version 1.0"/> 
+						</items>
+					</Select>
+					<!--<Button icon="sap-icon://complete" text="Submit" type="Emphasized" press="onSubmit" tooltip="Submit Document"/>-->
+					<!--<Button icon="sap-icon://save" text="Save" type="Emphasized" press="onSave" tooltip="Save changes"/>-->
+					<!--<Button icon="sap-icon://print" text="Print" type="Emphasized" press="onPrint" tooltip="Print Document"/>-->
+				</content>
+			</OverflowToolbar>
+			<HBox>
+				<HBox justifyContent="Start" width="70%">
+					<ui:ProcessFlow id="processflow2" scrollable="false" nodes="{pf2>/nodes}" lanes="{pf2>/lanes}" headerPress="onHeaderPress"
+						class="processFlow">
+						<ui:nodes>
+							<ui:ProcessFlowNode laneId="{pf2>lane}" nodeId="{pf2>id}" title="{pf2>title}" children="{pf2>children}" state="{pf2>state}"
+								stateText="{pf2>stateText}" texts="{pf2>texts}" highlighted="{pf2>highlighted}" focused="{pf2>focused}"/>
+						</ui:nodes>
+						<ui:lanes>
+							<ui:ProcessFlowLaneHeader laneId="{pf2>id}" iconSrc="{pf2>icon}" text="{pf2>label}" position="{pf2>position}" state="{pf2>state}"/>
+						</ui:lanes>
+					</ui:ProcessFlow>
+				</HBox>
+				<HBox width="30%" justifyContent="End">
+					<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false"
+						emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+						editable="true">
+						<Label text="Approver"/>
+						<Input id="App" width="80%" value="{enhData>/Approver}"/>
+						<Label text="Reviewer"/>
+						<Input id="rev" width="80%" value="{enhData>/Reviewer}"/>
+						<Label text="Author"/>
+						<Input id="Author" width="80%" value="{enhData>/Author}"/>
+					</f:SimpleForm>
+				</HBox>
+			</HBox>
+		</semantic:content>
+		<IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding mandatory iconTabBarpadding"
+			width="100%">
+			<items>
+				<IconTabFilter text="Requirements" count="*">
+					<Panel headerText="Object Details" expanded="false" expandable="true" id="objDetailsHeaderPanel">
+						<layout:Grid defaultSpan="L6 M6 S6">
+							<layout:content>
+								<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="false"
+									emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"
+									editable="true">
+									<!--<core:Title text="General Attributes"/>-->
+									<Label text="Form Type"/>
+									<RadioButtonGroup columns="3" width="100%" selectedKey="{FrmData>/FormType}" id="FT">
+										<buttons>
+											<RadioButton id="R1" text="Standard SAP" key="Standard SAP"/>
+											<RadioButton id="R2" text="Custom" key="Custom"/>
+										</buttons>
+									</RadioButtonGroup>
+									<Label text="Object ID"/>
+									<Input id="frice" value="{enhData>/ObjectId}" width="100%" enabled="false"/>
+									<Label text="Object Description"/>
+									<Input id="ObjDescrp" value="{enhData>/ObjectDescrp}" liveChange="handleDescriptionChange" width="100%" enabled="true"/>
+									<Label text="Process Area"/>
+									<MultiComboBox width="100%" id="processarea" items="{path: 'enhData>/processArea'}">
+										<items>
+											<core:Item key="{enhData>ProcessAreaName}" text="{enhData>ProcessAreaName}"/>
+											<!--<core:Item key="RTR" text="RTR"/>-->
+											<!--<core:Item key="OTC" text="OTC"/>-->
+											<!--<core:Item key="FTS" text="FTS"/>-->
+											<!--<core:Item key="STP" text="STP"/>-->
+											<!--<core:Item key="MTD" text="MTD"/>-->
+											<!--<core:Item key="INL" text="INL"/>-->
+											<!--<core:Item key="Cross" text="Cross"/>-->
+										</items>
+									</MultiComboBox>
+									<Label text="Sub Process Area"/>
+									<Input id="subProcessArea" value="{enhData>/SubProcessArea}" width="100%" enabled="true"/>
+									<Label text="Complexity"/>
+									<RadioButtonGroup columns="4" width="100%" id="Comp" selectedKey="{enhData>/Complexity}">
+										<buttons>
+											<RadioButton text="Simple" key="Simple" id="Simple"/>
+											<RadioButton text="Medium" key="Medium" id="Medium"/>
+											<RadioButton text="Complex" key="Complex" id="Complex"/>
+											<!--<RadioButton text="High Complex" key="hComplex" id="hComplex"/>-->
+										</buttons>
+									</RadioButtonGroup>
+									<Label text="Assumptions"/>
+									<TextArea id="enhAssumptions" rows="5" width="100%" value="{enhData>/Assumptions}"/>
+									<u:Menu id="HelpMenuAssumption">
+									</u:Menu>
+<!--									<core:Icon class="Help" src="sap-icon://sys-help" id="AssumptionHelp" press="onPressHelp"/> -->
+									<Label text="Source"/>
+									<Select id="source" width="100%">
+										<items>
+											<core:Item key="hana" text="S/4 HANA"/>
+											<core:Item key="bw" text="BW"/>
+											<core:Item key="bpc" text="BPC"/>
+											<core:Item key="ariba" text="Ariba"/>
+											<core:Item key="mdg" text="MDG"/>
+											<core:Item key="vertex" text="Vertex"/>
+											<core:Item key="cloud" text="Cloud based-SAP/Non-SAP"/>
+											<core:Item key="xi" text="SAP XI/PI"/>
+											<core:Item key="pi" text="HCI-PI"/>
+											<core:Item key="ds" text="HCI-DS"/>
+											<core:Item key="ibp" text="IBP"/>
+											<core:Item key="CAS" text="CAS"/>
+											<core:Item key="Vistex" text="Vistex"/>
+											<core:Item key="others1" text="Others"/>
+										</items>
+									</Select>
+									<!--<MultiComboBox selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" width="500px" id="source">-->
+									<!--	<items>-->
+									<!--		<core:Item key="hana" text="S/4 HANA"/>-->
+									<!--		<core:Item key="bw" text="BW"/>-->
+									<!--		<core:Item key="bpc" text="BPC"/>-->
+									<!--		<core:Item key="ariba" text="Ariba"/>-->
+									<!--		<core:Item key="mdg" text="MDG"/>-->
+									<!--		<core:Item key="vertex" text="Vertex"/>-->
+									<!--		<core:Item key="cloud" text="Cloud based-SAP/Non-SAP"/>-->
+									<!--		<core:Item key="xi" text="SAP XI/PI"/>-->
+									<!--		<core:Item key="pi" text="HCI-PI"/>-->
+									<!--		<core:Item key="ds" text="HCI-DS"/>-->
+									<!--		<core:Item key="ibp" text="IBP"/>-->
+									<!--		<core:Item key="others1" text="Others"/>-->
+									<!--	</items>-->
+									<!--</MultiComboBox>-->
+									<Label text="Processing Mode"/>
+									<!--<SegmentedButton selectedKey="batch" class="sapUiSmallMarginBottom" id="sb1" width="100%">-->
+									<!--	<items>-->
+									<!--		<SegmentedButtonItem text="Batch" key="batch" width="30%"/>-->
+									<!--		<SegmentedButtonItem text="Real Time" key="rtime" width="30%"/>-->
+									<!--		<SegmentedButtonItem text="Near Real Time" key="nrtime" width="40%"/>-->
+									<!--	</items>-->
+									<!--</SegmentedButton>-->
+									<RadioButtonGroup columns="3" width="100%" id="sb1" selectedKey="batch">
+										<buttons>
+											<RadioButton id="RB1-11" text="Batch" key="batch"/>
+											<RadioButton id="RB1-12" text="Real Time" key="rtime"/>
+											<RadioButton id="RB1-13" text="Near Real Time" key="nrtime"/>
+										</buttons>
+									</RadioButtonGroup>
+									<Label text="Trigger Point"/>
+									<VBox id="triggerPnt">
+										<!--<CheckBox id="DependencyConfiguration" key="Configuration" text="Configuration"/>-->
+										<HBox>
+											<CheckBox id="triggerPntBtn1" text="Standard Transaction" width="100%" select="onSelectTriggerPoint1"/>
+											<Input id="StanardTrigText" visible="false" value="{enhData>/StanTransactText}" class="paddingInputForRB"/>
+										</HBox>
+										<HBox>
+											<CheckBox id="triggerPntBtn2" text="Custom Transaction" width="100%" select="onSelectTriggerPoint2"/>
+											<Input id="CustomTrigText" visible="false" value="{enhData>/CustmTransactText}" class="paddingInputForRB"/>
+										</HBox>
+										<HBox>
+											<CheckBox id="triggerPntBtn3" text="Manual" width="100%" select="onSelectTriggerPoint"/>
+											<Input id="manualTrigPt" visible="false" value="{enhData>/MannulTransactText}" class="paddingInputForRB"/>
+										</HBox>
+										<HBox>
+											<CheckBox id="triggerPntBtn4" text="Others" width="100%" select="onSelectTriggerPointO"/>
+											<Input id="OtherTrigPt" visible="false" value="{enhData>/TrigptOtherText}" class="paddingInputForRB"/>
+										</HBox>
+									</VBox>
+									<Label text="Terminating Point"/>
+									<Input id="Edpoint" value="{enhData>/EndPoint}" width="100%" enabled="true"/>
+									<Label text="Frequency"/>
+									<MultiComboBox selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" width="500px" id="frequency">
+										<items>
+											<core:Item key="annually" text="Annually"/>
+											<core:Item key="quaterly" text="Quaterly"/>
+											<core:Item key="monthly" text="Monthly"/>
+											<core:Item key="weekly" text="Weekly"/>
+											<core:Item key="daily" text="Daily"/>
+											<core:Item key="ondemand" text="On Demand"/>
+											<core:Item key="othr" text="Other"/>
+										</items>
+									</MultiComboBox>
+									<Label text="Impacted System"/>
+									<MultiComboBox selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" width="500px" id="impactedSystem">
+										<items>
+											<core:Item key="hana" text="S/4 HANA"/>
+											<core:Item key="bw" text="BW"/>
+											<core:Item key="bpc" text="BPC"/>
+											<core:Item key="ariba" text="Ariba"/>
+											<core:Item key="mdg" text="MDG"/>
+											<core:Item key="vertex" text="Vertex"/>
+											<core:Item key="cloud" text="Cloud based-SAP/Non-SAP"/>
+											<core:Item key="xi" text="SAP XI/PI"/>
+											<core:Item key="pi" text="HCI-PI"/>
+											<core:Item key="ds" text="HCI-DS"/>
+											<core:Item key="ibp" text="IBP"/>
+											<core:Item key="CAS" text="CAS"/>
+											<core:Item key="Vistex" text="Vistex"/>
+											<core:Item key="others1" text="Others"/>
+										</items>
+									</MultiComboBox>
+										<Label text="Dependencies" id="DependenciesidText"/>
+											<HBox width="100%">
+												<TextArea rows="4" id="Dependenciesid" value="{conversionData>/ConversionDependencies}" width="100%"/>
+												<u:Menu id="HelpMenu"></u:Menu>
+												<!--<core:Icon class="Help" src="sap-icon://sys-help" id="DependenciesHelp" press="onPressHelp"/>-->
+											</HBox>
+								</f:SimpleForm>
+								<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="false"
+									emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"
+									editable="true">
+									<!--<core:Title text=""/>-->
+									<!--<Label text="Object ID"/>-->
+									<!--<Input id="frice" value="2104" width="100%"/>-->
+									<Label text="Object Title"/>
+									<Input id="fricedesc" value="{enhData>/ObjectTitle}" width="100%"/>
+									<Label text="Story Number/Comment"/>
+									<Input id="storynumber" value="{enhData>/StoryNumberComment}" width="100%"/>
+									<Label text="Dependencies"/>
+									<TextArea id="enhDependencies" rows="5" width="100%" value="{enhData>/Dependencies}"/>
+									<u:Menu id="HelpMenuDependencies">
+									</u:Menu>
+<!--									<core:Icon class="Help" src="sap-icon://sys-help" id="DependenciesHelp" press="onPressHelp"/> -->
+									<Label text="Access Method"/>
+									<MultiComboBox width="100%" id="accessMethod">
+										<items>
+											<core:Item key="cTcode" text="Custom Transaction Code"/>
+											<core:Item key="cFioriApp" text="Custom Fiori Application"/>
+											<core:Item key="sTcode" text="Standard Transaction Code"/>
+											<core:Item key="sFioriApp" text="Standard Fiori Application"/>
+											<core:Item key="other" text="Other"/>
+										</items>
+									</MultiComboBox>
+									<Label text="User Interface"/>
+									<VBox id="usrIntrf">
+										<RadioButton id="UITypeBtn1" text="Universal Worklist" groupName="uiOpt" select="onSelectUIAccess" selected="true"/>
+										<RadioButton id="UITypeBtn2" text="Netweaver Business Client" groupName="uiOpt" select="onSelectUIAccess"/>
+										<RadioButton id="UITypeBtn3" text="SAP Business Workplace" groupName="uiOpt" select="onSelectUIAccess"/>
+										<RadioButton id="UITypeBtn4" text="Fiori Dashboard" groupName="uiOpt" select="onSelectUIAccess"/>
+										<HBox>
+											<RadioButton id="UITypeBtn5" text="Others" groupName="uiOpt" width="70%" class="classNew" select="onSelectUIAccess"/>
+											<Input id="otherUIPts" visible="false" class="paddingInputForRB"/>
+										</HBox>
+									</VBox>
+									<Label text="Target"/>
+									<MultiComboBox selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" width="500px" id="target">
+										<items>
+											<core:Item key="hana" text="S/4 HANA"/>
+											<core:Item key="bw" text="BW"/>
+											<core:Item key="bpc" text="BPC"/>
+											<core:Item key="ariba" text="Ariba"/>
+											<core:Item key="mdg" text="MDG"/>
+											<core:Item key="vertex" text="Vertex"/>
+											<core:Item key="cloud" text="Cloud based-SAP/Non-SAP"/>
+											<core:Item key="xi" text="SAP XI/PI"/>
+											<core:Item key="pi" text="HCI-PI"/>
+											<core:Item key="ds" text="HCI-DS"/>
+											<core:Item key="ibp" text="IBP"/>
+											<core:Item key="CAS" text="CAS"/>
+											<core:Item key="Vistex" text="Vistex"/>
+											<core:Item key="others1" text="Others"/>
+										</items>
+									</MultiComboBox>
+									<Label text="Interface Direction"/>
+									<!--<Switch state="true" customTextOn="InBound" customTextOff="OutBound" id="itype">-->
+									<!--	<layoutData>-->
+									<!--		<FlexItemData growFactor="1"/>-->
+									<!--	</layoutData>-->
+									<!--</Switch>-->
+									<!--<Select id="itype" selectedKey="inbound" width="100%" change="onOutboundChange">-->
+									<!--	<items>-->
+									<!--		<core:Item text="Inbound" key="inbound"/>-->
+									<!--		<core:Item text="Outbound" key="outbound"/>-->
+									<!--		<core:Item text="Bidirectional" key="bidirectional"/>-->
+									<!--	</items>-->
+									<!--</Select>-->
+									<RadioButtonGroup id="itype" columns="3" width="100%" selectedKey="inbound">
+										<buttons>
+											<RadioButton id="RB2-11" text="Inbound" key="inbound"/>
+											<RadioButton id="RB2-12" text="Outbound" key="outbound"/>
+											<RadioButton id="RB2-13" text="Bidirectional" key="bidirectional"/>
+										</buttons>
+									</RadioButtonGroup>
+									<Label text="Processing Type"/>
+									<!--<SegmentedButton selectedKey="synchro" class="sapUiSmallMarginBottom" id="sb2" width="100%">-->
+									<!--	<items>-->
+									<!--		<SegmentedButtonItem text="Synchronous" key="synchro"/>-->
+									<!--		<SegmentedButtonItem text="Asynchronous" key="asynchro"/>-->
+									<!--	</items>-->
+									<!--</SegmentedButton>-->
+									<RadioButtonGroup columns="2" width="100%" id="sb2" selectedKey="synchro" class="sapUiMediumMarginBottom">
+										<buttons>
+											<RadioButton id="RB1-1" text="Synchronous" key="synchro"/>
+											<RadioButton id="RB1-2" text="Asynchronous" key="asynchro"/>
+										</buttons>
+									</RadioButtonGroup>
+								</f:SimpleForm>
+							</layout:content>
+						</layout:Grid>
+							<HBox>
+									<u:FileUploader id="fileUploadWfReqObjectDetails" width="90%" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}" sendXHR="true"
+										useMultipart="false"/>
+									<Button id="uploadAttachWFReqObjectDetails" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachObjectDetails" width="100%" class="myClass" items="{intWFObjectDetailsJSON>/attachWfObjectDetails}"
+									visible="{intWFObjectDetailsJSON>/attachWfObjectDetailsVisible}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intWFObjectDetailsJSON>fileName}" href="{intWFObjectDetailsJSON>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileWFObjectDetails" activeIcon="{enhData>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+					</Panel>
+					<!--	<layout:Grid defaultSpan="L6 M6 S6">
+								<layout:content>
+									<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="false"
+										emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"
+										editable="true">
+								
+										<Label text="Object ID"/>
+										<Input value="{enhData>/ObjectId}" width="100%" enabled="false"/>
+									</f:SimpleForm>
+								</layout:content>
+							</layout:Grid>-->
+					<VBox id="inputGrid">
+						<Panel id="objectDetails" expandable="true" expanded="false" headerText="Functional Design Considerations" width="auto">
+							<content>
+								<VBox>
+								<Label text="Object Details/Business Requirement/Process Flow"/>
+								 <rte:RichTextEditor id="objectdetails"	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/objectDetails}"/>
+									
+							<!--	<layout:VerticalLayout id="idVerticalLayout1" class="sapUiContentPadding" width="100%"></layout:VerticalLayout>-->
+								<!--<TextArea id="objectdetails" value="{enhData>/objectDetails}" rows="15" width="100%" liveChange="onLiveChangeObjectDetails"/>-->
+								<!--<Text id="fsObjDetCharCount" class="fieldInfo1"/>-->
+								<!--<Text id="fsObjDetErr" text="{i18n>errorMaxLength}" class="errorInfo" visible="false"/>-->
+								<!--<Button text="Upload" icon="sap-icon://upload"/>-->
+								
+								<Label text="Design Details"/>
+							<!--	<TextArea id="objectDesigndetails" value="{enhData>/objectDesigndetails}" rows="15" width="100%" liveChange="onLiveChangeDesignDetails"/>
+								<Text id="fsDesigndetailsCharCount" class="fieldInfo1"/>
+								<Text id="fsDesigndetailsErr" text="{i18n>errorMaxLength}" class="errorInfo" visible="false"/>-->
+									 <rte:RichTextEditor id="objectDesigndetails"	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/objectDesigndetails}"/>
+									
+							<!--<layout:VerticalLayout id="idVerticalLayout2" class="sapUiContentPadding" width="100%"></layout:VerticalLayout>-->
+								<Label text="Workflow Detailed Process Description"/>
+							<!--	<TextArea id="workflowDetailsProcessDesc" value="{enhData>/objectworkflowDetailsProcessDesc}" rows="15" width="100%" liveChange="onLiveChangeDetailsProcessDescription"/>
+								<Text id="fsWorkflowDetailsCharCount" class="fieldInfo1"/>
+								<Text id="fsWorkflowDetailsErr" text="{i18n>errorMaxLength}" class="errorInfo" visible="false"/>-->
+							<!--	<layout:VerticalLayout id="idVerticalLayout3" class="sapUiContentPadding" width="100%"></layout:VerticalLayout>-->
+							 <rte:RichTextEditor id="workflowDetailsProcessDesc"	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/objectworkflowDetailsProcessDesc}"/>
+									
+							
+								</VBox>
+								<HBox>
+									<u:FileUploader id="fileUploadWfReq" width="90%" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}" sendXHR="true"
+										useMultipart="false"/>
+									<Button id="uploadAttachWFReq" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								</HBox>
+								<Table mode="None" noDataText="No Attachment" id="tableAttachWFReq" width="100%" class="myClass" items="{intDataTechAssDepJSON>/attachIntTechAssDep}"
+									visible="{intDataTechAssDepJSON>/attachIntTechAssDepVisible}">
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Link text="{intDataTechAssDepJSON>fileName}" href="{intDataTechAssDepJSON>fileURL}" target="_blank"/>
+												<Button icon="sap-icon://delete" text="Delete" press="deleteFileEnhReq1" activeIcon="{enhData>fileURL}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+									<columns>
+										<Column>
+											<header>
+												<Label text="File Name"/>
+											</header>
+										</Column>
+										<Column>
+											<header></header>
+										</Column>
+									</columns>
+								</Table>
+						<VBox id="reviewCommentFDS">
+											<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+												<content>
+													<!--<Label text="Review/Comments"/>-->
+													<Input id="reviewCommentFDS_I" width="100%" value="{enhData>/FDSComments}"/>
+													<RatingIndicator maxValue="5" id="reviewCommentFDS_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+														value="{enhData>/FDSReview}"/>
+												</content>
+											</Panel>
+										</VBox>
+							</content>
+						</Panel>
+						<Panel id="approvalRoles" expandable="true" expanded="false" headerText="Approval Roles" width="auto">
+							<content>
+								<!--	<HBox width="100%">
+													<Label text="Approval Roles"/>
+												
+												</HBox>-->
+												<!--	<layout:VerticalLayout id="idVerticalLayout0" class="sapUiContentPadding" width="100%"></layout:VerticalLayout>-->
+													 <rte:RichTextEditor id="approvRoles"	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/approvalRoles}"/>
+									
+									
+							<!--	<TextArea id="approvRoles" value="{enhData>/approvalRoles}" rows="15" width="100%" liveChange="onLiveChangeApprovalRoles"/>
+								<Text id="fsApprovRolesCount" class="fieldInfo1"/>
+								<Text id="fsApprovRolesErr" text="{i18n>errorMaxLength}" class="errorInfo" visible="false"/>-->
+								<!--<Button text="Upload" icon="sap-icon://upload"/>-->
+								<VBox id="reviewCommentAR">
+											<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+												<content>
+													<!--<Label text="Review/Comments"/>-->
+													<Input id="reviewCommentAR_I" width="100%" value="{enhData>/ARComments}"/>
+													<RatingIndicator maxValue="5" id="reviewCommentAR_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+														value="{enhData>/ARReview}"/>
+												</content>
+											</Panel>
+										</VBox>
+							</content>
+						</Panel>
+					</VBox>
+				
+					<Panel id="specialReq" expandable="true" expanded="false" headerText="Special Requirements" width="auto">
+						<layout:Grid defaultSpan="L6 M6 S6">
+							<layout:content>
+								<HBox>
+									<Label text="Dependency/Assumptions"/>
+									<VBox class="paddingLeftCheckboxes">
+										<CheckBox id="DependencyConfiguration" key="Configuration" text="Configuration"/>
+										<CheckBox id="DependencyDevelopment" key="Development" text="Development"/>
+										<CheckBox id="DependencyExecution" key="Execution" text="Execution"/>
+									</VBox>
+								</HBox>
+								<HBox >
+									<Label text="Special Requirements"/>
+									<VBox class="paddingLeftCheckboxes">
+										<CheckBox id="CB_SPREQ_01" key="CB_SPREQ_01" text="Dead line monitoring"/>
+										<CheckBox id="CB_SPREQ_02" key="CB_SPREQ_02" text="Delegation required"/>
+										<CheckBox id="CB_SPREQ_03" key="CB_SPREQ_03" text="Reapproval required"/>
+										<CheckBox id="CB_SPREQ_04" key="CB_SPREQ_04" text="Integration to external systems"/>
+										<CheckBox id="CB_SPREQ_05" key="CB_SPREQ_05" text="Capturing user comments"/>
+										<CheckBox id="CB_SPREQ_06" key="CB_SPREQ_06" text="Attachments"/>
+										<HBox>
+											<CheckBox id="CB_SPREQ_07" key="CB_SPREQ_07" text="Other Special Requirement"/>
+											<Input id="IF_SPREQ_07" width="80%" value="{enhData>/SpecialReqText}" class="iconTabBarpadding"/>
+										</HBox>
+									</VBox>
+								</HBox>
+							</layout:content>
+						</layout:Grid>
+						<VBox id="reviewCommentSR">
+											<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+												<content>
+													<!--<Label text="Review/Comments"/>-->
+													<Input id="reviewCommentSR_I" width="100%" value="{enhData>/SRComments}"/>
+													<RatingIndicator maxValue="5" id="reviewCommentSR_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+														value="{enhData>/SRReview}"/>
+												</content>
+											</Panel>
+										</VBox>
+					</Panel>
+					<Panel id="WfAssumptionCmtId" expandable="true" expanded="false" headerText="Assumption Comments" width="auto">
+						<content>
+							<!--	<HBox width="100%">
+												<Label text="Assumption Comments"/>
+											
+											</HBox>-->
+						<!--	<TextArea id="WfAssumptionCm" value="{enhData>/AssumptionComment}" rows="15" width="100%" liveChange="onLiveChangeAssumpComment"/>
+							<Text id="fsAssumpCommentCharCount" class="fieldInfo1"/>
+							<Text id="fsAssumpCommentErr" text="{i18n>errorMaxLength}" class="errorInfo" visible="false"/>-->
+							<!--<Button text="Upload" icon="sap-icon://upload"/>-->
+						<!--	<layout:VerticalLayout id="idVerticalLayout4" class="sapUiContentPadding" width="100%"></layout:VerticalLayout>-->
+							 <rte:RichTextEditor id="WfAssumptionCm"	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/AssumptionComment}"/>
+									
+
+								<VBox id="reviewCommentAC">
+											<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+												<content>
+													<!--<Label text="Review/Comments"/>-->
+													<Input id="reviewCommentAC_I" width="100%" value="{enhData>/ACComments}"/>
+													<RatingIndicator maxValue="5" id="reviewCommentAC_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+														value="{enhData>/ACReview}"/>
+												</content>
+											</Panel>
+										</VBox>
+						</content>
+					</Panel>
+					<Panel id="alertNotifSec" expandable="true" expanded="false" headerText="Alert/Notification" width="auto">
+						<content>
+							<!--	<HBox width="100%">
+												<Label text="Alert/Notification"/>
+											
+											</HBox>-->
+						<!--	<TextArea id="alertNotif" value="{enhData>/alertNotif}" rows="15" width="100%" liveChange="onLiveChangeAlertNotif"/>
+							<Text id="fsAlertNotifCharCount" class="fieldInfo1"/>
+							<Text id="fsAlertNotifErr" text="{i18n>errorMaxLength}" class="errorInfo" visible="false"/>-->
+						<!--	<layout:VerticalLayout id="idVerticalLayout5" class="sapUiContentPadding" width="100%"></layout:VerticalLayout>-->
+							 <rte:RichTextEditor id="alertNotif"	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/alertNotif}"/>
+									
+
+							<!--<Button text="Upload" icon="sap-icon://upload"/>-->
+								<VBox id="reviewCommentAN">
+											<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+												<content>
+													<!--<Label text="Review/Comments"/>-->
+													<Input id="reviewCommentAN_I" width="100%" value="{enhData>/ANComments}"/>
+													<RatingIndicator maxValue="5" id="reviewCommentAN_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+														value="{enhData>/ANReview}"/>
+												</content>
+											</Panel>
+										</VBox>
+						</content>
+					</Panel>
+						<Panel expandable="true" id="WFErrorHandling" expanded="false" visible = "false" headerText="Error Handling" width="auto">
+							<content>
+								<IconTabBar expanded="{device>/isNoPhone}">
+									<items>
+										<IconTabFilter text="Error Log">
+											<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+												<!--<Label text="Error Log"/>-->
+												<!--<core:Icon class="Help" src="sap-icon://sys-help" id="ErrorLogHelp" press="onPressHelp"/>-->
+											<!--	<TextArea value="{enhData>/ErrorLog}" rows="4"/>-->
+													 <rte:RichTextEditor	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/ErrorLog}"/>
+									
+											</f:SimpleForm>
+										</IconTabFilter>
+										<IconTabFilter text="Audit Log">
+											<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+												<!--<Label text="Audit Log"/>-->
+												<!--<core:Icon class="Help" src="sap-icon://sys-help" id="AuditLogHelp" press="onPressHelp"/>-->
+											<!--	<TextArea value="{enhData>/AuditLog}" rows="4"/>-->
+													 <rte:RichTextEditor	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/AuditLog}"/>
+									
+											</f:SimpleForm>
+										</IconTabFilter>
+										<IconTabFilter text="Error Report">
+											<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+												<!--<Label text="Error Report"/>-->
+												<!--<core:Icon class="Help" src="sap-icon://sys-help" id="ErrorReportHelp" press="onPressHelp"/>-->
+											<!--	<TextArea value="{enhData>/ErrorReport}" rows="4"/>-->
+													 <rte:RichTextEditor 	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/ErrorReport}"/>
+									
+											</f:SimpleForm>
+										</IconTabFilter>
+										<IconTabFilter text="Return Requirement">
+											<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+												<!--<Label text="Return Requirement"/>-->
+												<!--<core:Icon class="Help" src="sap-icon://sys-help" id="ReturnRequirementsHelp" press="onPressHelp"/>-->
+											<!--	<TextArea value="{enhData>/ReturnRequirement}" rows="4"/>-->
+													 <rte:RichTextEditor 	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/ReturnRequirement}"/>
+									
+											</f:SimpleForm>
+										</IconTabFilter>
+										<IconTabFilter text="Validations">
+											<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+												<!--<Label text="Validations"/>-->
+												<!--<core:Icon class="Help" src="sap-icon://sys-help" id="ValidationsHelp" press="onPressHelp"/>-->
+											<!--	<TextArea value="{enhData>/SecValidations}" rows="4"/>-->
+													 <rte:RichTextEditor 	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/SecValidations}"/>
+									
+											</f:SimpleForm>
+										</IconTabFilter>
+										<IconTabFilter text="Reconciliation">
+											<f:SimpleForm layout="ResponsiveGridLayout" editable="true">
+												<!--<Label text="Reconciliation"/>-->
+												<!--<core:Icon class="Help" src="sap-icon://sys-help" id="ReconciliationHelp" press="onPressHelp"/>-->
+											<!--	<TextArea value="{enhData>/ErrReconciliation}" rows="4"/>-->
+													 <rte:RichTextEditor 	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/ErrReconciliation}"/>
+									
+											</f:SimpleForm>
+										</IconTabFilter>
+									</items>
+								</IconTabBar>
+							</content>
+							<VBox id="reviewCommentEH">
+								<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+									<content>
+									
+										<Input width="100%" id="reviewCommentEH_I" value="{enhdata>/ErrorHandlingCommentsEH}"/>
+										<RatingIndicator maxValue="5" iconSize="22px" id="reviewCommentEH_R" tooltip="Rating Tooltip" enabled="true"
+											value="{enhdata>/ErrorHandlingReview}"/>
+									</content>
+								</Panel>
+							</VBox>
+						</Panel>
+					<Panel id="errHandl" expandable="true" visible="false" expanded="false" headerText="Error Handling" width="auto">
+						<content>
+							<HBox>
+								<!-- <rte:RichTextEditor id="alertNotif"	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/alertNotif}"/>-->
+									
+							</HBox>
+								<HBox>
+								<CheckBox text="Selection Screen Validations" id="CB_SCV" key="Selection Screen Validations"/>
+							</HBox>
+					
+						<!--	<layout:VerticalLayout id="idVerticalLayout6" class="sapUiContentPadding" width="100%"></layout:VerticalLayout
+						
+
+							<HBox>
+								<CheckBox text="Selection Screen Validations" id="CB_SCV" key="Selection Screen Validations"/>
+							</HBox>
+							
+						</content>
+					</Panel>
+					<Panel id="reviewComment0" visible="false" expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+						<content>
+							<Label text="Review/Comments"/>
+							<Input id="input2" width="100%" value="{enhData>/WFReviewComments}"/>
+							<RatingIndicator id="ri5" maxValue="5" value="{enhData>/WFRatings}" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip"
+								enabled="true"/>
+							</layout:content>-->
+						</content>
+					</Panel>
+					<Panel id="enhreqimpact" expandable="true" expanded="false" headerText="Impact" width="auto">
+						<content>
+							<HBox>
+								<Label text="Impact"/>
+							</HBox>
+							<VBox>
+							 <rte:RichTextEditor id="Impact" editorType="TinyMCE4" width="100%"  customToolbar="true"
+		                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/impact}"/>
+
+<!--			             	<TextArea id="impact" rows="15" width="100%" value="{enhData>/impact}"/>  -->
+                            </VBox>
+                                       <VBox>
+                                    <HBox>   
+		                  				<u:FileUploader id="fileUploadEnhReq2" width="70%" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}" sendXHR="true"
+											useMultipart="false"/>
+										<Button id="uploadAttachEnhanceReq2" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								   </HBox>	
+								   </VBox>
+								   <VBox>
+                         			<Table mode="None" noDataText="No Attachment" id="tableAttachEnhanceReq2" width="100%" class="myClass" items="{intDataTechAssDepJSON1>/attachIntTechAssDep1}"
+										visible="{intDataTechAssDepJSON1>/attachIntTechAssDepVisible1}">
+										<items>
+											<ColumnListItem>
+												<cells>
+													<Link text="{intDataTechAssDepJSON1>fileName}" href="{intDataTechAssDepJSON1>fileURL}" target="_blank"/>
+													<Button text="Delete" icon="sap-icon://delete" press="deleteFileEnhReq2" activeIcon="{intDataTechAssDepJSON6>fileURL}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+										<columns>
+											<Column>
+												<header>
+													<Label text="File Name"/>
+												</header>
+											</Column>
+											<Column>
+												<header></header>
+											</Column>
+										</columns>
+									</Table>
+									</VBox>
+							<u:Menu id="HelpMenuImpact">
+									</u:Menu>
+				<!--					<core:Icon class="Help" src="sap-icon://sys-help" id="ImpactHelp" press="onPressHelp"/> -->
+					
+					<VBox id="reviewCommentIMP">
+											<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+												<content>
+													<!--<Label text="Review/Comments"/>-->
+													<Input id="reviewCommentIMP_I" width="100%" value="{enhData>/IMPComments}"/>
+													<RatingIndicator maxValue="5" id="reviewCommentIMP_R"  iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+														value="{enhData>/ImpReview}"/>
+												</content>
+											</Panel>
+										</VBox>
+						</content>
+
+					</Panel>
+							
+					<Panel id="enhancementreq" headerText="Enhancement Requirement" expanded="true" expandable="true">
+						<layout:Grid defaultSpan="L12 M12 S12">
+							<layout:content>
+				<!--				<VBox>  -->
+									<!--<HBox>
+											<Label text="Enhancement Requirement"/>
+										</HBox>--> 
+							 <VBox>
+						         <rte:RichTextEditor id="enhReq" editorType="TinyMCE4" width="100%"  customToolbar="true"
+		                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/ObjectIdEnhancementRequirement}"/>
+		                  			<!--						<TextArea id="enhReq" rows="15" width="100%" value="{enhData>/ObjectIdEnhancementRequirement}"/> -->
+<!--									<core:Icon class="Help" src="sap-icon://sys-help" id="EnhancementRequirementHelp" press="onPressHelp"/> -->
+                                    </VBox>
+                                    <VBox>
+                                    <HBox>   
+		                  				<u:FileUploader id="fileUploadEnhReq" width="70%" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}" sendXHR="true"
+											useMultipart="false"/>
+										<Button id="uploadAttachEnhanceReq" text="Upload" icon="sap-icon://upload" press="callAttachment" class="iconTabBarpadding"/>
+								   </HBox>	
+								   </VBox>
+								   <VBox>
+                         			<Table mode="None" noDataText="No Attachment" id="tableAttachEnhanceReq" width="100%" class="myClass" items="{intDataTechAssDepJSON2>/attachIntTechAssDep2}"
+										visible="{intDataTechAssDepJSON2>/attachIntTechAssDepVisible2}">
+										<items>
+											<ColumnListItem>
+												<cells>
+													<Link text="{intDataTechAssDepJSON2>fileName}" href="{intDataTechAssDepJSON2>fileURL}" target="_blank"/>
+													<Button text="Delete" icon="sap-icon://delete" press="deleteFileEnhReq3" activeIcon="{intDataTechAssDepJSON2>fileURL}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+										<columns>
+											<Column>
+												<header>
+													<Label text="File Name"/>
+												</header>
+											</Column>
+											<Column>
+												<header></header>
+											</Column>
+										</columns>
+									</Table>
+								</VBox>
+								<VBox visible="false">
+									<HBox>
+										<Label text="Dependencies"/>
+									</HBox>
+									<TextArea id="dependencies" rows="15" width="100%" value="{enhData>/dependencies}"/>
+								</VBox>
+								<Panel id="reviewComment5" visible="false" headerText="" expanded="true" expandable="true">
+									<VBox >
+										<Label text="Review/Comments"/>
+										<Input id="input14" width="100%" value="{enhData>/ReviewComments}"/>
+										<RatingIndicator id="ri17" maxValue="5" iconSize="22px" tooltip="Rating Tooltip" enabled="true" value="{enhData>/ReviewCommentsRating}"/>
+										<!--<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">-->
+										<!--	<content>-->
+										<!--		<Label text="Review/Comments"/>-->
+										<!--		<Input id="input14" width="100%" value="{enhData>/ReviewComments}"/>-->
+										<!--		<RatingIndicator id="ri17" maxValue="5" iconSize="22px" tooltip="Rating Tooltip" enabled="true" value="0"/>-->
+										<!--	</content>-->
+										<!--</Panel>-->
+										<!--</VBox>-->
+									</VBox>
+								</Panel>
+							</layout:content>
+						</layout:Grid>
+					</Panel>
+					<Panel headerText="Summary" expanded="false" expandable="true" id="Summary">
+						<layout:Grid defaultSpan="L6 M6 S6">
+							<layout:content>
+								<!--<VBox>-->
+								<VBox>
+									<HBox>
+										<Label id="OverviewLabel" text="Overview"/>
+										<Text class="fieldInfo"/>
+									</HBox>
+									<TextArea id="Overview" cols="40" rows="3" width="100%" maxLength="500"/>
+									<HBox>
+										<Label id="AsProcLabel" text="As-Is Process"/>
+										<Text class="fieldInfo"/>
+									</HBox>
+									<TextArea id="Asproc" cols="40" rows="3" width="100%" maxLength="500"/>
+									<HBox>
+										<Label id="RiskLabel" text="Business Risk"/>
+										<Text class="fieldInfo"/>
+									</HBox>
+									<TextArea id="Risk" cols="40" rows="3" width="100%" maxLength="500"/>
+								</VBox>
+								<VBox>
+									<HBox>
+										<Label id="BsDriveLabel" text="Business Driver"/>
+										<Text class="fieldInfo"/>
+									</HBox>
+									<TextArea id="BsDrive" cols="40" rows="3" width="100%" maxLength="500"/>
+									<HBox>
+										<Label id="ToProcLabel" text="To-Be Process"/>
+										<Text class="fieldInfo"/>
+									</HBox>
+									<TextArea id="Toproc" cols="40" rows="3" width="100%" maxLength="500"/>
+								</VBox>
+							</layout:content>
+						</layout:Grid>
+					</Panel>
+					<Panel headerText="Form General Details" expanded="false" expandable="true" id="formGenPanel">
+						<content>
+							<layout:Grid defaultSpan="L12 M12 S12">
+								<layout:content>
+									<VBox>
+									 <rte:RichTextEditor id="formdetails"	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/FormGeneralDetails}"/>
+									 </VBox>	
+<!--										<Label/> -->
+<!--										<TextArea id="formdetails" rows="15" width="100%" value="{enhData>/FormGeneralDetails}"/> -->
+<!-- u:Menu id="HelpMenuFormGeneralDetails">
+									</u:Menu> -->
+<!--									<core:Icon class="Help" src="sap-icon://sys-help" id="FormGeneralDetailsHelp" press="onPressHelp"/> -->
+										<VBox>
+											<HBox>
+												<u:FileUploader id="fileUploadFormReq" width="388px" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+													sendXHR="true" useMultipart="false"/>
+												<Button id="uploadAttachFormReq" text="Upload" icon="sap-icon://upload" press="callAttachment"/>
+											</HBox>
+   			 <!--	<Button text="Sample Data Sheet" icon="sap-icon://excel-attachment" class="sapUiSmallMarginBegin"/> -->
+										 </VBox>
+										<!--<Link text="Sample Mapping Sheet"/>-->
+									<!--<VBox id="reviewComment6">
+											<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+												<content>
+													<Input id="input18" width="100%" value="{enhData>/FormDetailsComment}"/>
+													<RatingIndicator id="ri19" maxValue="5" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+														value="{enhData>/FormDetailsRating}"/>
+												</content>
+											</Panel>
+										</VBox>-->
+								</layout:content>
+							</layout:Grid>
+								<VBox id="FormGeneralDetailsBox">
+											<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+												<content>
+													<!--<Label text="Review/Comments"/>-->
+													<Input id="FormGeneralDetailsBox_I" width="100%" value="{enhData>/FormGeneralDetails_Comments}"/>
+													<RatingIndicator maxValue="5" id="FormGeneralDetailsBox_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+														value="{enhData>FormGeneralDetails_Review}"/>
+												</content>
+											</Panel>
+										</VBox>
+
+						</content>
+					</Panel>
+					<Panel headerText="Form Mapping Sheet" expanded="false" expandable="true" id="formMappingSheetPanel">
+						<content>
+							<layout:Grid defaultSpan="L12 M12 S12">
+								<layout:content>
+									<VBox>
+									 <rte:RichTextEditor id="formmapping"	editorType="TinyMCE4" width= "100%" height= "300px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{FrmData>/FormMapping}" />
+									 </VBox>
+									<VBox>
+										<HBox>
+											<u:FileUploader id="fileUploadFormMappingSheet" width="90%" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+												sendXHR="true" useMultipart="false"/>
+											<Button id="uploadFormMappingSheet" text="Upload" icon="sap-icon://upload" press="callAttachment"/>
+										</HBox>
+										<Table mode="None" noDataText="No Attachment" id="tableAttachFormMappingSheet" width="100%" class="myClass"
+											items="{FrmData>/attachFrmMappingSheetReq}" visible="{FrmData>/attachFrmMappingSheetReqVisible}">
+											<items>
+												<ColumnListItem>
+													<cells>
+														<Link text="{FrmData>fileName}" href="{FrmData>fileURL}" target="_blank"/>
+														<Button id="deleteFormMappingSheet" text="Delete" icon="sap-icon://delete" press="deleteFileFrmMapngSht" activeIcon="{FrmData>fileURL}"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+											<columns>
+												<Column>
+													<header>
+														<Label text="File Name"/>
+													</header>
+												</Column>
+												<Column>
+													<header></header>
+												</Column>
+											</columns>
+										</Table>
+									</VBox>
+								</layout:content>
+							</layout:Grid>
+								<VBox id="FormMappingBox">
+											<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+												<content>
+													<!--<Label text="Review/Comments"/>-->
+													<Input id="FormMappingBox_I" width="100%" value="{enhData>/FormMapping_Comments}"/>
+													<RatingIndicator maxValue="5" id="FormMappingBox_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+														value="{enhData>FormMapping_Review}"/>
+												</content>
+											</Panel>
+										</VBox>
+
+						</content>
+					</Panel>
+					<Panel id="Printreq" expandable="true" expanded="false" headerText="Printing Requirements" width="auto">
+						<content>
+							<Label text="Output Methods"/>
+							<HBox>
+								<CheckBox text="Print" key="Print" id="Printc"/>
+								<CheckBox text="Fax" key="Fax" id="Faxc"/>
+								<CheckBox text="Email" key="Email" id="Emailc"/>
+							</HBox>
+							<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="5" labelSpanL="5" labelSpanM="5" labelSpanS="9" adjustLabelSpan="false"
+								emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+								editable="true">
+								<Label text="Email ID"/>
+								<Input id="email" width="100%" value="{FrmData>/EmailID}"/>
+								<Label text="Fax Number"/>
+								<Input id="Fax" width="100%" value="{FrmData>/FaxNumber}"/>
+							</f:SimpleForm>
+							<Label text="Paper Size"/>
+							<HBox>
+								<CheckBox id="cb1" text="A4(8.7 X 11.69)" key="A4(8.7 X 11.69)"/>
+								<CheckBox id="cb2" text="Letter (8.5 X 11)" key="Letter (8.5 X 11)"/>
+								<CheckBox id="cb3" text="Legal (8.5 X 14)" key="Legal (8.5 X 14)"/>
+								<CheckBox id="cb4" text="Others" key="Others"/>
+							</HBox>
+							<Label text="Page Orientation"/>
+							<HBox>
+								<CheckBox id="Portrait" text="Portrait" key="Portrait"/>
+								<CheckBox id="Landscape" text="Landscape" key="Landscape"/>
+							</HBox>
+							<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="5" labelSpanL="5" labelSpanM="5" labelSpanS="9" adjustLabelSpan="false"
+								emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+								editable="true">
+								<Label text="Special Printing requirements"/>
+								<Input id="Spreq" width="100%" value="{FrmData>/Special}"/>
+							</f:SimpleForm>
+							<Label text="Pre-printed stationary"/>
+							<!--<HBox>-->
+							<!--	<RadioButton id="cb5" text="Yes" key="Yes" />-->
+							<!--	<RadioButton id="cb6" text="No" key="No" />-->
+							<!--</HBox>-->
+							<RadioButtonGroup columns="2" width="100%" class="sapUiMediumMarginBottom">
+								<buttons>
+									<RadioButton id="cb5" text="Yes" key="Yes"/>
+									<RadioButton id="cb6" text="No" key="No"/>
+								</buttons>
+							</RadioButtonGroup>
+							<Label text="Multiple page formats"/>
+							<HBox>
+								<!--<RadioButton id="cb7" text="Yes" key="Yes"/>-->
+								<!--<RadioButton id="cb8" text="No" key="No"/>-->
+								<RadioButtonGroup columns="2" width="100%" class="sapUiMediumMarginBottom">
+									<buttons>
+										<RadioButton id="cb7" text="Yes" key="Yes"/>
+										<RadioButton id="cb8" text="No" key="No"/>
+									</buttons>
+								</RadioButtonGroup>
+							</HBox>
+							<Label text="Watermark Required?"/>
+							<HBox>
+								<!--<RadioButton id="cb9" text="Yes" key="Yes"/>-->
+								<!--<RadioButton id="cb10" text="No" key="No"/>-->
+								<RadioButtonGroup columns="2" width="100%" class="sapUiMediumMarginBottom">
+									<buttons>
+										<RadioButton id="cb9" text="Yes" key="Yes"/>
+										<RadioButton id="cb10" text="No" key="No"/>
+									</buttons>
+								</RadioButtonGroup>
+							</HBox>
+							<Label text="Company Logo Required?"/>
+							<HBox>
+								<!--<RadioButton id="cb11" text="Yes" key="Yes"/>-->
+								<!--<RadioButton id="cb12" text="No" key="No"/>-->
+								<RadioButtonGroup columns="2" width="100%" class="sapUiMediumMarginBottom">
+									<buttons>
+										<RadioButton id="cb11" text="Yes" key="Yes"/>
+										<RadioButton id="cb12" text="No" key="No"/>
+									</buttons>
+								</RadioButtonGroup>
+							</HBox>
+							<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="5" labelSpanL="5" labelSpanM="5" labelSpanS="9" adjustLabelSpan="false"
+								emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+								editable="true">
+								<Label text="Position of the LOGO"/>
+								<Input id="Logop" width="100%" value="{FrmData>/PositionoftheLOGO}"/>
+								<Label text="Printer/s – Trays"/>
+								<Input id="Print" width="100%" value="{FrmData>/PrinterTrays}"/>
+								<Label text="Number of Pages"/>
+								<Input id="Nocop" width="100%" value="{FrmData>/Numberofcopies}"/>
+							</f:SimpleForm>
+							<Label text="Printer Type"/>
+							<HBox>
+								<CheckBox id="Thermal" text="Thermal Printer" key="Thermal Printer"/>
+								<CheckBox id="Laser" text="Laser Printer" key="Laser Printer"/>
+								<CheckBox id="Zebra" text="Zebra Printer" key="Zebra Printer"/>
+								<CheckBox id="Others" text="Others" key="Others"/>
+							</HBox>
+							<Label text="Rotation Requirements(Printing Labels on Zebra Printer)"/>
+							<HBox>
+								<!--<RadioButton id="cb13" text="Yes" key="Yes"/>-->
+								<!--<RadioButton id="cb14" text="No" key="No"/>-->
+								<RadioButtonGroup columns="2" width="100%" class="sapUiMediumMarginBottom">
+									<buttons>
+										<RadioButton id="cb13" text="Yes" key="Yes"/>
+										<RadioButton id="cb14" text="No" key="No"/>
+									</buttons>
+								</RadioButtonGroup>
+							</HBox>
+							<Label text="Printer accessibility"/>
+							<HBox>
+								<CheckBox id="cb15" text="Network" key="Network"/>
+								<CheckBox id="cb16" text="Local" key="Local"/>
+							</HBox>
+							<Label text="Any Related printer specific Cut over steps Identified"/>
+							<HBox>
+								<Input id="Cut" width="100%" value="{FrmData>/AnyRelated}"/>
+							</HBox>
+							<!--<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="7" labelSpanL="7" labelSpanM="7" labelSpanS="3" adjustLabelSpan="false"
+									emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+									editable="true">
+									<Label text="Any Related printer specific Cut over steps Identified"/>
+									<Input id="Cut" width="100%" value="{FrmData>/AnyRelated}"/>
+								</f:SimpleForm>-->
+							<Label text="Printer Model Identified?"/>
+							<HBox>
+								<CheckBox id="HP" text="HP" key="HP"/>
+								<CheckBox id="Xerox" text="Xerox" key="Xerox"/>
+								<CheckBox id="Lexmark" text="Lexmark" key="Lexmark"/>
+								<CheckBox id="Other" text="Others" key="Others"/>
+							</HBox>
+							<Label text="Is the printer required to be mapped in SAP? In case yes Printer SAP Device type Identified?"/>
+							<HBox>
+								<Input id="Map" width="100%" value="{FrmData>/PrinterRequired}"/>
+							</HBox>
+							<!--<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="5" labelSpanL="5" labelSpanM="5" labelSpanS="9" adjustLabelSpan="false"
+									emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+									editable="true">
+									<Label text="Is the printer required to be mapped in SAP? In case yes Printer SAP Device type Identified?"/>
+									<Input id="Map" width="100%" value="{FrmData>/PrinterRequired}"/>
+								</f:SimpleForm>-->
+							<Label text="Print Languages"/>
+							<HBox>
+								<CheckBox id="English" text="English" key="English"/>
+								<CheckBox id="Spanish" text="Spanish" key="Spanish"/>
+								<CheckBox id="Chinese" text="Simple Chinese" key="Simple Chinese"/>
+								<CheckBox id="Dutch" text="Dutch" key="Dutch"/>
+								<CheckBox id="Mandarin" text="Mandarin" key="Mandarin"/>
+								<CheckBox id="Portuguese" text="Portuguese" key="Portuguese"/>
+								<CheckBox id="German" text="German" key="German"/>
+								<CheckBox id="Oth" text="Others" key="Others"/>
+							</HBox>
+								<VBox id="PrintingReqBox">
+											<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+												<content>
+													<!--<Label text="Review/Comments"/>-->
+													<Input id="PrintingReqBox_I" width="100%" value="{enhData>/PrintingReq_Comments}"/>
+													<RatingIndicator maxValue="5" id="PrintingReqBox_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+														value="{enhData>PrintingReq_Review}"/>
+												</content>
+											</Panel>
+										</VBox>
+						</content>
+					</Panel>
+					<Panel id="barcodereq" expandable="true" expanded="false" headerText="Barcode Requirements" width="auto">
+						<content>
+							<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false"
+								emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"
+								editable="true">
+								<Label text="Font Size"/>
+								<Input id="Fsize" width="100%" value="{FrmData>/FontSize}"/>
+								<Label text="Barcode Type"/>
+								<Input id="Brtype" width="100%" value="{FrmData>/BarcodeType}"/>
+							</f:SimpleForm>
+							<Label text="Barcode Alignment"/>
+							<HBox>
+								<CheckBox id="Normal" text="Normal" key="Normal"/>
+								<CheckBox id="Rotated" text="Rotated" key="Rotated"/>
+								<CheckBox id="Inverted" text="Inverted" key="Inverted"/>
+								<CheckBox id="Bottom" text="Bottom up" key="Bottom up"/>
+							</HBox>
+								<VBox id="BarcodeReqBox">
+											<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+												<content>
+													<!--<Label text="Review/Comments"/>-->
+													<Input id="BarcodeReqBox_I" width="100%" value="{enhData>/BarcodeReq_Comments}"/>
+													<RatingIndicator maxValue="5" id="BarcodeReqBox_R" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+														value="{enhData>BarcodeReq_Review}"/>
+												</content>
+											</Panel>
+										</VBox>
+						</content>
+					</Panel>
+					<Panel headerText="Dependencies" expanded="false" expandable="true" id="formDependenciesPanel">
+						<content>
+							<layout:Grid defaultSpan="L12 M12 S12">
+								<layout:content>
+									<!--<VBox>
+											<TextArea id="fmDependencies" cols="40" rows="5" width="100%" value="{enhData>/dependencies}"/>
+										</VBox>-->
+									<HBox>
+										<CheckBox id="Configuration" text="Configuration"/>
+										<CheckBox id="Development" text="Development"/>
+										<CheckBox id="Execution" text="Execution"/>
+									</HBox>
+								</layout:content>
+							</layout:Grid>
+						</content>
+					</Panel>
+					<VBox>
+						<layout:Grid id="mappingSection1" defaultSpan="L6 M6 S6">
+							<layout:content>
+								<!--<VBox>-->
+								<VBox>
+									<Label text="Mapping"/>
+									<TextArea id="map1" cols="40" rows="5" width="100%"/>
+									<Button text="Upload" icon="sap-icon://upload"/>
+								</VBox>
+								<VBox id="reviewComment2">
+									<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+										<content>
+											<Label text="Review/Comments"/>
+											<Input id="input12" width="100%"/>
+											<RatingIndicator id="ri15" maxValue="5" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true" value="0"/>
+										</content>
+									</Panel>
+								</VBox>
+							</layout:content>
+						</layout:Grid>
+						<layout:Grid id="mappingSection2" defaultSpan="L6 M6 S6">
+							<layout:content>
+								<!--</VBox>-->
+								<!--<VBox>-->
+								<VBox>
+									<Label text="Error Handling and Reconciliation"/>
+									<TextArea id="error11" cols="40" rows="5" width="100%"/>
+									<Button text="Upload" icon="sap-icon://upload"/>
+								</VBox>
+								<VBox id="reviewComment3">
+									<Panel expandable="true" expanded="false" headerText="Review/Comments" width="auto">
+										<content>
+											<Label text="Review/Comments"/>
+											<Input id="input13" width="100%"/>
+											<RatingIndicator id="ri16" maxValue="5" iconSize="22px" tooltip="Rating Tooltip" enabled="true" value="0"/>
+										</content>
+									</Panel>
+									<!--</VBox>-->
+								</VBox>
+							</layout:content>
+						</layout:Grid>
+						<f:SimpleForm layout="ResponsiveGridLayout" editable="true" id="postload1">
+							<Label text="Post Load Validations and Reconciliations "/>
+							<TextArea cols="40" rows="5" width="70%"/>
+						</f:SimpleForm>
+						<f:SimpleForm layout="ResponsiveGridLayout" editable="true" id="outputrequirements">
+							<Label text="Output Requirements"/>
+							<TextArea cols="40" rows="5" width="70%"/>
+						</f:SimpleForm>
+						<f:SimpleForm layout="ResponsiveGridLayout" editable="true" id="table0">
+							<Table class="myClass" noDataText="Drop column list items here and columns in the area above" width="100%">
+								<headerToolbar>
+									<Toolbar>
+										<ToolbarSpacer/>
+										<Button text="Add Row" type="Emphasized" press="onAddRow" icon="sap-icon://add" tooltip="Add New Row"/>
+										<Button text="Delete Row" type="Reject" press="onDeleteRow" icon="sap-icon://sys-minus" tooltip="Delete One Row"/>
+									</Toolbar>
+								</headerToolbar>
+								<items>
+									<ColumnListItem id="__item00">
+										<cells>
+											<Input value="1" id="__text011"/>
+											<Input value="Material" id="__text012"/>
+											<Input value="MARA" id="__text013"/>
+											<Input value="MATNR" id="__text014"/>
+											<Input value="" id="__text015"/>
+											<Input value="" id="__text016"/>
+											<Input value="" id="__text017"/>
+											<Select>
+												<items>
+													<core:Item text="Yes" key="Yes"/>
+													<core:Item text="No" key="No"/>
+												</items>
+											</Select>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem id="__item01">
+										<cells>
+											<Input value="2" id="__text20"/>
+											<Input value="Material Description" id="__text018"/>
+											<Input value="MAKT" id="__text019"/>
+											<Input value="MAKTX" id="__text020"/>
+											<Input value="" id="__text021"/>
+											<Input value="" id="__text022"/>
+											<Input value="" id="__text023"/>
+											<Select>
+												<items>
+													<core:Item text="Yes" key="Yes"/>
+													<core:Item text="No" key="No"/>
+												</items>
+											</Select>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column id="__column00">
+										<header>
+											<Label text="Field Sequence No." id="__label7"/>
+										</header>
+									</Column>
+									<Column id="__column01">
+										<header>
+											<Label text="Output Field Name/Column Header" id="__label8"/>
+										</header>
+									</Column>
+									<Column id="__column02">
+										<header>
+											<Label text="Source Table" id="__label9"/>
+										</header>
+									</Column>
+									<Column id="__column03">
+										<header>
+											<Label text="Source Field" id="__label10"/>
+										</header>
+									</Column>
+									<Column id="__column04">
+										<header>
+											<Label text="Logic for determining field value" id="__label11"/>
+										</header>
+									</Column>
+									<Column id="__column05">
+										<header>
+											<Label text="Format Specification" id="__label12"/>
+										</header>
+									</Column>
+									<Column id="__column06">
+										<header>
+											<Label text="Data Hierarchy" id="__label13"/>
+										</header>
+									</Column>
+									<Column id="__column07">
+										<header>
+											<Label text="Available on initial report view" id="__label14"/>
+										</header>
+									</Column>
+								</columns>
+							</Table>
+						</f:SimpleForm>
+						<f:SimpleForm layout="ResponsiveGridLayout" editable="true" id="upload1">
+							<Button text="Upload" width="30%" icon="sap-icon://upload" tooltip="Upload file"/>
+						</f:SimpleForm>
+						<Panel headerText="Required Custom Table" expanded="true" expandable="true" id="customTablePanel">
+							<Table noDataText="Drop column list items here and columns in the area above" id="customTable" class="myClass" mode="None" width="100%"
+								items="{enhData>/reqCustTable}">
+								<headerToolbar/>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<HBox>
+												<Button icon="sap-icon://sys-add" type="Transparent" press="addNewRowCustomTable"/>
+												<Button icon="sap-icon://delete" type="Transparent" press="deleteRowCustomTable"/>
+											</HBox>
+											<Input value="{enhData>tableName}"/>
+											<Input value="{enhData>fieldName}"/>
+											<Input value="{enhData>fieldDesc}"/>
+											<Input value="{enhData>fieldType}"/>
+											<Input value="{enhData>fieldLength}"/>
+											<Input value="{enhData>valRestrictions}"/>
+											<Input value="{enhData>sourceTable}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column>
+										<header>
+											<Label/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Table Name"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Field Name"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Field Description"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Field Type"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Field length"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Value Restrictions"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="Source Table"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label/>
+										</header>
+									</Column>
+								</columns>
+							</Table>
+							<Panel id="reviewComment6" visible="false" headerText="" expanded="true" expandable="true">
+									<VBox >
+										<Label text="Review/Comments"/>
+										<Input id="input15" width="100%" value="{enhData>/ReviewComments_rc}"/>
+										<RatingIndicator id="ri18" maxValue="5" iconSize="22px" tooltip="Rating Tooltip" enabled="true" value="{enhData>/ReviewCommentsRating_rc}"/>
+									</VBox>
+								</Panel>
+						</Panel>
+							<Panel headerText="Attachments and Documentations" expanded="false" expandable="true" id="formAttachmentsPanel">
+						<content>
+							<layout:Grid defaultSpan="L12 M12 S12">
+								<layout:content>
+									<VBox>
+										<HBox>
+											<u:FileUploader id="fileUploadFrmPrintReq" width="90%" tooltip="{i18n>toolTip_ChooseFile}" placeholder="{i18n>toolTip_ChooseFile}"
+												sendXHR="true" useMultipart="false"/>
+											<Button id="uploadAttachFrmPrintReq" text="Upload" icon="sap-icon://upload" press="callAttachment"/>
+											<!--<Button text="Upload" icon="sap-icon://upload"/>-->
+										</HBox>
+										<Table mode="None" noDataText="No Attachment" id="tableAttachFrmPrintReq" width="100%" class="myClass" items="{FrmData>/attachFrmPrintReq}"
+											visible="{FrmData>/attachFrmPrintReqVisible}">
+											<items>
+												<ColumnListItem>
+													<cells>
+														<Link text="{FrmData>fileName}" href="{FrmData>fileURL}" target="_blank"/>
+														<Button id="deleteAttachFrmPrintReq" text="Delete" icon="sap-icon://delete" press="deleteFileFrmPrintReq" activeIcon="{FrmData>fileURL}"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+											<columns>
+												<Column>
+													<header>
+														<Label text="File Name"/>
+													</header>
+												</Column>
+												<Column>
+													<header></header>
+												</Column>
+											</columns>
+										</Table>
+									</VBox>
+								</layout:content>
+							</layout:Grid>
+						</content>
+					</Panel>
+				
+					</VBox>
+				</IconTabFilter>
+				<IconTabFilter id="approvalTab" text="Approvals" count="*">
+					<Table noDataText="Drop column list items here and columns in the area above" id="table1" mode="SingleSelectLeft" width="100%">
+						<!--<headerToolbar>-->
+						<!--	<Toolbar>-->
+						<!--		<ToolbarSpacer/>-->
+						<!--		<Button text="Add Row" type="Emphasized" press="onAddRow" icon="sap-icon://add" tooltip="Add New Row"/>-->
+						<!--		<Button text="Delete Row" type="Reject" press="onDeleteRow" icon="sap-icon://sys-minus" tooltip="Delete One Row"/>-->
+						<!--	</Toolbar>-->
+						<!--</headerToolbar>-->
+						<items>
+							<ColumnListItem id="__item0">
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://edit" type="Transparent"/>
+										<Button icon="sap-icon://delete" type="Transparent"/>
+										<Button text="Details" type="Transparent"/>
+									</HBox>
+									<Input value="1" id="__text11"/>
+									<DatePicker displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" value="2018-01-03"/>
+									<!--<Input value="28/09/2016" id="__text12"/>-->
+									<Input value="Additions" id="__text13"/>
+									<Input value="RSAWARKAR" id="__text14"/>
+									<Input value="SUNANDA" id="__text16"/>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent"/>
+										<Button icon="sap-icon://sys-minus" type="Transparent"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+							<ColumnListItem id="__item1">
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://edit" type="Transparent"/>
+										<Button icon="sap-icon://delete" type="Transparent"/>
+										<Button text="Details" type="Transparent"/>
+									</HBox>
+									<Input value="2" id="text20"/>
+									<DatePicker displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" value="2018-01-03"/>
+									<!--<Input value="20/10/2016" id="__text15"/>-->
+									<Input value="Additions" id="__text17"/>
+									<Input value="RSAWARKAR" id="__text18"/>
+									<Input value="SUNANDA" id="__text19"/>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent"/>
+										<Button icon="sap-icon://sys-minus" type="Transparent"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+						</items>
+						<columns>
+							<Column>
+								<header>
+									<Label text="Actions"/>
+								</header>
+							</Column>
+							<Column id="__column0">
+								<header>
+									<Label text="Sequence/Sprint" id="label7"/>
+								</header>
+							</Column>
+							<Column id="__column1">
+								<header>
+									<Label text="Date" id="label8"/>
+								</header>
+							</Column>
+							<Column id="__column2">
+								<header>
+									<Label text="Additions/Modifications" id="label9"/>
+								</header>
+							</Column>
+							<Column id="__column3">
+								<header>
+									<Label text="Prepared By" id="label10"/>
+								</header>
+							</Column>
+							<Column id="__column4">
+								<header>
+									<Label text="Approved By" id="label11"/>
+								</header>
+							</Column>
+							<Column>
+								<header>
+									<Label/>
+								</header>
+							</Column>
+						</columns>
+					</Table>
+				</IconTabFilter>
+				<IconTabFilter text="Security" count="*">
+					<HBox id="securityReasons" visible="false">
+						<CheckBox id="CB2-01" text="HTTPS/SFTP" key="HTTPSFSFTP"/>
+						<CheckBox id="CB2-02" text="User Authorization" key="UserFAuthorization"/>
+						<CheckBox id="CB2-03" text="Encryption" key="Encryption"/>
+					</HBox>
+					<layout:Grid defaultSpan="L12 M12 S12" visible="false">
+						<layout:content>
+							<VBox visible="false">
+								<Label text="Security Comments"/>
+									 <rte:RichTextEditor id="security"	editorType="TinyMCE4" width= "100%" height= "100px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/securityComments}" />
+				<!--				<TextArea id="security" rows="15" width="100%" value="{enhData>/securityComments}"/>-->
+							</VBox>
+							<VBox id="reviewComment4" visible="false">
+								<Label text="Review/Comments"/>
+								<Input id="input8" width="100%" value="{enhData>/securityReviewComments}"/>
+								<RatingIndicator id="ri9" maxValue="5" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip" enabled="true"
+									value="{enhData>/Rating}"/>
+							</VBox>
+						</layout:content>
+					</layout:Grid>
+					<Panel  expandable="true" expanded="false" headerText="Security Requirements" width="auto">
+					<IconTabBar id="ENHidIconTabBarNoIcons1" expanded="{device>/isNoPhone}" width="100%">
+												<items>
+													<IconTabFilter text="HTTPS/SFTP">
+														<f:SimpleForm layout="ResponsiveGridLayout" editable="true" width="200%">
+									<!--						<Label text="HTTPS/SFTP"/> -->
+			<!--												<TextArea value="{enhData>/HTTPS_SFTP_}" rows="4"/> -->
+			                                                 	 <rte:RichTextEditor id="security1"	editorType="TinyMCE4" width= "100%" height= "200px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/HTTPS_SFTP_}" />
+					                         <!--	<layout:VerticalLayout id="idVerticalLayout7" class="sapUiContentPadding" width="100%"></layout:VerticalLayout>-->
+															<u:Menu id="HelpMenuHTTPSSFTP">
+															</u:Menu>
+				<!--											<core:Icon class="Help" src="sap-icon://sys-help" id="HTTPSSFTPHelp" press="onPressHelp"/> -->
+														</f:SimpleForm>
+													</IconTabFilter>
+													<IconTabFilter text="User Authorization">
+														<f:SimpleForm layout="ResponsiveGridLayout" editable="true" width="200%">
+															<rte:RichTextEditor id="security2"	editorType="TinyMCE4" width= "100%" height= "200px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information" value="{enhData>/UserAuth}" />
+									<!--						<Label text="User Authorization"/> -->
+						<!--									<TextArea value="{enhData>/UserAuth}"  rows="4"/> -->
+						                                      <!-- -->
+					                         	<!--	<layout:VerticalLayout id="idVerticalLayout8" class="sapUiContentPadding" width="100%"></layout:VerticalLayout>
+												-->
+												
+															<u:Menu id="HelpMenuUserAuthorization">
+															</u:Menu>
+						<!--									<core:Icon class="Help" src="sap-icon://sys-help" id="UserAuthorizationHelp" press="onPressHelp"/> -->
+														</f:SimpleForm>
+													</IconTabFilter>
+													<IconTabFilter text="Encryption">
+														<f:SimpleForm layout="ResponsiveGridLayout" editable="true" wisth="200%">
+															<rte:RichTextEditor id="security3"	editorType="TinyMCE4" width= "100%" height= "200px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information"  value="{enhData>/Encryp}" />
+								 <!--         				<Label text="Encryption"/> -->
+							<!--								<TextArea value="{enhData>/Encryp}" rows="4"/> -->
+							                                      <!--  <rte:RichTextEditor id="security3"	editorType="TinyMCE4" width= "900%" height= "100px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information"  value="{enhData>/Encryp}" />-->
+					                         	<!--	<layout:VerticalLayout id="idVerticalLayout9" class="sapUiContentPadding" width="100%"></layout:VerticalLayout>-->
+												
+														<!--	<u:Menu id="HelpMenuEncryption">
+															</u:Menu>-->
+						<!--									<core:Icon class="Help" src="sap-icon://sys-help" id="EncryptionHelp" press="onPressHelp"/> -->
+														</f:SimpleForm>
+													</IconTabFilter>
+												</items>
+											</IconTabBar>
+					</Panel>
+					<Panel expandable="true" expanded="false" headerText="Auditing and Control Requirements" width="auto" >
+						 <rte:RichTextEditor id="security4"	editorType="TinyMCE4" width= "100%" height= "200px" customToolbar="true"
+					                         	showGroupFont="true" tooltip= "Enter Information"  value="{enhData>/AuditingandControlRequirements}" />
+					</Panel>
+				</IconTabFilter>
+				<IconTabFilter text="User Acceptance" count="*">
+					<Table mode="None" noDataText="Drop column list items here and columns in the area above" id="table2" width="100%" class="myClass1"
+						items="{enhData>/userAcceptance}">
+						<items>
+							<ColumnListItem id="item0">
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent" press="addNewRowUA"/>
+										<!--<Button icon="sap-icon://edit" type="Transparent"/>-->
+										<Button icon="sap-icon://delete" type="Transparent" press="deleteRowUA"/>
+										<Input visible="false" value="{enhData>Index}" id="UASIndex" width="0px"/>
+									</HBox>
+									<TextArea growing="true" value="{enhData>step}" id="UAStep"/>
+									<Select selectedKey="{enhData>testType}" width="100%">
+										<items>
+											<core:Item text="" key=""/>
+											<core:Item text="Positive" key="Positive"/>
+											<core:Item text="Negative" key="Negative"/>
+										</items>
+									</Select>
+									<TextArea growing="true" value="{enhData>scenario}" id="text13"/>
+									<TextArea growing="true" value="{enhData>testData}"/>
+									<TextArea growing="true" value="{enhData>stepsPer}"/>
+									<TextArea growing="true" value="{enhData>actualResults}"/>
+									<TextArea growing="true" value="{enhData>expectedResults}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+						<columns>
+							<Column width="9%">
+								<header>
+									<Label text="Actions"/>
+								</header>
+							</Column>
+							<Column width="9%">
+								<header>
+									<Label text="Step" id="step"/>
+								</header>
+							</Column>
+							<Column width="12%">
+								<header>
+									<Label text="Test Type" id="testtype"/>
+								</header>
+							</Column>
+							<Column width="20%">
+								<header>
+									<Label text="Scenario" id="scenario"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Test Data" id="testdata"/>
+								</header>
+							</Column>
+							<Column width="25%">
+								<header>
+									<Label text="Steps Performed" id="stepsperformed"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Expected Results"/>
+								</header>
+							</Column>
+							<Column width="10%">
+								<header>
+									<Label text="Actual Results" id="actualresults"/>
+								</header>
+							</Column>
+						</columns>
+					</Table>
+				</IconTabFilter>
+				<IconTabFilter id="reviewSection" text="Review" count="*">
+					<VBox class="sapUiSmallMargin">
+						<f:SimpleForm layout="ResponsiveGridLayout" editable="true" id="SimpleForm">
+							<f:content>
+								<HBox>
+									<VBox>
+										<Label text="Document Completeness"/>
+										<RatingIndicator id="ri4" maxValue="5" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip"/>
+									</VBox>
+								</HBox>
+								<HBox>
+									<VBox>
+										<Label text="Document Review"/>
+										<RatingIndicator id="ri3" maxValue="5" class="sapUiSmallMarginBottom" iconSize="22px" tooltip="Rating Tooltip"/>
+									</VBox>
+								</HBox>
+							</f:content>
+						</f:SimpleForm>
+					</VBox>
+					<f:SimpleForm id="SimpleForm2" layout="ResponsiveGridLayout" editable="true">
+						<Label text="Provide Additional Comments"/>
+					</f:SimpleForm>
+					<f:SimpleForm id="SimpleForm3" layout="ResponsiveGridLayout" editable="true">
+						<Table noDataText="Add Comments" id="table00" width="100%" class="myClass">
+							<items>
+								<ColumnListItem id="item00">
+									<cells>
+										<Input value="comment1" id="text011"/>
+										<Input value="abc" id="text012"/>
+										<Input value="reviewed" id="text013"/>
+										<Input value="ok" id="text015"/>
+									</cells>
+								</ColumnListItem>
+								<ColumnListItem id="item01">
+									<cells>
+										<Input value="comment2" id="text014"/>
+										<Input value="def" id="text016"/>
+										<Input value="reviewed" id="text017"/>
+										<Input value="ok" id="text018"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+							<columns>
+								<Column id="_column00">
+									<header>
+										<Label text="Comment#" id="label17"/>
+									</header>
+								</Column>
+								<Column id="_column01">
+									<header>
+										<Label text="Section" id="label18"/>
+									</header>
+								</Column>
+								<Column id="_column02">
+									<header>
+										<Label text="Review Comments" id="label19"/>
+									</header>
+								</Column>
+								<Column id="_column03">
+									<header>
+										<Label text="Status" id="label110"/>
+									</header>
+								</Column>
+							</columns>
+						</Table>
+					</f:SimpleForm>
+				</IconTabFilter>
+				<IconTabFilter id="commlogSection" text="Clarification Log" count="*">
+					<Table mode="None" noDataText="Drop column list items here and columns in the area above" id="commLogTable" width="100%" class="myClass1"
+						items="{enhData>/CommLog}">
+						<columns>
+							<Column width="8%">
+								<Text text="Actions"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="25%">
+								<Text text="Issue Description"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Priority"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Date Logged"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Status"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Date Resolved"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="15%">
+								<Text text="Resolution"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Assigned To"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent" press="addNewRowComLog"/>
+										<!--<Button icon="sap-icon://edit" type="Transparent"/>-->
+										<Button icon="sap-icon://delete" type="Transparent" press="deleteRowComLog"/>
+									</HBox>
+									<TextArea growing="true" value="{enhData>IssueDesc}"/>
+									<Select selectedKey="{enhData>Priority}">
+										<!-- here's the relative dropdown binding -->
+										<items>
+											<core:Item text="" key=""/>
+											<core:Item text="Low" key="Low"/>
+											<core:Item text="Medium" key="Medium"/>
+											<core:Item text="High" key="High"/>
+										</items>
+									</Select>
+									<DatePicker displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" value="{enhData>DateLogg}"/>
+									<Select selectedKey="{enhData>Status}">
+										<!-- here's the relative dropdown binding -->
+										<items>
+											<core:Item text="" key=""/>
+											<core:Item text="Open" key="Open"/>
+											<core:Item text="Closed" key="Closed"/>
+										</items>
+									</Select>
+									<DatePicker displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" value="{enhData>DateResol}"/>
+									<TextArea growing="true" value="{enhData>Resolv}"/>
+									<TextArea growing="true" value="{enhData>AssignedTo}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</IconTabFilter>
+				<IconTabFilter id="frmCommlogSection" text="Clarification Log" count="*">
+					<Table mode="None" noDataText="Drop column list items here and columns in the area above" id="frmCommLogTable" width="100%" class="myClass1"
+						items="{enhData>/commLog}">
+						<columns>
+							<Column width="10%">
+								<Text text="Actions"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="20%">
+								<Text text="Issue Description"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Priority"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="15%">
+								<Text text="Date Logged"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Status"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="15%">
+								<Text text="Date Resolved"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Resolution"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="10%">
+								<Text text="Assigned To"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<HBox>
+										<Button icon="sap-icon://sys-add" type="Transparent" press="addNewRowComLog"/>
+										<!--<Button icon="sap-icon://edit" type="Transparent"/>-->
+										<Button icon="sap-icon://delete" type="Transparent" press="deleteRowComLog"/>
+										<Input visible="false" value="{enhData>Index}" id="CLIndex" width="0px"/>
+									</HBox>
+									<TextArea growing="true" value="{enhData>IssueDesc}"/>
+									<Select selectedKey="{enhData>Priority}">
+										<!-- here's the relative dropdown binding -->
+										<items>
+											<core:Item text="" key=""/>
+											<core:Item text="Low" key="Low"/>
+											<core:Item text="Medium" key="Medium"/>
+											<core:Item text="High" key="High"/>
+										</items>
+									</Select>
+									<DatePicker displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" value="{enhData>DateLogg}"/>
+									<Select selectedKey="{enhData>Status}">
+										<!-- here's the relative dropdown binding -->
+										<items>
+											<core:Item text="" key=""/>
+											<core:Item text="Open" key="Open"/>
+											<core:Item text="Closed" key="Closed"/>
+										</items>
+									</Select>
+									<DatePicker displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" value="{enhData>DateResol}"/>
+									<TextArea growing="true" value="{enhData>Resolv}"/>
+									<TextArea growing="true" value="{enhData>AssignedTo}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+		<semantic:customFooterContent>
+			<Button id="idPopOverContainer" icon="sap-icon://message-popup" type="Emphasized" press="handleMessagePopoverPress" visible="false"/>
+			<Button icon="sap-icon://locked" text="On Hold" type="Emphasized" press="onHold" tooltip="Save changes" id="oBTHold" visible="true"/>
+		
+			<Button icon="sap-icon://save" text="Save" type="Emphasized" press="onSave" tooltip="Save changes" id="oBTSave" visible="true"/>
+		
+			<Button icon="sap-icon://complete" text="Submit"  type="Emphasized" press="onFooterButtonPressFS" tooltip="Submit Document" id="oBTSubmit"
+				/>
+			<Button icon="sap-icon://approvals" text="Approve" type="Emphasized" press="onApprove" tooltip="Approve Request" id="oBTApprove"
+				visible="false"/>
+			<Button icon="sap-icon://accept" text="Accept" type="Emphasized" press="onAccept" tooltip="Accept" id="oBTAcceptApproval" visible="false"/>
+			<Button icon="sap-icon://print" text="Print" type="Emphasized" press="onPrint" tooltip="Print Document" enabled="true" id="oBTPrint"
+				visible="false"/>
+		</semantic:customFooterContent>
+	</semantic:FullscreenPage>
+</mvc:View>

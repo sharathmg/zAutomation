@@ -1,0 +1,145 @@
+/* Enter your custom styles here */
+
+.processFlow {
+    height: 7rem;
+    min-height: 7rem;
+}
+.Help{
+	width:0 !important;
+}
+#__data127
+{
+	width:96%;
+}
+.myClass {
+    border-style: groove;
+}
+.myClass1 {
+    border-style: groove;
+}
+.margin-top {
+    margin-top: 15px;
+}
+.myClass1 textarea,.myClass1 div,.myClass1 input{
+	border:none !important;
+}
+.classNew {
+	margin-right: 10px;
+}
+
+.marginClass1 {
+	margin-right: 4px;
+}
+
+.marginClass2 {
+	margin-left: 4px;
+}
+.sapMBtnInner{
+	/*background-color: #427cac;*/
+	/*color: white;*/
+	min-width: 150px;
+}
+.sapMBtnBack{
+	/*background-color: #427cac;*/
+	/*color: white;*/
+	min-width: 50px;
+}
+.fieldInfo{
+	text-align: left;
+    vertical-align: top;
+    font-size: small;
+    color: darkgoldenrod;
+    padding-left: 5px;
+}
+.fieldInfo1{
+	text-align: right;
+    vertical-align: top;
+    font-size: x-small;
+    color: black;
+}
+.errorInfo{
+	text-align: left;
+    vertical-align: top;
+    font-size: x-small;
+    color: red;
+    padding-left: 0px;
+}
+
+.formBgColor {
+	background-color: #eff4f9;
+}
+/*.sapUiForm, .sapUiBlockCellContent, formBgColor {
+	background-color: #eff4f9;
+}*/
+
+.sapMBtn:hover>.sapMBtnHoverable{
+	background-color: #427cac;
+	background-image: none;
+	border-color: #427cac;
+	color: #ffffff;
+	text-shadow: none;
+}
+
+.sapMBtnText>.sapMBtnIcon: hover, .sapMBtnIcon: hover, sapMBtnIconLeft: hover{
+	color: #ffffff;
+}
+.sapMBtnIcon{
+	color: none;
+}
+
+/*.mandatory>.sapMITH>.sapMITBScrollContainer>.sapMITBTextOnly>.sapMITBItem>.sapMITBText{
+	color: red;
+}*/
+
+.mandatory>.sapMITH>.sapMITBScrollContainer>.sapMITBTextOnly>.sapMITBItem>.sapMITBTab>.sapMITBCount{
+	position: absolute;
+	right: -8px;
+    top: 27px;
+    text-align: end;
+    color: red;
+    font-weight: bold;
+}
+
+.sapMITBFilter:last-child, .sapMITBNoText .sapMITBFilter:last-child {
+    padding-right: 0;
+}
+
+.leftPageMargin{
+	margin-left: 3% !important;
+}
+
+.sapMIBar-CTX .sapMTitle, .sapMBarRight, .sapMBarPH, .sapMBarLeft, .sapMIBar.sapMHeader-CTX,
+.sapContrast.sapMIBar-CTX.sapMFooter-CTX, .sapContrast .sapMIBar-CTX.sapMFooter-CTX{
+	background-color:#5496cd !important;
+	color: #ffffff;
+	text-shadow: none;
+	background-image: none;
+}
+
+#__component0---detail--page-navButton-iconBtn{
+	color: #ffffff;
+}
+
+.iconTabBarpadding{
+	padding-left: 25px !important;
+}
+
+.paddingTopButtons{
+	padding-top: 60px !important;
+}
+
+.paddingInputForRB{
+	padding-left: 40px !important;
+	text-align: right;
+}
+
+.paddingLeftCheckboxes{
+	padding-left: 40px !important;
+}
+.paddingRightCheckboxes{
+	padding-right: 40px !important;
+}
+
+.sapMSelectListLastCell {
+    text-align: left;
+}
